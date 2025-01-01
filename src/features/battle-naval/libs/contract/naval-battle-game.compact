@@ -1,0 +1,176 @@
+pragma language_version >= 0.12.1;
+
+import CompactStandardLibrary;
+
+export enum CellState { unset, hit, miss }
+
+export enum CellAssignment { blank, ship }
+
+//private state
+witness local_sk(): Bytes<32>;
+
+witness local_gameplay(): Vector<100, CellAssignment>;
+witness set_local_gameplay(playerSetup: Vector<100, CellAssignment>): Bytes<32>;         
+
+// public state
+export ledger gameStarted: Cell<Boolean>;
+export ledger players: Counter;
+export ledger internalCounter: Counter;
+
+export ledger playerOnePk: Cell<Bytes<32>> ;
+export ledger playerOneGrid: Map<Uint<32>, CellState>;
+export ledger playerOneCommit: Cell<Bytes<32>>;
+export ledger playerOneHits: Counter;
+export ledger playerOneHasCommitted: Cell<Boolean>;
+export ledger playerOneHasJoinedTheGame: Cell<Boolean>;
+export ledger playerOneTimeToPlay: Cell<Boolean>;
+export ledger playerOneCurrentMove: Cell<Uint<0..100>>;
+export ledger playerOneIsWinner: Cell<Boolean>;
+
+export ledger playerTwoPk: Cell<Bytes<32>>;
+export ledger playerTwoGrid: Map<Uint<32>, CellState>;
+export ledger playerTwoCommit: Cell<Bytes<32>>;
+export ledger playerTwoHits: Counter;
+export ledger playerTwoHasCommitted: Cell<Boolean>;
+export ledger playerTwoHasJoinedTheGame: Cell<Boolean>;
+export ledger playerTwoTimeToPlay: Cell<Boolean>;
+export ledger playerTwoCurrentMove: Cell<Uint<0..100>>;
+export ledger playerTwoIsWinner: Cell<Boolean>;
+
+constructor(plOne: Bytes<32>) {
+  for i = 1 to 101 do {
+    playerOneGrid.insert(i, CellState.unset);
+    playerTwoGrid.insert(i, CellState.unset);
+  }
+  gameStarted.write(false);
+  playerOneHasJoinedTheGame.write(true);
+  playerOneTimeToPlay.write(true);  
+  players.increment(1);
+  playerOnePk.write(plOne);  
+  playerOneHasCommitted.write(false);
+  playerTwoHasCommitted.write(false);  
+  playerTwoIsWinner.write(false);
+  playerOneIsWinner.write(false);
+}
+
+//circuits
+export circuit joinGame(player: Bytes<32>): Void {
+  assert (gameStarted == false) "Game has already started" ;    
+  assert (players.less_than(2)) "Game is designed for two players";
+  assert (playerOnePk != player) "Player one cannot join the game twice";  
+  playerTwoPk.write(player);
+  playerTwoHasJoinedTheGame.write(true);  
+  playerTwoTimeToPlay.write(false);
+  players.increment(1);
+}
+
+export circuit commitGrid(player: Bytes<32>, playerSetup: Vector<100, CellAssignment>): Void {
+  assert (gameStarted == false) "Game has already started" ;  
+
+  for cellPlay in playerSetup do {
+    if (cellPlay == CellAssignment.ship) {
+      internalCounter.increment(1);
+    }     
+  }    
+  assert (internalCounter == 17) "Player has not placed 17 ships"; 
+  internalCounter.reset_to_default();
+
+  if (player == playerOnePk) {
+    assert (playerOneHasJoinedTheGame == true) "Player one has not joined the game";
+    assert (playerOneHasCommitted == false) "Player one has already committed";
+    assert (playerOnePk == public_key(local_sk())) "PlayerOne confirmation failed";  
+    const commit = set_local_gameplay(playerSetup);  
+    playerOneCommit.write(commit);
+    playerOneHasCommitted.write(true);
+  } else {  
+    assert (player == playerTwoPk) "You are not player two";  
+    assert (playerTwoHasJoinedTheGame == true) "Player two has not joined the game";    
+    assert (playerTwoHasCommitted == false) "Player two has already committed";
+    assert (playerTwoPk == public_key(local_sk())) "PlayerTwo confirmation failed";
+    const commit = set_local_gameplay(playerSetup);  
+    playerTwoCommit.write(commit);
+    playerTwoHasCommitted.write(true);
+  }
+}
+
+export circuit startGame(): Void {
+  assert (gameStarted == false) "Game has already started" ;  
+  assert (players == 2) "Game is designed for two players";
+  assert (playerOneHasCommitted == true) "Player one has not committed";
+  assert (playerTwoHasCommitted == true) "Player two has not committed";
+  assert (playerOneHasJoinedTheGame == true) "Player one has not joined the game";
+  assert (playerTwoHasJoinedTheGame == true) "Player two has not joined the game";
+  gameStarted.write(true);  
+}
+
+export circuit makeMove(player: Bytes<32>, move: Uint<0..100>): Void {
+  assert (gameStarted == true) "Game has not started" ;
+  assert (playerOneHasCommitted == true) "Player one has not committed";
+  assert (playerTwoHasCommitted == true) "Player two has not committed";
+  assert (playerOneIsWinner == false || playerTwoIsWinner == false) "Game has a winner";
+  if (player == playerOnePk) {
+    assert (playerOneTimeToPlay == true) "It is not player one's turn";
+    assert (playerOnePk == public_key(local_sk())) "You are not player one";
+    assert (playerTwoGrid.lookup(move) == CellState.unset) "Cell has already been played";
+    playerOneCurrentMove.write(move);
+
+    //check if player two move was a hit or a miss, and update player one grid
+    assert (vectorHash(local_gameplay()) == playerOneCommit) "Player one has tampered with the grid";
+    
+    for gameCell in local_gameplay() do {
+      internalCounter.increment(1);
+      if (internalCounter == playerTwoCurrentMove) {        
+        if (gameCell == CellAssignment.ship) {
+          playerOneGrid.insert(playerTwoCurrentMove, CellState.hit);          
+          if (playerTwoHits == 16) {
+              playerTwoIsWinner.write(true);
+          }
+          playerTwoHits.increment(1);
+        } else {
+          playerOneGrid.insert(playerTwoCurrentMove, CellState.miss);
+      } 
+    }}
+    internalCounter.reset_to_default();
+
+    //change turns
+    playerOneTimeToPlay.write(false);
+    playerTwoTimeToPlay.write(true);
+
+  } else {
+    assert (player == playerTwoPk) "You are not player two";  
+    assert (playerTwoTimeToPlay == true) "It is not player two's turn";
+    assert (playerTwoPk == public_key(local_sk())) "You are not player two";
+    assert (playerOneGrid.lookup(move) == CellState.unset) "Cell has already been played";
+    playerTwoCurrentMove.write(move);
+
+    //check if player one move was a hit or a miss, and update player two grid
+    assert (vectorHash(local_gameplay()) == playerTwoCommit) "Player two has tampered with the grid";
+    
+    for gameCell in local_gameplay() do {
+      internalCounter.increment(1);
+      if (internalCounter == playerOneCurrentMove) {        
+        if (gameCell == CellAssignment.ship) {
+          playerTwoGrid.insert(playerOneCurrentMove, CellState.hit);          
+          if (playerOneHits == 16) {
+              playerOneIsWinner.write(true);
+          }
+          playerOneHits.increment(1);
+        } else {
+          playerTwoGrid.insert(playerOneCurrentMove, CellState.miss);
+      } 
+    }}
+    internalCounter.reset_to_default();
+
+    //change turns
+    playerTwoTimeToPlay.write(false);
+    playerOneTimeToPlay.write(true);
+  }
+}
+
+export circuit public_key(sk: Bytes<32>): Bytes<32> {
+  return persistent_hash<Vector<2, Bytes<32>>>([pad(32, "naval-battle-game:pk:"), sk]);
+}
+
+export circuit vectorHash(sk: Vector<100, CellAssignment>): Bytes<32> {
+  return persistent_hash<Vector<100, CellAssignment>>(sk);
+}

@@ -1,0 +1,125 @@
+{
+  "circuits": [
+    {
+      "name": "joinGame",
+      "pure": false,
+      "arguments": [
+        {
+          "name": "player",
+          "type": {
+            "type-name": "Bytes",
+            "length": 32
+          }
+        }
+      ],
+      "result-type": {
+        "type-name": "Void"
+      }
+    },
+    {
+      "name": "commitGrid",
+      "pure": false,
+      "arguments": [
+        {
+          "name": "player",
+          "type": {
+            "type-name": "Bytes",
+            "length": 32
+          }
+        },
+        {
+          "name": "playerSetup",
+          "type": {
+            "type-name": "Vector",
+            "length": 100,
+            "type": {
+              "type-name": "Enum",
+              "name": "CellAssignment",
+              "elements": [
+                "blank",
+                "ship"
+              ]
+            }
+          }
+        }
+      ],
+      "result-type": {
+        "type-name": "Void"
+      }
+    },
+    {
+      "name": "startGame",
+      "pure": false,
+      "arguments": [
+      ],
+      "result-type": {
+        "type-name": "Void"
+      }
+    },
+    {
+      "name": "makeMove",
+      "pure": false,
+      "arguments": [
+        {
+          "name": "player",
+          "type": {
+            "type-name": "Bytes",
+            "length": 32
+          }
+        },
+        {
+          "name": "move",
+          "type": {
+            "type-name": "Uint",
+            "maxval": 100
+          }
+        }
+      ],
+      "result-type": {
+        "type-name": "Void"
+      }
+    },
+    {
+      "name": "public_key",
+      "pure": true,
+      "arguments": [
+        {
+          "name": "sk",
+          "type": {
+            "type-name": "Bytes",
+            "length": 32
+          }
+        }
+      ],
+      "result-type": {
+        "type-name": "Bytes",
+        "length": 32
+      }
+    },
+    {
+      "name": "vectorHash",
+      "pure": true,
+      "arguments": [
+        {
+          "name": "sk",
+          "type": {
+            "type-name": "Vector",
+            "length": 100,
+            "type": {
+              "type-name": "Enum",
+              "name": "CellAssignment",
+              "elements": [
+                "blank",
+                "ship"
+              ]
+            }
+          }
+        }
+      ],
+      "result-type": {
+        "type-name": "Bytes",
+        "length": 32
+      }
+    }
+  ]
+}
