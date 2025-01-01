@@ -8,6 +8,9 @@
 # testing
 /coverage
 
+#zkK
+/public/navalBattle/zkir
+
 # database
 /prisma/db.sqlite
 /prisma/db.sqlite-journal

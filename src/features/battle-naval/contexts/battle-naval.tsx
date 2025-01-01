@@ -104,7 +104,7 @@ const initializeAPIEntrypoint = (
             }),
           ),
           zkConfigProvider: new FetchZkConfigProvider(
-            window.location.origin,
+            `${window.location.origin}/navalBattle`,
             fetch.bind(window),
           ),
           proofProvider: httpClientProofProvider(uris.proverServerUri),
