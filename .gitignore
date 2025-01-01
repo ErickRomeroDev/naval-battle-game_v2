@@ -8,8 +8,8 @@
 # testing
 /coverage
 
-#zkK
-/public/navalBattle/zkir
+#zkK, comment it out since it is being tracked by lfs
+# /public/navalBattle/zkir
 
 # database
 /prisma/db.sqlite
