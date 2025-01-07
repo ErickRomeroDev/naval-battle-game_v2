@@ -20,29 +20,23 @@ var CellState;
   CellState[CellState['miss'] = 2] = 'miss';
 })(CellState = exports.CellState || (exports.CellState = {}));
 
-var CellAssignment;
-(function (CellAssignment) {
-  CellAssignment[CellAssignment['blank'] = 0] = 'blank';
-  CellAssignment[CellAssignment['ship'] = 1] = 'ship';
-})(CellAssignment = exports.CellAssignment || (exports.CellAssignment = {}));
+const _descriptor_0 = new __compactRuntime.CompactTypeUnsignedInteger(1n, 1);
 
-const _descriptor_0 = new __compactRuntime.CompactTypeEnum(1, 1);
-
-const _descriptor_1 = new __compactRuntime.CompactTypeVector(100, _descriptor_0);
+const _descriptor_1 = new __compactRuntime.CompactTypeVector(64, _descriptor_0);
 
 const _descriptor_2 = new __compactRuntime.CompactTypeBytes(32);
 
-const _descriptor_3 = new __compactRuntime.CompactTypeBoolean();
+const _descriptor_3 = new __compactRuntime.CompactTypeUnsignedInteger(4294967295n, 4);
 
-const _descriptor_4 = new __compactRuntime.CompactTypeUnsignedInteger(65535n, 2);
+const _descriptor_4 = new __compactRuntime.CompactTypeEnum(2, 1);
 
-const _descriptor_5 = new __compactRuntime.CompactTypeUnsignedInteger(4294967295n, 4);
+const _descriptor_5 = new __compactRuntime.CompactTypeUnsignedInteger(64n, 1);
 
-const _descriptor_6 = new __compactRuntime.CompactTypeEnum(2, 1);
+const _descriptor_6 = new __compactRuntime.CompactTypeBoolean();
 
-const _descriptor_7 = new __compactRuntime.CompactTypeUnsignedInteger(100n, 1);
+const _descriptor_7 = new __compactRuntime.CompactTypeUnsignedInteger(18446744073709551615n, 8);
 
-const _descriptor_8 = new __compactRuntime.CompactTypeUnsignedInteger(18446744073709551615n, 8);
+const _descriptor_8 = new __compactRuntime.CompactTypeUnsignedInteger(65535n, 2);
 
 const _descriptor_9 = new __compactRuntime.CompactTypeVector(2, _descriptor_2);
 
@@ -88,13 +82,13 @@ class Contract {
         if (!(typeof(contextOrig) === 'object' && contextOrig.originalState != undefined && contextOrig.transactionContext != undefined))
           __compactRuntime.type_error('joinGame',
                                       'argument 1 (as invoked from Typescript)',
-                                      './src/naval-battle-game.compact line 57, char 1',
+                                      './src/naval-battle-game.compact line 55, char 1',
                                       'CircuitContext',
                                       contextOrig)
         if (!(player.buffer instanceof ArrayBuffer && player.BYTES_PER_ELEMENT === 1 && player.length === 32))
           __compactRuntime.type_error('joinGame',
                                       'argument 1 (argument 2 as invoked from Typescript)',
-                                      './src/naval-battle-game.compact line 57, char 1',
+                                      './src/naval-battle-game.compact line 55, char 1',
                                       'Bytes<32>',
                                       player)
         const context = { ...contextOrig };
@@ -120,20 +114,20 @@ class Contract {
         if (!(typeof(contextOrig) === 'object' && contextOrig.originalState != undefined && contextOrig.transactionContext != undefined))
           __compactRuntime.type_error('commitGrid',
                                       'argument 1 (as invoked from Typescript)',
-                                      './src/naval-battle-game.compact line 67, char 1',
+                                      './src/naval-battle-game.compact line 65, char 1',
                                       'CircuitContext',
                                       contextOrig)
         if (!(player.buffer instanceof ArrayBuffer && player.BYTES_PER_ELEMENT === 1 && player.length === 32))
           __compactRuntime.type_error('commitGrid',
                                       'argument 1 (argument 2 as invoked from Typescript)',
-                                      './src/naval-battle-game.compact line 67, char 1',
+                                      './src/naval-battle-game.compact line 65, char 1',
                                       'Bytes<32>',
                                       player)
-        if (!(Array.isArray(playerSetup) && playerSetup.length === 100 && playerSetup.every((t) => typeof(t) === 'number' && t >= 0 && t <= 1)))
+        if (!(Array.isArray(playerSetup) && playerSetup.length === 64 && playerSetup.every((t) => typeof(t) === 'bigint' && t >= 0 && t <= 1n)))
           __compactRuntime.type_error('commitGrid',
                                       'argument 2 (argument 3 as invoked from Typescript)',
-                                      './src/naval-battle-game.compact line 67, char 1',
-                                      'Vector<100, Enum<CellAssignment, blank, ship>>',
+                                      './src/naval-battle-game.compact line 65, char 1',
+                                      'Vector<64, Uint<0..1>>',
                                       playerSetup)
         const context = { ...contextOrig };
         const partialProofData = {
@@ -159,7 +153,7 @@ class Contract {
         if (!(typeof(contextOrig) === 'object' && contextOrig.originalState != undefined && contextOrig.transactionContext != undefined))
           __compactRuntime.type_error('startGame',
                                       'argument 1 (as invoked from Typescript)',
-                                      './src/naval-battle-game.compact line 96, char 1',
+                                      './src/naval-battle-game.compact line 89, char 1',
                                       'CircuitContext',
                                       contextOrig)
         const context = { ...contextOrig };
@@ -182,26 +176,26 @@ class Contract {
         if (!(typeof(contextOrig) === 'object' && contextOrig.originalState != undefined && contextOrig.transactionContext != undefined))
           __compactRuntime.type_error('makeMove',
                                       'argument 1 (as invoked from Typescript)',
-                                      './src/naval-battle-game.compact line 106, char 1',
+                                      './src/naval-battle-game.compact line 99, char 1',
                                       'CircuitContext',
                                       contextOrig)
         if (!(player.buffer instanceof ArrayBuffer && player.BYTES_PER_ELEMENT === 1 && player.length === 32))
           __compactRuntime.type_error('makeMove',
                                       'argument 1 (argument 2 as invoked from Typescript)',
-                                      './src/naval-battle-game.compact line 106, char 1',
+                                      './src/naval-battle-game.compact line 99, char 1',
                                       'Bytes<32>',
                                       player)
-        if (!(typeof(move) === 'bigint' && move >= 0 && move <= 100n))
+        if (!(typeof(move) === 'bigint' && move >= 0 && move <= 64n))
           __compactRuntime.type_error('makeMove',
                                       'argument 2 (argument 3 as invoked from Typescript)',
-                                      './src/naval-battle-game.compact line 106, char 1',
-                                      'Uint<0..100>',
+                                      './src/naval-battle-game.compact line 99, char 1',
+                                      'Uint<0..64>',
                                       move)
         const context = { ...contextOrig };
         const partialProofData = {
           input: {
-            value: _descriptor_2.toValue(player).concat(_descriptor_7.toValue(move)),
-            alignment: _descriptor_2.alignment().concat(_descriptor_7.alignment())
+            value: _descriptor_2.toValue(player).concat(_descriptor_5.toValue(move)),
+            alignment: _descriptor_2.alignment().concat(_descriptor_5.alignment())
           },
           output: undefined,
           publicTranscript: [],
@@ -219,13 +213,13 @@ class Contract {
         if (!(typeof(contextOrig) === 'object' && contextOrig.originalState != undefined && contextOrig.transactionContext != undefined))
           __compactRuntime.type_error('public_key',
                                       'argument 1 (as invoked from Typescript)',
-                                      './src/naval-battle-game.compact line 170, char 1',
+                                      './src/naval-battle-game.compact line 159, char 1',
                                       'CircuitContext',
                                       contextOrig)
         if (!(sk.buffer instanceof ArrayBuffer && sk.BYTES_PER_ELEMENT === 1 && sk.length === 32))
           __compactRuntime.type_error('public_key',
                                       'argument 1 (argument 2 as invoked from Typescript)',
-                                      './src/naval-battle-game.compact line 170, char 1',
+                                      './src/naval-battle-game.compact line 159, char 1',
                                       'Bytes<32>',
                                       sk)
         const context = { ...contextOrig };
@@ -250,14 +244,14 @@ class Contract {
         if (!(typeof(contextOrig) === 'object' && contextOrig.originalState != undefined && contextOrig.transactionContext != undefined))
           __compactRuntime.type_error('vectorHash',
                                       'argument 1 (as invoked from Typescript)',
-                                      './src/naval-battle-game.compact line 174, char 1',
+                                      './src/naval-battle-game.compact line 163, char 1',
                                       'CircuitContext',
                                       contextOrig)
-        if (!(Array.isArray(sk) && sk.length === 100 && sk.every((t) => typeof(t) === 'number' && t >= 0 && t <= 1)))
+        if (!(Array.isArray(sk) && sk.length === 64 && sk.every((t) => typeof(t) === 'bigint' && t >= 0 && t <= 1n)))
           __compactRuntime.type_error('vectorHash',
                                       'argument 1 (argument 2 as invoked from Typescript)',
-                                      './src/naval-battle-game.compact line 174, char 1',
-                                      'Vector<100, Enum<CellAssignment, blank, ship>>',
+                                      './src/naval-battle-game.compact line 163, char 1',
+                                      'Vector<64, Uint<0..1>>',
                                       sk)
         const context = { ...contextOrig };
         const partialProofData = {
@@ -301,13 +295,12 @@ class Contract {
     if (!(plOne.buffer instanceof ArrayBuffer && plOne.BYTES_PER_ELEMENT === 1 && plOne.length === 32))
       __compactRuntime.type_error('Contract state constructor',
                                   'argument 1 (argument 2 as invoked from Typescript)',
-                                  './src/naval-battle-game.compact line 40, char 1',
+                                  './src/naval-battle-game.compact line 38, char 1',
                                   'Bytes<32>',
                                   plOne)
     const state = new __compactRuntime.ContractState();
     let stateValue = __compactRuntime.StateValue.newArray();
     let stateValue_1 = __compactRuntime.StateValue.newArray();
-    stateValue_1 = stateValue_1.arrayPush(__compactRuntime.StateValue.newNull());
     stateValue_1 = stateValue_1.arrayPush(__compactRuntime.StateValue.newNull());
     stateValue_1 = stateValue_1.arrayPush(__compactRuntime.StateValue.newNull());
     stateValue_1 = stateValue_1.arrayPush(__compactRuntime.StateValue.newNull());
@@ -362,8 +355,8 @@ class Contract {
                                value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(0n),
                                                                             alignment: _descriptor_11.alignment() }).encode() } },
                      { push: { storage: true,
-                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_3.toValue(false),
-                                                                            alignment: _descriptor_3.alignment() }).encode() } },
+                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_6.toValue(false),
+                                                                            alignment: _descriptor_6.alignment() }).encode() } },
                      { ins: { cached: false, n: 1 } },
                      { ins: { cached: true, n: 1 } }
                     ])
@@ -381,8 +374,8 @@ class Contract {
                                value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(1n),
                                                                             alignment: _descriptor_11.alignment() }).encode() } },
                      { push: { storage: true,
-                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_8.toValue(0n),
-                                                                            alignment: _descriptor_8.alignment() }).encode() } },
+                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_7.toValue(0n),
+                                                                            alignment: _descriptor_7.alignment() }).encode() } },
                      { ins: { cached: false, n: 1 } },
                      { ins: { cached: true, n: 1 } }
                     ])
@@ -398,25 +391,6 @@ class Contract {
                                     ] } },
                      { push: { storage: false,
                                value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(2n),
-                                                                            alignment: _descriptor_11.alignment() }).encode() } },
-                     { push: { storage: true,
-                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_8.toValue(0n),
-                                                                            alignment: _descriptor_8.alignment() }).encode() } },
-                     { ins: { cached: false, n: 1 } },
-                     { ins: { cached: true, n: 1 } }
-                    ])
-    Contract._query(context,
-                    partialProofData,
-                    [
-                     { idx: { cached: false,
-                              pushPath: true,
-                              path: [
-                                     { tag: 'value',
-                                       value: { value: _descriptor_11.toValue(0n),
-                                                alignment: _descriptor_11.alignment() } }
-                                    ] } },
-                     { push: { storage: false,
-                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(3n),
                                                                             alignment: _descriptor_11.alignment() }).encode() } },
                      { push: { storage: true,
                                value: __compactRuntime.StateValue.newCell({ value: _descriptor_2.toValue(new Uint8Array(32)),
@@ -435,7 +409,7 @@ class Contract {
                                                 alignment: _descriptor_11.alignment() } }
                                     ] } },
                      { push: { storage: false,
-                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(4n),
+                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(3n),
                                                                             alignment: _descriptor_11.alignment() }).encode() } },
                      { push: { storage: true,
                                value: __compactRuntime.StateValue.newMap(
@@ -455,7 +429,7 @@ class Contract {
                                                 alignment: _descriptor_11.alignment() } }
                                     ] } },
                      { push: { storage: false,
-                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(5n),
+                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(4n),
                                                                             alignment: _descriptor_11.alignment() }).encode() } },
                      { push: { storage: true,
                                value: __compactRuntime.StateValue.newCell({ value: _descriptor_2.toValue(new Uint8Array(32)),
@@ -477,8 +451,8 @@ class Contract {
                                value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(0n),
                                                                             alignment: _descriptor_11.alignment() }).encode() } },
                      { push: { storage: true,
-                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_8.toValue(0n),
-                                                                            alignment: _descriptor_8.alignment() }).encode() } },
+                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_7.toValue(0n),
+                                                                            alignment: _descriptor_7.alignment() }).encode() } },
                      { ins: { cached: false, n: 1 } },
                      { ins: { cached: true, n: 1 } }
                     ])
@@ -496,8 +470,8 @@ class Contract {
                                value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(1n),
                                                                             alignment: _descriptor_11.alignment() }).encode() } },
                      { push: { storage: true,
-                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_3.toValue(false),
-                                                                            alignment: _descriptor_3.alignment() }).encode() } },
+                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_6.toValue(false),
+                                                                            alignment: _descriptor_6.alignment() }).encode() } },
                      { ins: { cached: false, n: 1 } },
                      { ins: { cached: true, n: 1 } }
                     ])
@@ -515,8 +489,8 @@ class Contract {
                                value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(2n),
                                                                             alignment: _descriptor_11.alignment() }).encode() } },
                      { push: { storage: true,
-                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_3.toValue(false),
-                                                                            alignment: _descriptor_3.alignment() }).encode() } },
+                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_6.toValue(false),
+                                                                            alignment: _descriptor_6.alignment() }).encode() } },
                      { ins: { cached: false, n: 1 } },
                      { ins: { cached: true, n: 1 } }
                     ])
@@ -534,8 +508,8 @@ class Contract {
                                value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(3n),
                                                                             alignment: _descriptor_11.alignment() }).encode() } },
                      { push: { storage: true,
-                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_3.toValue(false),
-                                                                            alignment: _descriptor_3.alignment() }).encode() } },
+                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_6.toValue(false),
+                                                                            alignment: _descriptor_6.alignment() }).encode() } },
                      { ins: { cached: false, n: 1 } },
                      { ins: { cached: true, n: 1 } }
                     ])
@@ -553,8 +527,8 @@ class Contract {
                                value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(4n),
                                                                             alignment: _descriptor_11.alignment() }).encode() } },
                      { push: { storage: true,
-                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_7.toValue(0n),
-                                                                            alignment: _descriptor_7.alignment() }).encode() } },
+                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_5.toValue(0n),
+                                                                            alignment: _descriptor_5.alignment() }).encode() } },
                      { ins: { cached: false, n: 1 } },
                      { ins: { cached: true, n: 1 } }
                     ])
@@ -572,8 +546,8 @@ class Contract {
                                value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(5n),
                                                                             alignment: _descriptor_11.alignment() }).encode() } },
                      { push: { storage: true,
-                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_3.toValue(false),
-                                                                            alignment: _descriptor_3.alignment() }).encode() } },
+                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_6.toValue(false),
+                                                                            alignment: _descriptor_6.alignment() }).encode() } },
                      { ins: { cached: false, n: 1 } },
                      { ins: { cached: true, n: 1 } }
                     ])
@@ -649,8 +623,8 @@ class Contract {
                                value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(9n),
                                                                             alignment: _descriptor_11.alignment() }).encode() } },
                      { push: { storage: true,
-                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_8.toValue(0n),
-                                                                            alignment: _descriptor_8.alignment() }).encode() } },
+                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_7.toValue(0n),
+                                                                            alignment: _descriptor_7.alignment() }).encode() } },
                      { ins: { cached: false, n: 1 } },
                      { ins: { cached: true, n: 1 } }
                     ])
@@ -668,8 +642,8 @@ class Contract {
                                value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(10n),
                                                                             alignment: _descriptor_11.alignment() }).encode() } },
                      { push: { storage: true,
-                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_3.toValue(false),
-                                                                            alignment: _descriptor_3.alignment() }).encode() } },
+                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_6.toValue(false),
+                                                                            alignment: _descriptor_6.alignment() }).encode() } },
                      { ins: { cached: false, n: 1 } },
                      { ins: { cached: true, n: 1 } }
                     ])
@@ -687,8 +661,8 @@ class Contract {
                                value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(11n),
                                                                             alignment: _descriptor_11.alignment() }).encode() } },
                      { push: { storage: true,
-                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_3.toValue(false),
-                                                                            alignment: _descriptor_3.alignment() }).encode() } },
+                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_6.toValue(false),
+                                                                            alignment: _descriptor_6.alignment() }).encode() } },
                      { ins: { cached: false, n: 1 } },
                      { ins: { cached: true, n: 1 } }
                     ])
@@ -706,8 +680,8 @@ class Contract {
                                value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(12n),
                                                                             alignment: _descriptor_11.alignment() }).encode() } },
                      { push: { storage: true,
-                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_3.toValue(false),
-                                                                            alignment: _descriptor_3.alignment() }).encode() } },
+                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_6.toValue(false),
+                                                                            alignment: _descriptor_6.alignment() }).encode() } },
                      { ins: { cached: false, n: 1 } },
                      { ins: { cached: true, n: 1 } }
                     ])
@@ -725,8 +699,8 @@ class Contract {
                                value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(13n),
                                                                             alignment: _descriptor_11.alignment() }).encode() } },
                      { push: { storage: true,
-                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_7.toValue(0n),
-                                                                            alignment: _descriptor_7.alignment() }).encode() } },
+                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_5.toValue(0n),
+                                                                            alignment: _descriptor_5.alignment() }).encode() } },
                      { ins: { cached: false, n: 1 } },
                      { ins: { cached: true, n: 1 } }
                     ])
@@ -744,8 +718,8 @@ class Contract {
                                value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(14n),
                                                                             alignment: _descriptor_11.alignment() }).encode() } },
                      { push: { storage: true,
-                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_3.toValue(false),
-                                                                            alignment: _descriptor_3.alignment() }).encode() } },
+                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_6.toValue(false),
+                                                                            alignment: _descriptor_6.alignment() }).encode() } },
                      { ins: { cached: false, n: 1 } },
                      { ins: { cached: true, n: 1 } }
                     ])
@@ -764,15 +738,15 @@ class Contract {
                                                           value: { value: _descriptor_11.toValue(0n),
                                                                    alignment: _descriptor_11.alignment() } },
                                                         { tag: 'value',
-                                                          value: { value: _descriptor_11.toValue(4n),
+                                                          value: { value: _descriptor_11.toValue(3n),
                                                                    alignment: _descriptor_11.alignment() } }
                                                        ] } },
                                         { push: { storage: false,
-                                                  value: __compactRuntime.StateValue.newCell({ value: _descriptor_5.toValue(tmp),
-                                                                                               alignment: _descriptor_5.alignment() }).encode() } },
+                                                  value: __compactRuntime.StateValue.newCell({ value: _descriptor_3.toValue(tmp),
+                                                                                               alignment: _descriptor_3.alignment() }).encode() } },
                                         { push: { storage: true,
-                                                  value: __compactRuntime.StateValue.newCell({ value: _descriptor_6.toValue(0),
-                                                                                               alignment: _descriptor_6.alignment() }).encode() } },
+                                                  value: __compactRuntime.StateValue.newCell({ value: _descriptor_4.toValue(0),
+                                                                                               alignment: _descriptor_4.alignment() }).encode() } },
                                         { ins: { cached: false, n: 1 } },
                                         { ins: { cached: true, n: 2 } }
                                        ]);
@@ -791,11 +765,11 @@ class Contract {
                                                                    alignment: _descriptor_11.alignment() } }
                                                        ] } },
                                         { push: { storage: false,
-                                                  value: __compactRuntime.StateValue.newCell({ value: _descriptor_5.toValue(tmp_0),
-                                                                                               alignment: _descriptor_5.alignment() }).encode() } },
+                                                  value: __compactRuntime.StateValue.newCell({ value: _descriptor_3.toValue(tmp_0),
+                                                                                               alignment: _descriptor_3.alignment() }).encode() } },
                                         { push: { storage: true,
-                                                  value: __compactRuntime.StateValue.newCell({ value: _descriptor_6.toValue(0),
-                                                                                               alignment: _descriptor_6.alignment() }).encode() } },
+                                                  value: __compactRuntime.StateValue.newCell({ value: _descriptor_4.toValue(0),
+                                                                                               alignment: _descriptor_4.alignment() }).encode() } },
                                         { ins: { cached: false, n: 1 } },
                                         { ins: { cached: true, n: 2 } }
                                        ]);
@@ -865,43 +839,7 @@ class Contract {
                      61n,
                      62n,
                      63n,
-                     64n,
-                     65n,
-                     66n,
-                     67n,
-                     68n,
-                     69n,
-                     70n,
-                     71n,
-                     72n,
-                     73n,
-                     74n,
-                     75n,
-                     76n,
-                     77n,
-                     78n,
-                     79n,
-                     80n,
-                     81n,
-                     82n,
-                     83n,
-                     84n,
-                     85n,
-                     86n,
-                     87n,
-                     88n,
-                     89n,
-                     90n,
-                     91n,
-                     92n,
-                     93n,
-                     94n,
-                     95n,
-                     96n,
-                     97n,
-                     98n,
-                     99n,
-                     100n]);
+                     64n]);
     Contract._query(context,
                     partialProofData,
                     [
@@ -916,8 +854,8 @@ class Contract {
                                value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(0n),
                                                                             alignment: _descriptor_11.alignment() }).encode() } },
                      { push: { storage: true,
-                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_3.toValue(false),
-                                                                            alignment: _descriptor_3.alignment() }).encode() } },
+                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_6.toValue(false),
+                                                                            alignment: _descriptor_6.alignment() }).encode() } },
                      { ins: { cached: false, n: 1 } },
                      { ins: { cached: true, n: 1 } }
                     ]);
@@ -935,8 +873,8 @@ class Contract {
                                value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(2n),
                                                                             alignment: _descriptor_11.alignment() }).encode() } },
                      { push: { storage: true,
-                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_3.toValue(true),
-                                                                            alignment: _descriptor_3.alignment() }).encode() } },
+                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_6.toValue(true),
+                                                                            alignment: _descriptor_6.alignment() }).encode() } },
                      { ins: { cached: false, n: 1 } },
                      { ins: { cached: true, n: 1 } }
                     ]);
@@ -954,8 +892,8 @@ class Contract {
                                value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(3n),
                                                                             alignment: _descriptor_11.alignment() }).encode() } },
                      { push: { storage: true,
-                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_3.toValue(true),
-                                                                            alignment: _descriptor_3.alignment() }).encode() } },
+                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_6.toValue(true),
+                                                                            alignment: _descriptor_6.alignment() }).encode() } },
                      { ins: { cached: false, n: 1 } },
                      { ins: { cached: true, n: 1 } }
                     ]);
@@ -974,8 +912,8 @@ class Contract {
                                                 alignment: _descriptor_11.alignment() } }
                                     ] } },
                      { addi: { immediate: parseInt(__compactRuntime.valueToBigInt(
-                                            { value: _descriptor_4.toValue(tmp_1),
-                                              alignment: _descriptor_4.alignment() }
+                                            { value: _descriptor_8.toValue(tmp_1),
+                                              alignment: _descriptor_8.alignment() }
                                               .value
                                           )) } },
                      { ins: { cached: true, n: 2 } }
@@ -991,7 +929,7 @@ class Contract {
                                                 alignment: _descriptor_11.alignment() } }
                                     ] } },
                      { push: { storage: false,
-                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(3n),
+                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(2n),
                                                                             alignment: _descriptor_11.alignment() }).encode() } },
                      { push: { storage: true,
                                value: __compactRuntime.StateValue.newCell({ value: _descriptor_2.toValue(plOne),
@@ -1013,8 +951,8 @@ class Contract {
                                value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(1n),
                                                                             alignment: _descriptor_11.alignment() }).encode() } },
                      { push: { storage: true,
-                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_3.toValue(false),
-                                                                            alignment: _descriptor_3.alignment() }).encode() } },
+                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_6.toValue(false),
+                                                                            alignment: _descriptor_6.alignment() }).encode() } },
                      { ins: { cached: false, n: 1 } },
                      { ins: { cached: true, n: 1 } }
                     ]);
@@ -1032,8 +970,8 @@ class Contract {
                                value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(10n),
                                                                             alignment: _descriptor_11.alignment() }).encode() } },
                      { push: { storage: true,
-                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_3.toValue(false),
-                                                                            alignment: _descriptor_3.alignment() }).encode() } },
+                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_6.toValue(false),
+                                                                            alignment: _descriptor_6.alignment() }).encode() } },
                      { ins: { cached: false, n: 1 } },
                      { ins: { cached: true, n: 1 } }
                     ]);
@@ -1051,8 +989,8 @@ class Contract {
                                value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(14n),
                                                                             alignment: _descriptor_11.alignment() }).encode() } },
                      { push: { storage: true,
-                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_3.toValue(false),
-                                                                            alignment: _descriptor_3.alignment() }).encode() } },
+                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_6.toValue(false),
+                                                                            alignment: _descriptor_6.alignment() }).encode() } },
                      { ins: { cached: false, n: 1 } },
                      { ins: { cached: true, n: 1 } }
                     ]);
@@ -1070,8 +1008,8 @@ class Contract {
                                value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(5n),
                                                                             alignment: _descriptor_11.alignment() }).encode() } },
                      { push: { storage: true,
-                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_3.toValue(false),
-                                                                            alignment: _descriptor_3.alignment() }).encode() } },
+                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_6.toValue(false),
+                                                                            alignment: _descriptor_6.alignment() }).encode() } },
                      { ins: { cached: false, n: 1 } },
                      { ins: { cached: true, n: 1 } }
                     ]);
@@ -1090,6 +1028,4246 @@ class Contract {
     const result = __compactRuntime.persistentHash(_descriptor_1, value);
     return result;
   }
+  #_hasShip_0(context, partialProofData, privateVector, targetIndex) {
+    const index1 = [1n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n];
+    const index2 = [0n,
+                    1n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n];
+    const index3 = [0n,
+                    0n,
+                    1n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n];
+    const index4 = [0n,
+                    0n,
+                    0n,
+                    1n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n];
+    const index5 = [0n,
+                    0n,
+                    0n,
+                    0n,
+                    1n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n];
+    const index6 = [0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    1n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n];
+    const index7 = [0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    1n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n];
+    const index8 = [0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    1n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n];
+    const index9 = [0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    1n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n,
+                    0n];
+    const index10 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index11 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index12 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index13 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index14 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index15 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index16 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index17 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index18 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index19 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index20 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index21 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index22 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index23 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index24 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index25 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index26 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index27 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index28 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index29 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index30 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index31 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index32 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index33 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index34 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index35 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index36 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index37 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index38 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index39 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index40 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index41 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index42 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index43 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index44 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index45 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index46 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index47 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index48 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index49 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index50 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index51 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index52 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index53 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index54 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index55 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index56 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index57 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index58 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index59 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index60 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n,
+                     0n];
+    const index61 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n,
+                     0n];
+    const index62 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n,
+                     0n];
+    const index63 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n,
+                     0n];
+    const index64 = [0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     0n,
+                     1n];
+    const selectedIndex = this.#_equal_0(targetIndex, 1n)?
+                          index1 :
+                          this.#_equal_1(targetIndex, 2n)?
+                          index2 :
+                          this.#_equal_2(targetIndex, 3n)?
+                          index3 :
+                          this.#_equal_3(targetIndex, 4n)?
+                          index4 :
+                          this.#_equal_4(targetIndex, 5n)?
+                          index5 :
+                          this.#_equal_5(targetIndex, 6n)?
+                          index6 :
+                          this.#_equal_6(targetIndex, 7n)?
+                          index7 :
+                          this.#_equal_7(targetIndex, 8n)?
+                          index8 :
+                          this.#_equal_8(targetIndex, 9n)?
+                          index9 :
+                          this.#_equal_9(targetIndex, 10n)?
+                          index10 :
+                          this.#_equal_10(targetIndex, 11n)?
+                          index11 :
+                          this.#_equal_11(targetIndex, 12n)?
+                          index12 :
+                          this.#_equal_12(targetIndex, 13n)?
+                          index13 :
+                          this.#_equal_13(targetIndex, 14n)?
+                          index14 :
+                          this.#_equal_14(targetIndex, 15n)?
+                          index15 :
+                          this.#_equal_15(targetIndex, 16n)?
+                          index16 :
+                          this.#_equal_16(targetIndex, 17n)?
+                          index17 :
+                          this.#_equal_17(targetIndex, 18n)?
+                          index18 :
+                          this.#_equal_18(targetIndex, 19n)?
+                          index19 :
+                          this.#_equal_19(targetIndex, 20n)?
+                          index20 :
+                          this.#_equal_20(targetIndex, 21n)?
+                          index21 :
+                          this.#_equal_21(targetIndex, 22n)?
+                          index22 :
+                          this.#_equal_22(targetIndex, 23n)?
+                          index23 :
+                          this.#_equal_23(targetIndex, 24n)?
+                          index24 :
+                          this.#_equal_24(targetIndex, 25n)?
+                          index25 :
+                          this.#_equal_25(targetIndex, 26n)?
+                          index26 :
+                          this.#_equal_26(targetIndex, 27n)?
+                          index27 :
+                          this.#_equal_27(targetIndex, 28n)?
+                          index28 :
+                          this.#_equal_28(targetIndex, 29n)?
+                          index29 :
+                          this.#_equal_29(targetIndex, 30n)?
+                          index30 :
+                          this.#_equal_30(targetIndex, 31n)?
+                          index31 :
+                          this.#_equal_31(targetIndex, 32n)?
+                          index32 :
+                          this.#_equal_32(targetIndex, 33n)?
+                          index33 :
+                          this.#_equal_33(targetIndex, 34n)?
+                          index34 :
+                          this.#_equal_34(targetIndex, 35n)?
+                          index35 :
+                          this.#_equal_35(targetIndex, 36n)?
+                          index36 :
+                          this.#_equal_36(targetIndex, 37n)?
+                          index37 :
+                          this.#_equal_37(targetIndex, 38n)?
+                          index38 :
+                          this.#_equal_38(targetIndex, 39n)?
+                          index39 :
+                          this.#_equal_39(targetIndex, 40n)?
+                          index40 :
+                          this.#_equal_40(targetIndex, 41n)?
+                          index41 :
+                          this.#_equal_41(targetIndex, 42n)?
+                          index42 :
+                          this.#_equal_42(targetIndex, 43n)?
+                          index43 :
+                          this.#_equal_43(targetIndex, 44n)?
+                          index44 :
+                          this.#_equal_44(targetIndex, 45n)?
+                          index45 :
+                          this.#_equal_45(targetIndex, 46n)?
+                          index46 :
+                          this.#_equal_46(targetIndex, 47n)?
+                          index47 :
+                          this.#_equal_47(targetIndex, 48n)?
+                          index48 :
+                          this.#_equal_48(targetIndex, 49n)?
+                          index49 :
+                          this.#_equal_49(targetIndex, 50n)?
+                          index50 :
+                          this.#_equal_50(targetIndex, 51n)?
+                          index51 :
+                          this.#_equal_51(targetIndex, 52n)?
+                          index52 :
+                          this.#_equal_52(targetIndex, 53n)?
+                          index53 :
+                          this.#_equal_53(targetIndex, 54n)?
+                          index54 :
+                          this.#_equal_54(targetIndex, 55n)?
+                          index55 :
+                          this.#_equal_55(targetIndex, 56n)?
+                          index56 :
+                          this.#_equal_56(targetIndex, 57n)?
+                          index57 :
+                          this.#_equal_57(targetIndex, 58n)?
+                          index58 :
+                          this.#_equal_58(targetIndex, 59n)?
+                          index59 :
+                          this.#_equal_59(targetIndex, 60n)?
+                          index60 :
+                          this.#_equal_60(targetIndex, 61n)?
+                          index61 :
+                          this.#_equal_61(targetIndex, 62n)?
+                          index62 :
+                          this.#_equal_62(targetIndex, 63n)? index63 : index64;
+    const mappedResult = this.#_mapper_0(context,
+                                         partialProofData,
+                                         ((context, partialProofData, x, y) =>
+                                          {
+                                            return x * y;
+                                          }),
+                                         privateVector,
+                                         selectedIndex);
+    const totalSum = this.#_folder_1(context,
+                                     partialProofData,
+                                     ((context, partialProofData, acc, x_0) =>
+                                      {
+                                        return acc + x_0;
+                                      }),
+                                     0n,
+                                     mappedResult);
+    const hasShip = totalSum === 1n && true; return hasShip;
+  }
   #_local_sk_0(context, partialProofData) {
     const witnessContext = __compactRuntime.witnessContext(ledger(context.transactionContext.state), context.currentPrivateState, context.transactionContext.address);
     const [nextPrivateState, result] = this.witnesses.local_sk(witnessContext);
@@ -1097,7 +5275,7 @@ class Contract {
     if (!(result.buffer instanceof ArrayBuffer && result.BYTES_PER_ELEMENT === 1 && result.length === 32))
       __compactRuntime.type_error('local_sk',
                                   'return value',
-                                  './src/naval-battle-game.compact line 10, char 1',
+                                  './src/naval-battle-game.compact line 9, char 1',
                                   'Bytes<32>',
                                   result)
     partialProofData.privateTranscriptOutputs.push({
@@ -1110,11 +5288,11 @@ class Contract {
     const witnessContext = __compactRuntime.witnessContext(ledger(context.transactionContext.state), context.currentPrivateState, context.transactionContext.address);
     const [nextPrivateState, result] = this.witnesses.local_gameplay(witnessContext);
     context.currentPrivateState = nextPrivateState;
-    if (!(Array.isArray(result) && result.length === 100 && result.every((t) => typeof(t) === 'number' && t >= 0 && t <= 1)))
+    if (!(Array.isArray(result) && result.length === 64 && result.every((t) => typeof(t) === 'bigint' && t >= 0 && t <= 1n)))
       __compactRuntime.type_error('local_gameplay',
                                   'return value',
-                                  './src/naval-battle-game.compact line 12, char 1',
-                                  'Vector<100, Enum<CellAssignment, blank, ship>>',
+                                  './src/naval-battle-game.compact line 11, char 1',
+                                  'Vector<64, Uint<0..1>>',
                                   result)
     partialProofData.privateTranscriptOutputs.push({
       value: _descriptor_1.toValue(result),
@@ -1130,7 +5308,7 @@ class Contract {
     if (!(result.buffer instanceof ArrayBuffer && result.BYTES_PER_ELEMENT === 1 && result.length === 32))
       __compactRuntime.type_error('set_local_gameplay',
                                   'return value',
-                                  './src/naval-battle-game.compact line 13, char 1',
+                                  './src/naval-battle-game.compact line 12, char 1',
                                   'Bytes<32>',
                                   result)
     partialProofData.privateTranscriptOutputs.push({
@@ -1140,7 +5318,7 @@ class Contract {
     return result;
   }
   #_joinGame_0(context, partialProofData, player) {
-    __compactRuntime.assert(_descriptor_3.fromValue(Contract._query(context,
+    __compactRuntime.assert(_descriptor_6.fromValue(Contract._query(context,
                                                                     partialProofData,
                                                                     [
                                                                      { dup: { n: 0 } },
@@ -1162,7 +5340,7 @@ class Contract {
                             'Game has already started');
     let tmp;
     __compactRuntime.assert((tmp = 2n,
-                             _descriptor_3.fromValue(Contract._query(context,
+                             _descriptor_6.fromValue(Contract._query(context,
                                                                      partialProofData,
                                                                      [
                                                                       { dup: { n: 0 } },
@@ -1177,31 +5355,31 @@ class Contract {
                                                                                                  alignment: _descriptor_11.alignment() } }
                                                                                      ] } },
                                                                       { push: { storage: false,
-                                                                                value: __compactRuntime.StateValue.newCell({ value: _descriptor_8.toValue(tmp),
-                                                                                                                             alignment: _descriptor_8.alignment() }).encode() } },
+                                                                                value: __compactRuntime.StateValue.newCell({ value: _descriptor_7.toValue(tmp),
+                                                                                                                             alignment: _descriptor_7.alignment() }).encode() } },
                                                                       'lt',
                                                                       { popeq: { cached: true,
                                                                                  result: undefined } }
                                                                      ]).value)),
                             'Game is designed for two players');
-    __compactRuntime.assert(!this.#_equal_0(_descriptor_2.fromValue(Contract._query(context,
-                                                                                    partialProofData,
-                                                                                    [
-                                                                                     { dup: { n: 0 } },
-                                                                                     { idx: { cached: false,
-                                                                                              pushPath: false,
-                                                                                              path: [
-                                                                                                     { tag: 'value',
-                                                                                                       value: { value: _descriptor_11.toValue(0n),
-                                                                                                                alignment: _descriptor_11.alignment() } },
-                                                                                                     { tag: 'value',
-                                                                                                       value: { value: _descriptor_11.toValue(3n),
-                                                                                                                alignment: _descriptor_11.alignment() } }
-                                                                                                    ] } },
-                                                                                     { popeq: { cached: false,
-                                                                                                result: undefined } }
-                                                                                    ]).value),
-                                            player),
+    __compactRuntime.assert(!this.#_equal_63(_descriptor_2.fromValue(Contract._query(context,
+                                                                                     partialProofData,
+                                                                                     [
+                                                                                      { dup: { n: 0 } },
+                                                                                      { idx: { cached: false,
+                                                                                               pushPath: false,
+                                                                                               path: [
+                                                                                                      { tag: 'value',
+                                                                                                        value: { value: _descriptor_11.toValue(0n),
+                                                                                                                 alignment: _descriptor_11.alignment() } },
+                                                                                                      { tag: 'value',
+                                                                                                        value: { value: _descriptor_11.toValue(2n),
+                                                                                                                 alignment: _descriptor_11.alignment() } }
+                                                                                                     ] } },
+                                                                                      { popeq: { cached: false,
+                                                                                                 result: undefined } }
+                                                                                     ]).value),
+                                             player),
                             'Player one cannot join the game twice');
     Contract._query(context,
                     partialProofData,
@@ -1236,8 +5414,8 @@ class Contract {
                                value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(11n),
                                                                             alignment: _descriptor_11.alignment() }).encode() } },
                      { push: { storage: true,
-                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_3.toValue(true),
-                                                                            alignment: _descriptor_3.alignment() }).encode() } },
+                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_6.toValue(true),
+                                                                            alignment: _descriptor_6.alignment() }).encode() } },
                      { ins: { cached: false, n: 1 } },
                      { ins: { cached: true, n: 1 } }
                     ]);
@@ -1255,8 +5433,8 @@ class Contract {
                                value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(12n),
                                                                             alignment: _descriptor_11.alignment() }).encode() } },
                      { push: { storage: true,
-                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_3.toValue(false),
-                                                                            alignment: _descriptor_3.alignment() }).encode() } },
+                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_6.toValue(false),
+                                                                            alignment: _descriptor_6.alignment() }).encode() } },
                      { ins: { cached: false, n: 1 } },
                      { ins: { cached: true, n: 1 } }
                     ]);
@@ -1275,15 +5453,15 @@ class Contract {
                                                 alignment: _descriptor_11.alignment() } }
                                     ] } },
                      { addi: { immediate: parseInt(__compactRuntime.valueToBigInt(
-                                            { value: _descriptor_4.toValue(tmp_0),
-                                              alignment: _descriptor_4.alignment() }
+                                            { value: _descriptor_8.toValue(tmp_0),
+                                              alignment: _descriptor_8.alignment() }
                                               .value
                                           )) } },
                      { ins: { cached: true, n: 2 } }
                     ]);
   }
   #_commitGrid_0(context, partialProofData, player, playerSetup) {
-    __compactRuntime.assert(_descriptor_3.fromValue(Contract._query(context,
+    __compactRuntime.assert(_descriptor_6.fromValue(Contract._query(context,
                                                                     partialProofData,
                                                                     [
                                                                      { dup: { n: 0 } },
@@ -1303,95 +5481,36 @@ class Contract {
                             ===
                             false,
                             'Game has already started');
-    this.#_folder_1(context,
-                    partialProofData,
-                    ((context, partialProofData, t, cellPlay) =>
-                     {
-                       if (cellPlay === 1) {
-                         const tmp = 1n;
-                         Contract._query(context,
-                                         partialProofData,
-                                         [
-                                          { idx: { cached: false,
-                                                   pushPath: true,
-                                                   path: [
-                                                          { tag: 'value',
-                                                            value: { value: _descriptor_11.toValue(0n),
-                                                                     alignment: _descriptor_11.alignment() } },
-                                                          { tag: 'value',
-                                                            value: { value: _descriptor_11.toValue(2n),
-                                                                     alignment: _descriptor_11.alignment() } }
-                                                         ] } },
-                                          { addi: { immediate: parseInt(__compactRuntime.valueToBigInt(
-                                                                 { value: _descriptor_4.toValue(tmp),
-                                                                   alignment: _descriptor_4.alignment() }
-                                                                   .value
-                                                               )) } },
-                                          { ins: { cached: true, n: 2 } }
-                                         ]);
-                       }
-                       return t;
-                     }),
-                    false,
-                    playerSetup);
-    __compactRuntime.assert(this.#_equal_1(_descriptor_8.fromValue(Contract._query(context,
-                                                                                   partialProofData,
-                                                                                   [
-                                                                                    { dup: { n: 0 } },
-                                                                                    { idx: { cached: false,
-                                                                                             pushPath: false,
-                                                                                             path: [
-                                                                                                    { tag: 'value',
-                                                                                                      value: { value: _descriptor_11.toValue(0n),
-                                                                                                               alignment: _descriptor_11.alignment() } },
-                                                                                                    { tag: 'value',
-                                                                                                      value: { value: _descriptor_11.toValue(2n),
-                                                                                                               alignment: _descriptor_11.alignment() } }
-                                                                                                   ] } },
-                                                                                    { popeq: { cached: true,
-                                                                                               result: undefined } }
-                                                                                   ]).value),
-                                           17n),
-                            'Player has not placed 17 ships');
-    Contract._query(context,
-                    partialProofData,
-                    [
-                     { idx: { cached: false,
-                              pushPath: true,
-                              path: [
-                                     { tag: 'value',
-                                       value: { value: _descriptor_11.toValue(0n),
-                                                alignment: _descriptor_11.alignment() } }
-                                    ] } },
-                     { push: { storage: false,
-                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(2n),
-                                                                            alignment: _descriptor_11.alignment() }).encode() } },
-                     { push: { storage: true,
-                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_8.toValue(0n),
-                                                                            alignment: _descriptor_8.alignment() }).encode() } },
-                     { ins: { cached: false, n: 1 } },
-                     { ins: { cached: true, n: 1 } }
-                    ]);
-    if (this.#_equal_2(player,
-                       _descriptor_2.fromValue(Contract._query(context,
-                                                               partialProofData,
-                                                               [
-                                                                { dup: { n: 0 } },
-                                                                { idx: { cached: false,
-                                                                         pushPath: false,
-                                                                         path: [
-                                                                                { tag: 'value',
-                                                                                  value: { value: _descriptor_11.toValue(0n),
-                                                                                           alignment: _descriptor_11.alignment() } },
-                                                                                { tag: 'value',
-                                                                                  value: { value: _descriptor_11.toValue(3n),
-                                                                                           alignment: _descriptor_11.alignment() } }
-                                                                               ] } },
-                                                                { popeq: { cached: false,
-                                                                           result: undefined } }
-                                                               ]).value)))
+    const numberOfShips = this.#_folder_2(context,
+                                          partialProofData,
+                                          ((context, partialProofData, acc, x) =>
+                                           {
+                                             return acc + x;
+                                           }),
+                                          0n,
+                                          playerSetup);
+    __compactRuntime.assert(numberOfShips === 16n,
+                            'Player has not placed 16 ships');
+    if (this.#_equal_64(player,
+                        _descriptor_2.fromValue(Contract._query(context,
+                                                                partialProofData,
+                                                                [
+                                                                 { dup: { n: 0 } },
+                                                                 { idx: { cached: false,
+                                                                          pushPath: false,
+                                                                          path: [
+                                                                                 { tag: 'value',
+                                                                                   value: { value: _descriptor_11.toValue(0n),
+                                                                                            alignment: _descriptor_11.alignment() } },
+                                                                                 { tag: 'value',
+                                                                                   value: { value: _descriptor_11.toValue(2n),
+                                                                                            alignment: _descriptor_11.alignment() } }
+                                                                                ] } },
+                                                                 { popeq: { cached: false,
+                                                                            result: undefined } }
+                                                                ]).value)))
     {
-      __compactRuntime.assert(_descriptor_3.fromValue(Contract._query(context,
+      __compactRuntime.assert(_descriptor_6.fromValue(Contract._query(context,
                                                                       partialProofData,
                                                                       [
                                                                        { dup: { n: 0 } },
@@ -1411,7 +5530,7 @@ class Contract {
                               ===
                               true,
                               'Player one has not joined the game');
-      __compactRuntime.assert(_descriptor_3.fromValue(Contract._query(context,
+      __compactRuntime.assert(_descriptor_6.fromValue(Contract._query(context,
                                                                       partialProofData,
                                                                       [
                                                                        { dup: { n: 0 } },
@@ -1431,27 +5550,27 @@ class Contract {
                               ===
                               false,
                               'Player one has already committed');
-      __compactRuntime.assert(this.#_equal_3(_descriptor_2.fromValue(Contract._query(context,
-                                                                                     partialProofData,
-                                                                                     [
-                                                                                      { dup: { n: 0 } },
-                                                                                      { idx: { cached: false,
-                                                                                               pushPath: false,
-                                                                                               path: [
-                                                                                                      { tag: 'value',
-                                                                                                        value: { value: _descriptor_11.toValue(0n),
-                                                                                                                 alignment: _descriptor_11.alignment() } },
-                                                                                                      { tag: 'value',
-                                                                                                        value: { value: _descriptor_11.toValue(3n),
-                                                                                                                 alignment: _descriptor_11.alignment() } }
-                                                                                                     ] } },
-                                                                                      { popeq: { cached: false,
-                                                                                                 result: undefined } }
-                                                                                     ]).value),
-                                             this.#_public_key_0(context,
-                                                                 partialProofData,
-                                                                 this.#_local_sk_0(context,
-                                                                                   partialProofData))),
+      __compactRuntime.assert(this.#_equal_65(_descriptor_2.fromValue(Contract._query(context,
+                                                                                      partialProofData,
+                                                                                      [
+                                                                                       { dup: { n: 0 } },
+                                                                                       { idx: { cached: false,
+                                                                                                pushPath: false,
+                                                                                                path: [
+                                                                                                       { tag: 'value',
+                                                                                                         value: { value: _descriptor_11.toValue(0n),
+                                                                                                                  alignment: _descriptor_11.alignment() } },
+                                                                                                       { tag: 'value',
+                                                                                                         value: { value: _descriptor_11.toValue(2n),
+                                                                                                                  alignment: _descriptor_11.alignment() } }
+                                                                                                      ] } },
+                                                                                       { popeq: { cached: false,
+                                                                                                  result: undefined } }
+                                                                                      ]).value),
+                                              this.#_public_key_0(context,
+                                                                  partialProofData,
+                                                                  this.#_local_sk_0(context,
+                                                                                    partialProofData))),
                               'PlayerOne confirmation failed');
       const commit = this.#_set_local_gameplay_0(context,
                                                  partialProofData,
@@ -1467,7 +5586,7 @@ class Contract {
                                                   alignment: _descriptor_11.alignment() } }
                                       ] } },
                        { push: { storage: false,
-                                 value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(5n),
+                                 value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(4n),
                                                                               alignment: _descriptor_11.alignment() }).encode() } },
                        { push: { storage: true,
                                  value: __compactRuntime.StateValue.newCell({ value: _descriptor_2.toValue(commit),
@@ -1489,32 +5608,32 @@ class Contract {
                                  value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(1n),
                                                                               alignment: _descriptor_11.alignment() }).encode() } },
                        { push: { storage: true,
-                                 value: __compactRuntime.StateValue.newCell({ value: _descriptor_3.toValue(true),
-                                                                              alignment: _descriptor_3.alignment() }).encode() } },
+                                 value: __compactRuntime.StateValue.newCell({ value: _descriptor_6.toValue(true),
+                                                                              alignment: _descriptor_6.alignment() }).encode() } },
                        { ins: { cached: false, n: 1 } },
                        { ins: { cached: true, n: 1 } }
                       ]);
     } else {
-      __compactRuntime.assert(this.#_equal_4(player,
-                                             _descriptor_2.fromValue(Contract._query(context,
-                                                                                     partialProofData,
-                                                                                     [
-                                                                                      { dup: { n: 0 } },
-                                                                                      { idx: { cached: false,
-                                                                                               pushPath: false,
-                                                                                               path: [
-                                                                                                      { tag: 'value',
-                                                                                                        value: { value: _descriptor_11.toValue(1n),
-                                                                                                                 alignment: _descriptor_11.alignment() } },
-                                                                                                      { tag: 'value',
-                                                                                                        value: { value: _descriptor_11.toValue(6n),
-                                                                                                                 alignment: _descriptor_11.alignment() } }
-                                                                                                     ] } },
-                                                                                      { popeq: { cached: false,
-                                                                                                 result: undefined } }
-                                                                                     ]).value)),
+      __compactRuntime.assert(this.#_equal_66(player,
+                                              _descriptor_2.fromValue(Contract._query(context,
+                                                                                      partialProofData,
+                                                                                      [
+                                                                                       { dup: { n: 0 } },
+                                                                                       { idx: { cached: false,
+                                                                                                pushPath: false,
+                                                                                                path: [
+                                                                                                       { tag: 'value',
+                                                                                                         value: { value: _descriptor_11.toValue(1n),
+                                                                                                                  alignment: _descriptor_11.alignment() } },
+                                                                                                       { tag: 'value',
+                                                                                                         value: { value: _descriptor_11.toValue(6n),
+                                                                                                                  alignment: _descriptor_11.alignment() } }
+                                                                                                      ] } },
+                                                                                       { popeq: { cached: false,
+                                                                                                  result: undefined } }
+                                                                                      ]).value)),
                               'You are not player two');
-      __compactRuntime.assert(_descriptor_3.fromValue(Contract._query(context,
+      __compactRuntime.assert(_descriptor_6.fromValue(Contract._query(context,
                                                                       partialProofData,
                                                                       [
                                                                        { dup: { n: 0 } },
@@ -1534,7 +5653,7 @@ class Contract {
                               ===
                               true,
                               'Player two has not joined the game');
-      __compactRuntime.assert(_descriptor_3.fromValue(Contract._query(context,
+      __compactRuntime.assert(_descriptor_6.fromValue(Contract._query(context,
                                                                       partialProofData,
                                                                       [
                                                                        { dup: { n: 0 } },
@@ -1554,27 +5673,27 @@ class Contract {
                               ===
                               false,
                               'Player two has already committed');
-      __compactRuntime.assert(this.#_equal_5(_descriptor_2.fromValue(Contract._query(context,
-                                                                                     partialProofData,
-                                                                                     [
-                                                                                      { dup: { n: 0 } },
-                                                                                      { idx: { cached: false,
-                                                                                               pushPath: false,
-                                                                                               path: [
-                                                                                                      { tag: 'value',
-                                                                                                        value: { value: _descriptor_11.toValue(1n),
-                                                                                                                 alignment: _descriptor_11.alignment() } },
-                                                                                                      { tag: 'value',
-                                                                                                        value: { value: _descriptor_11.toValue(6n),
-                                                                                                                 alignment: _descriptor_11.alignment() } }
-                                                                                                     ] } },
-                                                                                      { popeq: { cached: false,
-                                                                                                 result: undefined } }
-                                                                                     ]).value),
-                                             this.#_public_key_0(context,
-                                                                 partialProofData,
-                                                                 this.#_local_sk_0(context,
-                                                                                   partialProofData))),
+      __compactRuntime.assert(this.#_equal_67(_descriptor_2.fromValue(Contract._query(context,
+                                                                                      partialProofData,
+                                                                                      [
+                                                                                       { dup: { n: 0 } },
+                                                                                       { idx: { cached: false,
+                                                                                                pushPath: false,
+                                                                                                path: [
+                                                                                                       { tag: 'value',
+                                                                                                         value: { value: _descriptor_11.toValue(1n),
+                                                                                                                  alignment: _descriptor_11.alignment() } },
+                                                                                                       { tag: 'value',
+                                                                                                         value: { value: _descriptor_11.toValue(6n),
+                                                                                                                  alignment: _descriptor_11.alignment() } }
+                                                                                                      ] } },
+                                                                                       { popeq: { cached: false,
+                                                                                                  result: undefined } }
+                                                                                      ]).value),
+                                              this.#_public_key_0(context,
+                                                                  partialProofData,
+                                                                  this.#_local_sk_0(context,
+                                                                                    partialProofData))),
                               'PlayerTwo confirmation failed');
       const commit_0 = this.#_set_local_gameplay_0(context,
                                                    partialProofData,
@@ -1612,15 +5731,15 @@ class Contract {
                                  value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(10n),
                                                                               alignment: _descriptor_11.alignment() }).encode() } },
                        { push: { storage: true,
-                                 value: __compactRuntime.StateValue.newCell({ value: _descriptor_3.toValue(true),
-                                                                              alignment: _descriptor_3.alignment() }).encode() } },
+                                 value: __compactRuntime.StateValue.newCell({ value: _descriptor_6.toValue(true),
+                                                                              alignment: _descriptor_6.alignment() }).encode() } },
                        { ins: { cached: false, n: 1 } },
                        { ins: { cached: true, n: 1 } }
                       ]);
     }
   }
   #_startGame_0(context, partialProofData) {
-    __compactRuntime.assert(_descriptor_3.fromValue(Contract._query(context,
+    __compactRuntime.assert(_descriptor_6.fromValue(Contract._query(context,
                                                                     partialProofData,
                                                                     [
                                                                      { dup: { n: 0 } },
@@ -1640,26 +5759,26 @@ class Contract {
                             ===
                             false,
                             'Game has already started');
-    __compactRuntime.assert(this.#_equal_6(_descriptor_8.fromValue(Contract._query(context,
-                                                                                   partialProofData,
-                                                                                   [
-                                                                                    { dup: { n: 0 } },
-                                                                                    { idx: { cached: false,
-                                                                                             pushPath: false,
-                                                                                             path: [
-                                                                                                    { tag: 'value',
-                                                                                                      value: { value: _descriptor_11.toValue(0n),
-                                                                                                               alignment: _descriptor_11.alignment() } },
-                                                                                                    { tag: 'value',
-                                                                                                      value: { value: _descriptor_11.toValue(1n),
-                                                                                                               alignment: _descriptor_11.alignment() } }
-                                                                                                   ] } },
-                                                                                    { popeq: { cached: true,
-                                                                                               result: undefined } }
-                                                                                   ]).value),
-                                           2n),
+    __compactRuntime.assert(this.#_equal_68(_descriptor_7.fromValue(Contract._query(context,
+                                                                                    partialProofData,
+                                                                                    [
+                                                                                     { dup: { n: 0 } },
+                                                                                     { idx: { cached: false,
+                                                                                              pushPath: false,
+                                                                                              path: [
+                                                                                                     { tag: 'value',
+                                                                                                       value: { value: _descriptor_11.toValue(0n),
+                                                                                                                alignment: _descriptor_11.alignment() } },
+                                                                                                     { tag: 'value',
+                                                                                                       value: { value: _descriptor_11.toValue(1n),
+                                                                                                                alignment: _descriptor_11.alignment() } }
+                                                                                                    ] } },
+                                                                                     { popeq: { cached: true,
+                                                                                                result: undefined } }
+                                                                                    ]).value),
+                                            2n),
                             'Game is designed for two players');
-    __compactRuntime.assert(_descriptor_3.fromValue(Contract._query(context,
+    __compactRuntime.assert(_descriptor_6.fromValue(Contract._query(context,
                                                                     partialProofData,
                                                                     [
                                                                      { dup: { n: 0 } },
@@ -1679,7 +5798,7 @@ class Contract {
                             ===
                             true,
                             'Player one has not committed');
-    __compactRuntime.assert(_descriptor_3.fromValue(Contract._query(context,
+    __compactRuntime.assert(_descriptor_6.fromValue(Contract._query(context,
                                                                     partialProofData,
                                                                     [
                                                                      { dup: { n: 0 } },
@@ -1699,7 +5818,7 @@ class Contract {
                             ===
                             true,
                             'Player two has not committed');
-    __compactRuntime.assert(_descriptor_3.fromValue(Contract._query(context,
+    __compactRuntime.assert(_descriptor_6.fromValue(Contract._query(context,
                                                                     partialProofData,
                                                                     [
                                                                      { dup: { n: 0 } },
@@ -1719,7 +5838,7 @@ class Contract {
                             ===
                             true,
                             'Player one has not joined the game');
-    __compactRuntime.assert(_descriptor_3.fromValue(Contract._query(context,
+    __compactRuntime.assert(_descriptor_6.fromValue(Contract._query(context,
                                                                     partialProofData,
                                                                     [
                                                                      { dup: { n: 0 } },
@@ -1753,14 +5872,14 @@ class Contract {
                                value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(0n),
                                                                             alignment: _descriptor_11.alignment() }).encode() } },
                      { push: { storage: true,
-                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_3.toValue(true),
-                                                                            alignment: _descriptor_3.alignment() }).encode() } },
+                               value: __compactRuntime.StateValue.newCell({ value: _descriptor_6.toValue(true),
+                                                                            alignment: _descriptor_6.alignment() }).encode() } },
                      { ins: { cached: false, n: 1 } },
                      { ins: { cached: true, n: 1 } }
                     ]);
   }
   #_makeMove_0(context, partialProofData, player, move) {
-    __compactRuntime.assert(_descriptor_3.fromValue(Contract._query(context,
+    __compactRuntime.assert(_descriptor_6.fromValue(Contract._query(context,
                                                                     partialProofData,
                                                                     [
                                                                      { dup: { n: 0 } },
@@ -1780,67 +5899,7 @@ class Contract {
                             ===
                             true,
                             'Game has not started');
-    __compactRuntime.assert(_descriptor_3.fromValue(Contract._query(context,
-                                                                    partialProofData,
-                                                                    [
-                                                                     { dup: { n: 0 } },
-                                                                     { idx: { cached: false,
-                                                                              pushPath: false,
-                                                                              path: [
-                                                                                     { tag: 'value',
-                                                                                       value: { value: _descriptor_11.toValue(1n),
-                                                                                                alignment: _descriptor_11.alignment() } },
-                                                                                     { tag: 'value',
-                                                                                       value: { value: _descriptor_11.toValue(1n),
-                                                                                                alignment: _descriptor_11.alignment() } }
-                                                                                    ] } },
-                                                                     { popeq: { cached: false,
-                                                                                result: undefined } }
-                                                                    ]).value)
-                            ===
-                            true,
-                            'Player one has not committed');
-    __compactRuntime.assert(_descriptor_3.fromValue(Contract._query(context,
-                                                                    partialProofData,
-                                                                    [
-                                                                     { dup: { n: 0 } },
-                                                                     { idx: { cached: false,
-                                                                              pushPath: false,
-                                                                              path: [
-                                                                                     { tag: 'value',
-                                                                                       value: { value: _descriptor_11.toValue(1n),
-                                                                                                alignment: _descriptor_11.alignment() } },
-                                                                                     { tag: 'value',
-                                                                                       value: { value: _descriptor_11.toValue(10n),
-                                                                                                alignment: _descriptor_11.alignment() } }
-                                                                                    ] } },
-                                                                     { popeq: { cached: false,
-                                                                                result: undefined } }
-                                                                    ]).value)
-                            ===
-                            true,
-                            'Player two has not committed');
-    __compactRuntime.assert(_descriptor_3.fromValue(Contract._query(context,
-                                                                    partialProofData,
-                                                                    [
-                                                                     { dup: { n: 0 } },
-                                                                     { idx: { cached: false,
-                                                                              pushPath: false,
-                                                                              path: [
-                                                                                     { tag: 'value',
-                                                                                       value: { value: _descriptor_11.toValue(1n),
-                                                                                                alignment: _descriptor_11.alignment() } },
-                                                                                     { tag: 'value',
-                                                                                       value: { value: _descriptor_11.toValue(5n),
-                                                                                                alignment: _descriptor_11.alignment() } }
-                                                                                    ] } },
-                                                                     { popeq: { cached: false,
-                                                                                result: undefined } }
-                                                                    ]).value)
-                            ===
-                            false
-                            ||
-                            _descriptor_3.fromValue(Contract._query(context,
+    __compactRuntime.assert(_descriptor_6.fromValue(Contract._query(context,
                                                                     partialProofData,
                                                                     [
                                                                      { dup: { n: 0 } },
@@ -1860,26 +5919,46 @@ class Contract {
                             ===
                             false,
                             'Game has a winner');
-    if (this.#_equal_7(player,
-                       _descriptor_2.fromValue(Contract._query(context,
-                                                               partialProofData,
-                                                               [
-                                                                { dup: { n: 0 } },
-                                                                { idx: { cached: false,
-                                                                         pushPath: false,
-                                                                         path: [
-                                                                                { tag: 'value',
-                                                                                  value: { value: _descriptor_11.toValue(0n),
-                                                                                           alignment: _descriptor_11.alignment() } },
-                                                                                { tag: 'value',
-                                                                                  value: { value: _descriptor_11.toValue(3n),
-                                                                                           alignment: _descriptor_11.alignment() } }
-                                                                               ] } },
-                                                                { popeq: { cached: false,
-                                                                           result: undefined } }
-                                                               ]).value)))
+    __compactRuntime.assert(_descriptor_6.fromValue(Contract._query(context,
+                                                                    partialProofData,
+                                                                    [
+                                                                     { dup: { n: 0 } },
+                                                                     { idx: { cached: false,
+                                                                              pushPath: false,
+                                                                              path: [
+                                                                                     { tag: 'value',
+                                                                                       value: { value: _descriptor_11.toValue(1n),
+                                                                                                alignment: _descriptor_11.alignment() } },
+                                                                                     { tag: 'value',
+                                                                                       value: { value: _descriptor_11.toValue(5n),
+                                                                                                alignment: _descriptor_11.alignment() } }
+                                                                                    ] } },
+                                                                     { popeq: { cached: false,
+                                                                                result: undefined } }
+                                                                    ]).value)
+                            ===
+                            false,
+                            'Game has a winner');
+    if (this.#_equal_69(player,
+                        _descriptor_2.fromValue(Contract._query(context,
+                                                                partialProofData,
+                                                                [
+                                                                 { dup: { n: 0 } },
+                                                                 { idx: { cached: false,
+                                                                          pushPath: false,
+                                                                          path: [
+                                                                                 { tag: 'value',
+                                                                                   value: { value: _descriptor_11.toValue(0n),
+                                                                                            alignment: _descriptor_11.alignment() } },
+                                                                                 { tag: 'value',
+                                                                                   value: { value: _descriptor_11.toValue(2n),
+                                                                                            alignment: _descriptor_11.alignment() } }
+                                                                                ] } },
+                                                                 { popeq: { cached: false,
+                                                                            result: undefined } }
+                                                                ]).value)))
     {
-      __compactRuntime.assert(_descriptor_3.fromValue(Contract._query(context,
+      __compactRuntime.assert(_descriptor_6.fromValue(Contract._query(context,
                                                                       partialProofData,
                                                                       [
                                                                        { dup: { n: 0 } },
@@ -1899,31 +5978,31 @@ class Contract {
                               ===
                               true,
                               "It is not player one's turn");
-      __compactRuntime.assert(this.#_equal_8(_descriptor_2.fromValue(Contract._query(context,
-                                                                                     partialProofData,
-                                                                                     [
-                                                                                      { dup: { n: 0 } },
-                                                                                      { idx: { cached: false,
-                                                                                               pushPath: false,
-                                                                                               path: [
-                                                                                                      { tag: 'value',
-                                                                                                        value: { value: _descriptor_11.toValue(0n),
-                                                                                                                 alignment: _descriptor_11.alignment() } },
-                                                                                                      { tag: 'value',
-                                                                                                        value: { value: _descriptor_11.toValue(3n),
-                                                                                                                 alignment: _descriptor_11.alignment() } }
-                                                                                                     ] } },
-                                                                                      { popeq: { cached: false,
-                                                                                                 result: undefined } }
-                                                                                     ]).value),
-                                             this.#_public_key_0(context,
-                                                                 partialProofData,
-                                                                 this.#_local_sk_0(context,
-                                                                                   partialProofData))),
+      __compactRuntime.assert(this.#_equal_70(_descriptor_2.fromValue(Contract._query(context,
+                                                                                      partialProofData,
+                                                                                      [
+                                                                                       { dup: { n: 0 } },
+                                                                                       { idx: { cached: false,
+                                                                                                pushPath: false,
+                                                                                                path: [
+                                                                                                       { tag: 'value',
+                                                                                                         value: { value: _descriptor_11.toValue(0n),
+                                                                                                                  alignment: _descriptor_11.alignment() } },
+                                                                                                       { tag: 'value',
+                                                                                                         value: { value: _descriptor_11.toValue(2n),
+                                                                                                                  alignment: _descriptor_11.alignment() } }
+                                                                                                      ] } },
+                                                                                       { popeq: { cached: false,
+                                                                                                  result: undefined } }
+                                                                                      ]).value),
+                                              this.#_public_key_0(context,
+                                                                  partialProofData,
+                                                                  this.#_local_sk_0(context,
+                                                                                    partialProofData))),
                               'You are not player one');
       let tmp;
       __compactRuntime.assert((tmp = move,
-                               _descriptor_6.fromValue(Contract._query(context,
+                               _descriptor_4.fromValue(Contract._query(context,
                                                                        partialProofData,
                                                                        [
                                                                         { dup: { n: 0 } },
@@ -1941,8 +6020,8 @@ class Contract {
                                                                                  pushPath: false,
                                                                                  path: [
                                                                                         { tag: 'value',
-                                                                                          value: { value: _descriptor_5.toValue(tmp),
-                                                                                                   alignment: _descriptor_5.alignment() } }
+                                                                                          value: { value: _descriptor_3.toValue(tmp),
+                                                                                                   alignment: _descriptor_3.alignment() } }
                                                                                        ] } },
                                                                         { popeq: { cached: false,
                                                                                    result: undefined } }
@@ -1964,258 +6043,195 @@ class Contract {
                                  value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(4n),
                                                                               alignment: _descriptor_11.alignment() }).encode() } },
                        { push: { storage: true,
-                                 value: __compactRuntime.StateValue.newCell({ value: _descriptor_7.toValue(move),
-                                                                              alignment: _descriptor_7.alignment() }).encode() } },
+                                 value: __compactRuntime.StateValue.newCell({ value: _descriptor_5.toValue(move),
+                                                                              alignment: _descriptor_5.alignment() }).encode() } },
                        { ins: { cached: false, n: 1 } },
                        { ins: { cached: true, n: 1 } }
                       ]);
-      __compactRuntime.assert(this.#_equal_9(this.#_vectorHash_0(context,
-                                                                 partialProofData,
-                                                                 this.#_local_gameplay_0(context,
-                                                                                         partialProofData)),
-                                             _descriptor_2.fromValue(Contract._query(context,
-                                                                                     partialProofData,
-                                                                                     [
-                                                                                      { dup: { n: 0 } },
-                                                                                      { idx: { cached: false,
-                                                                                               pushPath: false,
-                                                                                               path: [
-                                                                                                      { tag: 'value',
-                                                                                                        value: { value: _descriptor_11.toValue(0n),
-                                                                                                                 alignment: _descriptor_11.alignment() } },
-                                                                                                      { tag: 'value',
-                                                                                                        value: { value: _descriptor_11.toValue(5n),
-                                                                                                                 alignment: _descriptor_11.alignment() } }
-                                                                                                     ] } },
-                                                                                      { popeq: { cached: false,
-                                                                                                 result: undefined } }
-                                                                                     ]).value)),
+      __compactRuntime.assert(this.#_equal_71(this.#_vectorHash_0(context,
+                                                                  partialProofData,
+                                                                  this.#_local_gameplay_0(context,
+                                                                                          partialProofData)),
+                                              _descriptor_2.fromValue(Contract._query(context,
+                                                                                      partialProofData,
+                                                                                      [
+                                                                                       { dup: { n: 0 } },
+                                                                                       { idx: { cached: false,
+                                                                                                pushPath: false,
+                                                                                                path: [
+                                                                                                       { tag: 'value',
+                                                                                                         value: { value: _descriptor_11.toValue(0n),
+                                                                                                                  alignment: _descriptor_11.alignment() } },
+                                                                                                       { tag: 'value',
+                                                                                                         value: { value: _descriptor_11.toValue(4n),
+                                                                                                                  alignment: _descriptor_11.alignment() } }
+                                                                                                      ] } },
+                                                                                       { popeq: { cached: false,
+                                                                                                  result: undefined } }
+                                                                                      ]).value)),
                               'Player one has tampered with the grid');
-      this.#_folder_2(context,
-                      partialProofData,
-                      ((context, partialProofData, t, gameCell) =>
-                       {
-                         const tmp_0 = 1n;
-                         Contract._query(context,
-                                         partialProofData,
-                                         [
-                                          { idx: { cached: false,
-                                                   pushPath: true,
-                                                   path: [
-                                                          { tag: 'value',
-                                                            value: { value: _descriptor_11.toValue(0n),
-                                                                     alignment: _descriptor_11.alignment() } },
-                                                          { tag: 'value',
-                                                            value: { value: _descriptor_11.toValue(2n),
-                                                                     alignment: _descriptor_11.alignment() } }
-                                                         ] } },
-                                          { addi: { immediate: parseInt(__compactRuntime.valueToBigInt(
-                                                                 { value: _descriptor_4.toValue(tmp_0),
-                                                                   alignment: _descriptor_4.alignment() }
-                                                                   .value
-                                                               )) } },
-                                          { ins: { cached: true, n: 2 } }
-                                         ]);
-                         if (this.#_equal_10(_descriptor_8.fromValue(Contract._query(context,
-                                                                                     partialProofData,
-                                                                                     [
-                                                                                      { dup: { n: 0 } },
-                                                                                      { idx: { cached: false,
-                                                                                               pushPath: false,
-                                                                                               path: [
-                                                                                                      { tag: 'value',
-                                                                                                        value: { value: _descriptor_11.toValue(0n),
-                                                                                                                 alignment: _descriptor_11.alignment() } },
-                                                                                                      { tag: 'value',
-                                                                                                        value: { value: _descriptor_11.toValue(2n),
-                                                                                                                 alignment: _descriptor_11.alignment() } }
-                                                                                                     ] } },
-                                                                                      { popeq: { cached: true,
-                                                                                                 result: undefined } }
-                                                                                     ]).value),
-                                             _descriptor_7.fromValue(Contract._query(context,
-                                                                                     partialProofData,
-                                                                                     [
-                                                                                      { dup: { n: 0 } },
-                                                                                      { idx: { cached: false,
-                                                                                               pushPath: false,
-                                                                                               path: [
-                                                                                                      { tag: 'value',
-                                                                                                        value: { value: _descriptor_11.toValue(1n),
-                                                                                                                 alignment: _descriptor_11.alignment() } },
-                                                                                                      { tag: 'value',
-                                                                                                        value: { value: _descriptor_11.toValue(13n),
-                                                                                                                 alignment: _descriptor_11.alignment() } }
-                                                                                                     ] } },
-                                                                                      { popeq: { cached: false,
-                                                                                                 result: undefined } }
-                                                                                     ]).value)))
-                         {
-                           if (gameCell === 1) {
-                             const tmp_1 = _descriptor_7.fromValue(Contract._query(context,
-                                                                                   partialProofData,
-                                                                                   [
-                                                                                    { dup: { n: 0 } },
-                                                                                    { idx: { cached: false,
-                                                                                             pushPath: false,
-                                                                                             path: [
-                                                                                                    { tag: 'value',
-                                                                                                      value: { value: _descriptor_11.toValue(1n),
-                                                                                                               alignment: _descriptor_11.alignment() } },
-                                                                                                    { tag: 'value',
-                                                                                                      value: { value: _descriptor_11.toValue(13n),
-                                                                                                               alignment: _descriptor_11.alignment() } }
-                                                                                                   ] } },
-                                                                                    { popeq: { cached: false,
-                                                                                               result: undefined } }
-                                                                                   ]).value);
-                             Contract._query(context,
-                                             partialProofData,
-                                             [
-                                              { idx: { cached: false,
-                                                       pushPath: true,
-                                                       path: [
-                                                              { tag: 'value',
-                                                                value: { value: _descriptor_11.toValue(0n),
-                                                                         alignment: _descriptor_11.alignment() } },
-                                                              { tag: 'value',
-                                                                value: { value: _descriptor_11.toValue(4n),
-                                                                         alignment: _descriptor_11.alignment() } }
-                                                             ] } },
-                                              { push: { storage: false,
-                                                        value: __compactRuntime.StateValue.newCell({ value: _descriptor_5.toValue(tmp_1),
-                                                                                                     alignment: _descriptor_5.alignment() }).encode() } },
-                                              { push: { storage: true,
-                                                        value: __compactRuntime.StateValue.newCell({ value: _descriptor_6.toValue(1),
-                                                                                                     alignment: _descriptor_6.alignment() }).encode() } },
-                                              { ins: { cached: false, n: 1 } },
-                                              { ins: { cached: true, n: 2 } }
-                                             ]);
-                             if (this.#_equal_11(_descriptor_8.fromValue(Contract._query(context,
-                                                                                         partialProofData,
-                                                                                         [
-                                                                                          { dup: { n: 0 } },
-                                                                                          { idx: { cached: false,
-                                                                                                   pushPath: false,
-                                                                                                   path: [
-                                                                                                          { tag: 'value',
-                                                                                                            value: { value: _descriptor_11.toValue(1n),
-                                                                                                                     alignment: _descriptor_11.alignment() } },
-                                                                                                          { tag: 'value',
-                                                                                                            value: { value: _descriptor_11.toValue(9n),
-                                                                                                                     alignment: _descriptor_11.alignment() } }
-                                                                                                         ] } },
-                                                                                          { popeq: { cached: true,
-                                                                                                     result: undefined } }
-                                                                                         ]).value),
-                                                 16n))
-                             {
-                               Contract._query(context,
-                                               partialProofData,
-                                               [
-                                                { idx: { cached: false,
-                                                         pushPath: true,
-                                                         path: [
-                                                                { tag: 'value',
-                                                                  value: { value: _descriptor_11.toValue(1n),
-                                                                           alignment: _descriptor_11.alignment() } }
-                                                               ] } },
-                                                { push: { storage: false,
-                                                          value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(14n),
-                                                                                                       alignment: _descriptor_11.alignment() }).encode() } },
-                                                { push: { storage: true,
-                                                          value: __compactRuntime.StateValue.newCell({ value: _descriptor_3.toValue(true),
-                                                                                                       alignment: _descriptor_3.alignment() }).encode() } },
-                                                { ins: { cached: false, n: 1 } },
-                                                { ins: { cached: true, n: 1 } }
-                                               ]);
-                             }
-                             const tmp_2 = 1n;
-                             Contract._query(context,
-                                             partialProofData,
-                                             [
-                                              { idx: { cached: false,
-                                                       pushPath: true,
-                                                       path: [
-                                                              { tag: 'value',
-                                                                value: { value: _descriptor_11.toValue(1n),
-                                                                         alignment: _descriptor_11.alignment() } },
-                                                              { tag: 'value',
-                                                                value: { value: _descriptor_11.toValue(9n),
-                                                                         alignment: _descriptor_11.alignment() } }
-                                                             ] } },
-                                              { addi: { immediate: parseInt(__compactRuntime.valueToBigInt(
-                                                                     { value: _descriptor_4.toValue(tmp_2),
-                                                                       alignment: _descriptor_4.alignment() }
-                                                                       .value
-                                                                   )) } },
-                                              { ins: { cached: true, n: 2 } }
-                                             ]);
-                           } else {
-                             const tmp_3 = _descriptor_7.fromValue(Contract._query(context,
-                                                                                   partialProofData,
-                                                                                   [
-                                                                                    { dup: { n: 0 } },
-                                                                                    { idx: { cached: false,
-                                                                                             pushPath: false,
-                                                                                             path: [
-                                                                                                    { tag: 'value',
-                                                                                                      value: { value: _descriptor_11.toValue(1n),
-                                                                                                               alignment: _descriptor_11.alignment() } },
-                                                                                                    { tag: 'value',
-                                                                                                      value: { value: _descriptor_11.toValue(13n),
-                                                                                                               alignment: _descriptor_11.alignment() } }
-                                                                                                   ] } },
-                                                                                    { popeq: { cached: false,
-                                                                                               result: undefined } }
-                                                                                   ]).value);
-                             Contract._query(context,
-                                             partialProofData,
-                                             [
-                                              { idx: { cached: false,
-                                                       pushPath: true,
-                                                       path: [
-                                                              { tag: 'value',
-                                                                value: { value: _descriptor_11.toValue(0n),
-                                                                         alignment: _descriptor_11.alignment() } },
-                                                              { tag: 'value',
-                                                                value: { value: _descriptor_11.toValue(4n),
-                                                                         alignment: _descriptor_11.alignment() } }
-                                                             ] } },
-                                              { push: { storage: false,
-                                                        value: __compactRuntime.StateValue.newCell({ value: _descriptor_5.toValue(tmp_3),
-                                                                                                     alignment: _descriptor_5.alignment() }).encode() } },
-                                              { push: { storage: true,
-                                                        value: __compactRuntime.StateValue.newCell({ value: _descriptor_6.toValue(2),
-                                                                                                     alignment: _descriptor_6.alignment() }).encode() } },
-                                              { ins: { cached: false, n: 1 } },
-                                              { ins: { cached: true, n: 2 } }
-                                             ]);
-                           }
-                         }
-                         return t;
-                       }),
-                      false,
-                      this.#_local_gameplay_0(context, partialProofData));
-      Contract._query(context,
-                      partialProofData,
-                      [
-                       { idx: { cached: false,
-                                pushPath: true,
-                                path: [
-                                       { tag: 'value',
-                                         value: { value: _descriptor_11.toValue(0n),
-                                                  alignment: _descriptor_11.alignment() } }
-                                      ] } },
-                       { push: { storage: false,
-                                 value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(2n),
-                                                                              alignment: _descriptor_11.alignment() }).encode() } },
-                       { push: { storage: true,
-                                 value: __compactRuntime.StateValue.newCell({ value: _descriptor_8.toValue(0n),
-                                                                              alignment: _descriptor_8.alignment() }).encode() } },
-                       { ins: { cached: false, n: 1 } },
-                       { ins: { cached: true, n: 1 } }
-                      ]);
+      const privatePlay = this.#_local_gameplay_0(context, partialProofData);
+      const wasHit = this.#_hasShip_0(context,
+                                      partialProofData,
+                                      privatePlay,
+                                      _descriptor_5.fromValue(Contract._query(context,
+                                                                              partialProofData,
+                                                                              [
+                                                                               { dup: { n: 0 } },
+                                                                               { idx: { cached: false,
+                                                                                        pushPath: false,
+                                                                                        path: [
+                                                                                               { tag: 'value',
+                                                                                                 value: { value: _descriptor_11.toValue(1n),
+                                                                                                          alignment: _descriptor_11.alignment() } },
+                                                                                               { tag: 'value',
+                                                                                                 value: { value: _descriptor_11.toValue(13n),
+                                                                                                          alignment: _descriptor_11.alignment() } }
+                                                                                              ] } },
+                                                                               { popeq: { cached: false,
+                                                                                          result: undefined } }
+                                                                              ]).value));
+      if (wasHit) {
+        const tmp_0 = _descriptor_5.fromValue(Contract._query(context,
+                                                              partialProofData,
+                                                              [
+                                                               { dup: { n: 0 } },
+                                                               { idx: { cached: false,
+                                                                        pushPath: false,
+                                                                        path: [
+                                                                               { tag: 'value',
+                                                                                 value: { value: _descriptor_11.toValue(1n),
+                                                                                          alignment: _descriptor_11.alignment() } },
+                                                                               { tag: 'value',
+                                                                                 value: { value: _descriptor_11.toValue(13n),
+                                                                                          alignment: _descriptor_11.alignment() } }
+                                                                              ] } },
+                                                               { popeq: { cached: false,
+                                                                          result: undefined } }
+                                                              ]).value);
+        Contract._query(context,
+                        partialProofData,
+                        [
+                         { idx: { cached: false,
+                                  pushPath: true,
+                                  path: [
+                                         { tag: 'value',
+                                           value: { value: _descriptor_11.toValue(0n),
+                                                    alignment: _descriptor_11.alignment() } },
+                                         { tag: 'value',
+                                           value: { value: _descriptor_11.toValue(3n),
+                                                    alignment: _descriptor_11.alignment() } }
+                                        ] } },
+                         { push: { storage: false,
+                                   value: __compactRuntime.StateValue.newCell({ value: _descriptor_3.toValue(tmp_0),
+                                                                                alignment: _descriptor_3.alignment() }).encode() } },
+                         { push: { storage: true,
+                                   value: __compactRuntime.StateValue.newCell({ value: _descriptor_4.toValue(1),
+                                                                                alignment: _descriptor_4.alignment() }).encode() } },
+                         { ins: { cached: false, n: 1 } },
+                         { ins: { cached: true, n: 2 } }
+                        ]);
+        if (this.#_equal_72(_descriptor_7.fromValue(Contract._query(context,
+                                                                    partialProofData,
+                                                                    [
+                                                                     { dup: { n: 0 } },
+                                                                     { idx: { cached: false,
+                                                                              pushPath: false,
+                                                                              path: [
+                                                                                     { tag: 'value',
+                                                                                       value: { value: _descriptor_11.toValue(1n),
+                                                                                                alignment: _descriptor_11.alignment() } },
+                                                                                     { tag: 'value',
+                                                                                       value: { value: _descriptor_11.toValue(9n),
+                                                                                                alignment: _descriptor_11.alignment() } }
+                                                                                    ] } },
+                                                                     { popeq: { cached: true,
+                                                                                result: undefined } }
+                                                                    ]).value),
+                            15n))
+        {
+          Contract._query(context,
+                          partialProofData,
+                          [
+                           { idx: { cached: false,
+                                    pushPath: true,
+                                    path: [
+                                           { tag: 'value',
+                                             value: { value: _descriptor_11.toValue(1n),
+                                                      alignment: _descriptor_11.alignment() } }
+                                          ] } },
+                           { push: { storage: false,
+                                     value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(14n),
+                                                                                  alignment: _descriptor_11.alignment() }).encode() } },
+                           { push: { storage: true,
+                                     value: __compactRuntime.StateValue.newCell({ value: _descriptor_6.toValue(true),
+                                                                                  alignment: _descriptor_6.alignment() }).encode() } },
+                           { ins: { cached: false, n: 1 } },
+                           { ins: { cached: true, n: 1 } }
+                          ]);
+        }
+        const tmp_1 = 1n;
+        Contract._query(context,
+                        partialProofData,
+                        [
+                         { idx: { cached: false,
+                                  pushPath: true,
+                                  path: [
+                                         { tag: 'value',
+                                           value: { value: _descriptor_11.toValue(1n),
+                                                    alignment: _descriptor_11.alignment() } },
+                                         { tag: 'value',
+                                           value: { value: _descriptor_11.toValue(9n),
+                                                    alignment: _descriptor_11.alignment() } }
+                                        ] } },
+                         { addi: { immediate: parseInt(__compactRuntime.valueToBigInt(
+                                                { value: _descriptor_8.toValue(tmp_1),
+                                                  alignment: _descriptor_8.alignment() }
+                                                  .value
+                                              )) } },
+                         { ins: { cached: true, n: 2 } }
+                        ]);
+      } else {
+        const tmp_2 = _descriptor_5.fromValue(Contract._query(context,
+                                                              partialProofData,
+                                                              [
+                                                               { dup: { n: 0 } },
+                                                               { idx: { cached: false,
+                                                                        pushPath: false,
+                                                                        path: [
+                                                                               { tag: 'value',
+                                                                                 value: { value: _descriptor_11.toValue(1n),
+                                                                                          alignment: _descriptor_11.alignment() } },
+                                                                               { tag: 'value',
+                                                                                 value: { value: _descriptor_11.toValue(13n),
+                                                                                          alignment: _descriptor_11.alignment() } }
+                                                                              ] } },
+                                                               { popeq: { cached: false,
+                                                                          result: undefined } }
+                                                              ]).value);
+        Contract._query(context,
+                        partialProofData,
+                        [
+                         { idx: { cached: false,
+                                  pushPath: true,
+                                  path: [
+                                         { tag: 'value',
+                                           value: { value: _descriptor_11.toValue(0n),
+                                                    alignment: _descriptor_11.alignment() } },
+                                         { tag: 'value',
+                                           value: { value: _descriptor_11.toValue(3n),
+                                                    alignment: _descriptor_11.alignment() } }
+                                        ] } },
+                         { push: { storage: false,
+                                   value: __compactRuntime.StateValue.newCell({ value: _descriptor_3.toValue(tmp_2),
+                                                                                alignment: _descriptor_3.alignment() }).encode() } },
+                         { push: { storage: true,
+                                   value: __compactRuntime.StateValue.newCell({ value: _descriptor_4.toValue(2),
+                                                                                alignment: _descriptor_4.alignment() }).encode() } },
+                         { ins: { cached: false, n: 1 } },
+                         { ins: { cached: true, n: 2 } }
+                        ]);
+      }
       Contract._query(context,
                       partialProofData,
                       [
@@ -2230,8 +6246,8 @@ class Contract {
                                  value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(3n),
                                                                               alignment: _descriptor_11.alignment() }).encode() } },
                        { push: { storage: true,
-                                 value: __compactRuntime.StateValue.newCell({ value: _descriptor_3.toValue(false),
-                                                                              alignment: _descriptor_3.alignment() }).encode() } },
+                                 value: __compactRuntime.StateValue.newCell({ value: _descriptor_6.toValue(false),
+                                                                              alignment: _descriptor_6.alignment() }).encode() } },
                        { ins: { cached: false, n: 1 } },
                        { ins: { cached: true, n: 1 } }
                       ]);
@@ -2249,32 +6265,32 @@ class Contract {
                                  value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(12n),
                                                                               alignment: _descriptor_11.alignment() }).encode() } },
                        { push: { storage: true,
-                                 value: __compactRuntime.StateValue.newCell({ value: _descriptor_3.toValue(true),
-                                                                              alignment: _descriptor_3.alignment() }).encode() } },
+                                 value: __compactRuntime.StateValue.newCell({ value: _descriptor_6.toValue(true),
+                                                                              alignment: _descriptor_6.alignment() }).encode() } },
                        { ins: { cached: false, n: 1 } },
                        { ins: { cached: true, n: 1 } }
                       ]);
-    } else {
-      __compactRuntime.assert(this.#_equal_12(player,
-                                              _descriptor_2.fromValue(Contract._query(context,
-                                                                                      partialProofData,
-                                                                                      [
-                                                                                       { dup: { n: 0 } },
-                                                                                       { idx: { cached: false,
-                                                                                                pushPath: false,
-                                                                                                path: [
-                                                                                                       { tag: 'value',
-                                                                                                         value: { value: _descriptor_11.toValue(1n),
-                                                                                                                  alignment: _descriptor_11.alignment() } },
-                                                                                                       { tag: 'value',
-                                                                                                         value: { value: _descriptor_11.toValue(6n),
-                                                                                                                  alignment: _descriptor_11.alignment() } }
-                                                                                                      ] } },
-                                                                                       { popeq: { cached: false,
-                                                                                                  result: undefined } }
-                                                                                      ]).value)),
-                              'You are not player two');
-      __compactRuntime.assert(_descriptor_3.fromValue(Contract._query(context,
+    }
+    if (this.#_equal_73(player,
+                        _descriptor_2.fromValue(Contract._query(context,
+                                                                partialProofData,
+                                                                [
+                                                                 { dup: { n: 0 } },
+                                                                 { idx: { cached: false,
+                                                                          pushPath: false,
+                                                                          path: [
+                                                                                 { tag: 'value',
+                                                                                   value: { value: _descriptor_11.toValue(1n),
+                                                                                            alignment: _descriptor_11.alignment() } },
+                                                                                 { tag: 'value',
+                                                                                   value: { value: _descriptor_11.toValue(6n),
+                                                                                            alignment: _descriptor_11.alignment() } }
+                                                                                ] } },
+                                                                 { popeq: { cached: false,
+                                                                            result: undefined } }
+                                                                ]).value)))
+    {
+      __compactRuntime.assert(_descriptor_6.fromValue(Contract._query(context,
                                                                       partialProofData,
                                                                       [
                                                                        { dup: { n: 0 } },
@@ -2294,7 +6310,7 @@ class Contract {
                               ===
                               true,
                               "It is not player two's turn");
-      __compactRuntime.assert(this.#_equal_13(_descriptor_2.fromValue(Contract._query(context,
+      __compactRuntime.assert(this.#_equal_74(_descriptor_2.fromValue(Contract._query(context,
                                                                                       partialProofData,
                                                                                       [
                                                                                        { dup: { n: 0 } },
@@ -2316,9 +6332,9 @@ class Contract {
                                                                   this.#_local_sk_0(context,
                                                                                     partialProofData))),
                               'You are not player two');
-      let tmp_4;
-      __compactRuntime.assert((tmp_4 = move,
-                               _descriptor_6.fromValue(Contract._query(context,
+      let tmp_3;
+      __compactRuntime.assert((tmp_3 = move,
+                               _descriptor_4.fromValue(Contract._query(context,
                                                                        partialProofData,
                                                                        [
                                                                         { dup: { n: 0 } },
@@ -2329,15 +6345,15 @@ class Contract {
                                                                                           value: { value: _descriptor_11.toValue(0n),
                                                                                                    alignment: _descriptor_11.alignment() } },
                                                                                         { tag: 'value',
-                                                                                          value: { value: _descriptor_11.toValue(4n),
+                                                                                          value: { value: _descriptor_11.toValue(3n),
                                                                                                    alignment: _descriptor_11.alignment() } }
                                                                                        ] } },
                                                                         { idx: { cached: false,
                                                                                  pushPath: false,
                                                                                  path: [
                                                                                         { tag: 'value',
-                                                                                          value: { value: _descriptor_5.toValue(tmp_4),
-                                                                                                   alignment: _descriptor_5.alignment() } }
+                                                                                          value: { value: _descriptor_3.toValue(tmp_3),
+                                                                                                   alignment: _descriptor_3.alignment() } }
                                                                                        ] } },
                                                                         { popeq: { cached: false,
                                                                                    result: undefined } }
@@ -2359,12 +6375,12 @@ class Contract {
                                  value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(13n),
                                                                               alignment: _descriptor_11.alignment() }).encode() } },
                        { push: { storage: true,
-                                 value: __compactRuntime.StateValue.newCell({ value: _descriptor_7.toValue(move),
-                                                                              alignment: _descriptor_7.alignment() }).encode() } },
+                                 value: __compactRuntime.StateValue.newCell({ value: _descriptor_5.toValue(move),
+                                                                              alignment: _descriptor_5.alignment() }).encode() } },
                        { ins: { cached: false, n: 1 } },
                        { ins: { cached: true, n: 1 } }
                       ]);
-      __compactRuntime.assert(this.#_equal_14(this.#_vectorHash_0(context,
+      __compactRuntime.assert(this.#_equal_75(this.#_vectorHash_0(context,
                                                                   partialProofData,
                                                                   this.#_local_gameplay_0(context,
                                                                                           partialProofData)),
@@ -2386,231 +6402,168 @@ class Contract {
                                                                                                   result: undefined } }
                                                                                       ]).value)),
                               'Player two has tampered with the grid');
-      this.#_folder_3(context,
-                      partialProofData,
-                      ((context, partialProofData, t_0, gameCell_0) =>
-                       {
-                         const tmp_5 = 1n;
-                         Contract._query(context,
-                                         partialProofData,
-                                         [
-                                          { idx: { cached: false,
-                                                   pushPath: true,
-                                                   path: [
-                                                          { tag: 'value',
-                                                            value: { value: _descriptor_11.toValue(0n),
-                                                                     alignment: _descriptor_11.alignment() } },
-                                                          { tag: 'value',
-                                                            value: { value: _descriptor_11.toValue(2n),
-                                                                     alignment: _descriptor_11.alignment() } }
-                                                         ] } },
-                                          { addi: { immediate: parseInt(__compactRuntime.valueToBigInt(
-                                                                 { value: _descriptor_4.toValue(tmp_5),
-                                                                   alignment: _descriptor_4.alignment() }
-                                                                   .value
-                                                               )) } },
-                                          { ins: { cached: true, n: 2 } }
-                                         ]);
-                         if (this.#_equal_15(_descriptor_8.fromValue(Contract._query(context,
-                                                                                     partialProofData,
-                                                                                     [
-                                                                                      { dup: { n: 0 } },
-                                                                                      { idx: { cached: false,
-                                                                                               pushPath: false,
-                                                                                               path: [
-                                                                                                      { tag: 'value',
-                                                                                                        value: { value: _descriptor_11.toValue(0n),
-                                                                                                                 alignment: _descriptor_11.alignment() } },
-                                                                                                      { tag: 'value',
-                                                                                                        value: { value: _descriptor_11.toValue(2n),
-                                                                                                                 alignment: _descriptor_11.alignment() } }
-                                                                                                     ] } },
-                                                                                      { popeq: { cached: true,
-                                                                                                 result: undefined } }
-                                                                                     ]).value),
-                                             _descriptor_7.fromValue(Contract._query(context,
-                                                                                     partialProofData,
-                                                                                     [
-                                                                                      { dup: { n: 0 } },
-                                                                                      { idx: { cached: false,
-                                                                                               pushPath: false,
-                                                                                               path: [
-                                                                                                      { tag: 'value',
-                                                                                                        value: { value: _descriptor_11.toValue(1n),
-                                                                                                                 alignment: _descriptor_11.alignment() } },
-                                                                                                      { tag: 'value',
-                                                                                                        value: { value: _descriptor_11.toValue(4n),
-                                                                                                                 alignment: _descriptor_11.alignment() } }
-                                                                                                     ] } },
-                                                                                      { popeq: { cached: false,
-                                                                                                 result: undefined } }
-                                                                                     ]).value)))
-                         {
-                           if (gameCell_0 === 1) {
-                             const tmp_6 = _descriptor_7.fromValue(Contract._query(context,
-                                                                                   partialProofData,
-                                                                                   [
-                                                                                    { dup: { n: 0 } },
-                                                                                    { idx: { cached: false,
-                                                                                             pushPath: false,
-                                                                                             path: [
-                                                                                                    { tag: 'value',
-                                                                                                      value: { value: _descriptor_11.toValue(1n),
-                                                                                                               alignment: _descriptor_11.alignment() } },
-                                                                                                    { tag: 'value',
-                                                                                                      value: { value: _descriptor_11.toValue(4n),
-                                                                                                               alignment: _descriptor_11.alignment() } }
-                                                                                                   ] } },
-                                                                                    { popeq: { cached: false,
-                                                                                               result: undefined } }
-                                                                                   ]).value);
-                             Contract._query(context,
-                                             partialProofData,
-                                             [
-                                              { idx: { cached: false,
-                                                       pushPath: true,
-                                                       path: [
-                                                              { tag: 'value',
-                                                                value: { value: _descriptor_11.toValue(1n),
-                                                                         alignment: _descriptor_11.alignment() } },
-                                                              { tag: 'value',
-                                                                value: { value: _descriptor_11.toValue(7n),
-                                                                         alignment: _descriptor_11.alignment() } }
-                                                             ] } },
-                                              { push: { storage: false,
-                                                        value: __compactRuntime.StateValue.newCell({ value: _descriptor_5.toValue(tmp_6),
-                                                                                                     alignment: _descriptor_5.alignment() }).encode() } },
-                                              { push: { storage: true,
-                                                        value: __compactRuntime.StateValue.newCell({ value: _descriptor_6.toValue(1),
-                                                                                                     alignment: _descriptor_6.alignment() }).encode() } },
-                                              { ins: { cached: false, n: 1 } },
-                                              { ins: { cached: true, n: 2 } }
-                                             ]);
-                             if (this.#_equal_16(_descriptor_8.fromValue(Contract._query(context,
-                                                                                         partialProofData,
-                                                                                         [
-                                                                                          { dup: { n: 0 } },
-                                                                                          { idx: { cached: false,
-                                                                                                   pushPath: false,
-                                                                                                   path: [
-                                                                                                          { tag: 'value',
-                                                                                                            value: { value: _descriptor_11.toValue(1n),
-                                                                                                                     alignment: _descriptor_11.alignment() } },
-                                                                                                          { tag: 'value',
-                                                                                                            value: { value: _descriptor_11.toValue(0n),
-                                                                                                                     alignment: _descriptor_11.alignment() } }
-                                                                                                         ] } },
-                                                                                          { popeq: { cached: true,
-                                                                                                     result: undefined } }
-                                                                                         ]).value),
-                                                 16n))
-                             {
-                               Contract._query(context,
-                                               partialProofData,
-                                               [
-                                                { idx: { cached: false,
-                                                         pushPath: true,
-                                                         path: [
-                                                                { tag: 'value',
-                                                                  value: { value: _descriptor_11.toValue(1n),
-                                                                           alignment: _descriptor_11.alignment() } }
-                                                               ] } },
-                                                { push: { storage: false,
-                                                          value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(5n),
-                                                                                                       alignment: _descriptor_11.alignment() }).encode() } },
-                                                { push: { storage: true,
-                                                          value: __compactRuntime.StateValue.newCell({ value: _descriptor_3.toValue(true),
-                                                                                                       alignment: _descriptor_3.alignment() }).encode() } },
-                                                { ins: { cached: false, n: 1 } },
-                                                { ins: { cached: true, n: 1 } }
-                                               ]);
-                             }
-                             const tmp_7 = 1n;
-                             Contract._query(context,
-                                             partialProofData,
-                                             [
-                                              { idx: { cached: false,
-                                                       pushPath: true,
-                                                       path: [
-                                                              { tag: 'value',
-                                                                value: { value: _descriptor_11.toValue(1n),
-                                                                         alignment: _descriptor_11.alignment() } },
-                                                              { tag: 'value',
-                                                                value: { value: _descriptor_11.toValue(0n),
-                                                                         alignment: _descriptor_11.alignment() } }
-                                                             ] } },
-                                              { addi: { immediate: parseInt(__compactRuntime.valueToBigInt(
-                                                                     { value: _descriptor_4.toValue(tmp_7),
-                                                                       alignment: _descriptor_4.alignment() }
-                                                                       .value
-                                                                   )) } },
-                                              { ins: { cached: true, n: 2 } }
-                                             ]);
-                           } else {
-                             const tmp_8 = _descriptor_7.fromValue(Contract._query(context,
-                                                                                   partialProofData,
-                                                                                   [
-                                                                                    { dup: { n: 0 } },
-                                                                                    { idx: { cached: false,
-                                                                                             pushPath: false,
-                                                                                             path: [
-                                                                                                    { tag: 'value',
-                                                                                                      value: { value: _descriptor_11.toValue(1n),
-                                                                                                               alignment: _descriptor_11.alignment() } },
-                                                                                                    { tag: 'value',
-                                                                                                      value: { value: _descriptor_11.toValue(4n),
-                                                                                                               alignment: _descriptor_11.alignment() } }
-                                                                                                   ] } },
-                                                                                    { popeq: { cached: false,
-                                                                                               result: undefined } }
-                                                                                   ]).value);
-                             Contract._query(context,
-                                             partialProofData,
-                                             [
-                                              { idx: { cached: false,
-                                                       pushPath: true,
-                                                       path: [
-                                                              { tag: 'value',
-                                                                value: { value: _descriptor_11.toValue(1n),
-                                                                         alignment: _descriptor_11.alignment() } },
-                                                              { tag: 'value',
-                                                                value: { value: _descriptor_11.toValue(7n),
-                                                                         alignment: _descriptor_11.alignment() } }
-                                                             ] } },
-                                              { push: { storage: false,
-                                                        value: __compactRuntime.StateValue.newCell({ value: _descriptor_5.toValue(tmp_8),
-                                                                                                     alignment: _descriptor_5.alignment() }).encode() } },
-                                              { push: { storage: true,
-                                                        value: __compactRuntime.StateValue.newCell({ value: _descriptor_6.toValue(2),
-                                                                                                     alignment: _descriptor_6.alignment() }).encode() } },
-                                              { ins: { cached: false, n: 1 } },
-                                              { ins: { cached: true, n: 2 } }
-                                             ]);
-                           }
-                         }
-                         return t_0;
-                       }),
-                      false,
-                      this.#_local_gameplay_0(context, partialProofData));
-      Contract._query(context,
-                      partialProofData,
-                      [
-                       { idx: { cached: false,
-                                pushPath: true,
-                                path: [
-                                       { tag: 'value',
-                                         value: { value: _descriptor_11.toValue(0n),
-                                                  alignment: _descriptor_11.alignment() } }
-                                      ] } },
-                       { push: { storage: false,
-                                 value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(2n),
-                                                                              alignment: _descriptor_11.alignment() }).encode() } },
-                       { push: { storage: true,
-                                 value: __compactRuntime.StateValue.newCell({ value: _descriptor_8.toValue(0n),
-                                                                              alignment: _descriptor_8.alignment() }).encode() } },
-                       { ins: { cached: false, n: 1 } },
-                       { ins: { cached: true, n: 1 } }
-                      ]);
+      const privatePlay_0 = this.#_local_gameplay_0(context, partialProofData);
+      const wasHit_0 = this.#_hasShip_0(context,
+                                        partialProofData,
+                                        privatePlay_0,
+                                        _descriptor_5.fromValue(Contract._query(context,
+                                                                                partialProofData,
+                                                                                [
+                                                                                 { dup: { n: 0 } },
+                                                                                 { idx: { cached: false,
+                                                                                          pushPath: false,
+                                                                                          path: [
+                                                                                                 { tag: 'value',
+                                                                                                   value: { value: _descriptor_11.toValue(1n),
+                                                                                                            alignment: _descriptor_11.alignment() } },
+                                                                                                 { tag: 'value',
+                                                                                                   value: { value: _descriptor_11.toValue(4n),
+                                                                                                            alignment: _descriptor_11.alignment() } }
+                                                                                                ] } },
+                                                                                 { popeq: { cached: false,
+                                                                                            result: undefined } }
+                                                                                ]).value));
+      if (wasHit_0) {
+        const tmp_4 = _descriptor_5.fromValue(Contract._query(context,
+                                                              partialProofData,
+                                                              [
+                                                               { dup: { n: 0 } },
+                                                               { idx: { cached: false,
+                                                                        pushPath: false,
+                                                                        path: [
+                                                                               { tag: 'value',
+                                                                                 value: { value: _descriptor_11.toValue(1n),
+                                                                                          alignment: _descriptor_11.alignment() } },
+                                                                               { tag: 'value',
+                                                                                 value: { value: _descriptor_11.toValue(4n),
+                                                                                          alignment: _descriptor_11.alignment() } }
+                                                                              ] } },
+                                                               { popeq: { cached: false,
+                                                                          result: undefined } }
+                                                              ]).value);
+        Contract._query(context,
+                        partialProofData,
+                        [
+                         { idx: { cached: false,
+                                  pushPath: true,
+                                  path: [
+                                         { tag: 'value',
+                                           value: { value: _descriptor_11.toValue(1n),
+                                                    alignment: _descriptor_11.alignment() } },
+                                         { tag: 'value',
+                                           value: { value: _descriptor_11.toValue(7n),
+                                                    alignment: _descriptor_11.alignment() } }
+                                        ] } },
+                         { push: { storage: false,
+                                   value: __compactRuntime.StateValue.newCell({ value: _descriptor_3.toValue(tmp_4),
+                                                                                alignment: _descriptor_3.alignment() }).encode() } },
+                         { push: { storage: true,
+                                   value: __compactRuntime.StateValue.newCell({ value: _descriptor_4.toValue(1),
+                                                                                alignment: _descriptor_4.alignment() }).encode() } },
+                         { ins: { cached: false, n: 1 } },
+                         { ins: { cached: true, n: 2 } }
+                        ]);
+        if (this.#_equal_76(_descriptor_7.fromValue(Contract._query(context,
+                                                                    partialProofData,
+                                                                    [
+                                                                     { dup: { n: 0 } },
+                                                                     { idx: { cached: false,
+                                                                              pushPath: false,
+                                                                              path: [
+                                                                                     { tag: 'value',
+                                                                                       value: { value: _descriptor_11.toValue(1n),
+                                                                                                alignment: _descriptor_11.alignment() } },
+                                                                                     { tag: 'value',
+                                                                                       value: { value: _descriptor_11.toValue(0n),
+                                                                                                alignment: _descriptor_11.alignment() } }
+                                                                                    ] } },
+                                                                     { popeq: { cached: true,
+                                                                                result: undefined } }
+                                                                    ]).value),
+                            15n))
+        {
+          Contract._query(context,
+                          partialProofData,
+                          [
+                           { idx: { cached: false,
+                                    pushPath: true,
+                                    path: [
+                                           { tag: 'value',
+                                             value: { value: _descriptor_11.toValue(1n),
+                                                      alignment: _descriptor_11.alignment() } }
+                                          ] } },
+                           { push: { storage: false,
+                                     value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(5n),
+                                                                                  alignment: _descriptor_11.alignment() }).encode() } },
+                           { push: { storage: true,
+                                     value: __compactRuntime.StateValue.newCell({ value: _descriptor_6.toValue(true),
+                                                                                  alignment: _descriptor_6.alignment() }).encode() } },
+                           { ins: { cached: false, n: 1 } },
+                           { ins: { cached: true, n: 1 } }
+                          ]);
+        }
+        const tmp_5 = 1n;
+        Contract._query(context,
+                        partialProofData,
+                        [
+                         { idx: { cached: false,
+                                  pushPath: true,
+                                  path: [
+                                         { tag: 'value',
+                                           value: { value: _descriptor_11.toValue(1n),
+                                                    alignment: _descriptor_11.alignment() } },
+                                         { tag: 'value',
+                                           value: { value: _descriptor_11.toValue(0n),
+                                                    alignment: _descriptor_11.alignment() } }
+                                        ] } },
+                         { addi: { immediate: parseInt(__compactRuntime.valueToBigInt(
+                                                { value: _descriptor_8.toValue(tmp_5),
+                                                  alignment: _descriptor_8.alignment() }
+                                                  .value
+                                              )) } },
+                         { ins: { cached: true, n: 2 } }
+                        ]);
+      } else {
+        const tmp_6 = _descriptor_5.fromValue(Contract._query(context,
+                                                              partialProofData,
+                                                              [
+                                                               { dup: { n: 0 } },
+                                                               { idx: { cached: false,
+                                                                        pushPath: false,
+                                                                        path: [
+                                                                               { tag: 'value',
+                                                                                 value: { value: _descriptor_11.toValue(1n),
+                                                                                          alignment: _descriptor_11.alignment() } },
+                                                                               { tag: 'value',
+                                                                                 value: { value: _descriptor_11.toValue(4n),
+                                                                                          alignment: _descriptor_11.alignment() } }
+                                                                              ] } },
+                                                               { popeq: { cached: false,
+                                                                          result: undefined } }
+                                                              ]).value);
+        Contract._query(context,
+                        partialProofData,
+                        [
+                         { idx: { cached: false,
+                                  pushPath: true,
+                                  path: [
+                                         { tag: 'value',
+                                           value: { value: _descriptor_11.toValue(1n),
+                                                    alignment: _descriptor_11.alignment() } },
+                                         { tag: 'value',
+                                           value: { value: _descriptor_11.toValue(7n),
+                                                    alignment: _descriptor_11.alignment() } }
+                                        ] } },
+                         { push: { storage: false,
+                                   value: __compactRuntime.StateValue.newCell({ value: _descriptor_3.toValue(tmp_6),
+                                                                                alignment: _descriptor_3.alignment() }).encode() } },
+                         { push: { storage: true,
+                                   value: __compactRuntime.StateValue.newCell({ value: _descriptor_4.toValue(2),
+                                                                                alignment: _descriptor_4.alignment() }).encode() } },
+                         { ins: { cached: false, n: 1 } },
+                         { ins: { cached: true, n: 2 } }
+                        ]);
+      }
       Contract._query(context,
                       partialProofData,
                       [
@@ -2625,8 +6578,8 @@ class Contract {
                                  value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(12n),
                                                                               alignment: _descriptor_11.alignment() }).encode() } },
                        { push: { storage: true,
-                                 value: __compactRuntime.StateValue.newCell({ value: _descriptor_3.toValue(false),
-                                                                              alignment: _descriptor_3.alignment() }).encode() } },
+                                 value: __compactRuntime.StateValue.newCell({ value: _descriptor_6.toValue(false),
+                                                                              alignment: _descriptor_6.alignment() }).encode() } },
                        { ins: { cached: false, n: 1 } },
                        { ins: { cached: true, n: 1 } }
                       ]);
@@ -2644,8 +6597,8 @@ class Contract {
                                  value: __compactRuntime.StateValue.newCell({ value: _descriptor_11.toValue(3n),
                                                                               alignment: _descriptor_11.alignment() }).encode() } },
                        { push: { storage: true,
-                                 value: __compactRuntime.StateValue.newCell({ value: _descriptor_3.toValue(true),
-                                                                              alignment: _descriptor_3.alignment() }).encode() } },
+                                 value: __compactRuntime.StateValue.newCell({ value: _descriptor_6.toValue(true),
+                                                                              alignment: _descriptor_6.alignment() }).encode() } },
                        { ins: { cached: false, n: 1 } },
                        { ins: { cached: true, n: 1 } }
                       ]);
@@ -2662,36 +6615,31 @@ class Contract {
   }
   #_folder_0(context, partialProofData, f, x, a0)
   {
-    for (let i = 0; i < 100; i++) x = f(context, partialProofData, x, a0[i]);
+    for (let i = 0; i < 64; i++) x = f(context, partialProofData, x, a0[i]);
     return x;
   }
   #_equal_0(x0, y0) {
-    if (!x0.every((x, i) => y0[i] === x)) return false;
+    if (x0 !== y0) return false;
     return true;
-  }
-  #_folder_1(context, partialProofData, f, x, a0)
-  {
-    for (let i = 0; i < 100; i++) x = f(context, partialProofData, x, a0[i]);
-    return x;
   }
   #_equal_1(x0, y0) {
     if (x0 !== y0) return false;
     return true;
   }
   #_equal_2(x0, y0) {
-    if (!x0.every((x, i) => y0[i] === x)) return false;
+    if (x0 !== y0) return false;
     return true;
   }
   #_equal_3(x0, y0) {
-    if (!x0.every((x, i) => y0[i] === x)) return false;
+    if (x0 !== y0) return false;
     return true;
   }
   #_equal_4(x0, y0) {
-    if (!x0.every((x, i) => y0[i] === x)) return false;
+    if (x0 !== y0) return false;
     return true;
   }
   #_equal_5(x0, y0) {
-    if (!x0.every((x, i) => y0[i] === x)) return false;
+    if (x0 !== y0) return false;
     return true;
   }
   #_equal_6(x0, y0) {
@@ -2699,15 +6647,15 @@ class Contract {
     return true;
   }
   #_equal_7(x0, y0) {
-    if (!x0.every((x, i) => y0[i] === x)) return false;
+    if (x0 !== y0) return false;
     return true;
   }
   #_equal_8(x0, y0) {
-    if (!x0.every((x, i) => y0[i] === x)) return false;
+    if (x0 !== y0) return false;
     return true;
   }
   #_equal_9(x0, y0) {
-    if (!x0.every((x, i) => y0[i] === x)) return false;
+    if (x0 !== y0) return false;
     return true;
   }
   #_equal_10(x0, y0) {
@@ -2718,21 +6666,16 @@ class Contract {
     if (x0 !== y0) return false;
     return true;
   }
-  #_folder_2(context, partialProofData, f, x, a0)
-  {
-    for (let i = 0; i < 100; i++) x = f(context, partialProofData, x, a0[i]);
-    return x;
-  }
   #_equal_12(x0, y0) {
-    if (!x0.every((x, i) => y0[i] === x)) return false;
+    if (x0 !== y0) return false;
     return true;
   }
   #_equal_13(x0, y0) {
-    if (!x0.every((x, i) => y0[i] === x)) return false;
+    if (x0 !== y0) return false;
     return true;
   }
   #_equal_14(x0, y0) {
-    if (!x0.every((x, i) => y0[i] === x)) return false;
+    if (x0 !== y0) return false;
     return true;
   }
   #_equal_15(x0, y0) {
@@ -2743,10 +6686,261 @@ class Contract {
     if (x0 !== y0) return false;
     return true;
   }
-  #_folder_3(context, partialProofData, f, x, a0)
+  #_equal_17(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_18(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_19(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_20(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_21(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_22(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_23(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_24(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_25(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_26(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_27(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_28(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_29(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_30(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_31(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_32(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_33(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_34(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_35(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_36(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_37(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_38(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_39(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_40(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_41(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_42(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_43(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_44(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_45(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_46(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_47(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_48(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_49(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_50(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_51(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_52(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_53(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_54(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_55(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_56(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_57(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_58(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_59(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_60(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_61(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_62(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_mapper_0(context, partialProofData, f, a0, a1)
   {
-    for (let i = 0; i < 100; i++) x = f(context, partialProofData, x, a0[i]);
+    let a = [];
+    for (let i = 0; i < 64; i++) a[i] = f(context, partialProofData, a0[i], a1[i]);
+    return a;
+  }
+  #_folder_1(context, partialProofData, f, x, a0)
+  {
+    for (let i = 0; i < 64; i++) x = f(context, partialProofData, x, a0[i]);
     return x;
+  }
+  #_equal_63(x0, y0) {
+    if (!x0.every((x, i) => y0[i] === x)) return false;
+    return true;
+  }
+  #_folder_2(context, partialProofData, f, x, a0)
+  {
+    for (let i = 0; i < 64; i++) x = f(context, partialProofData, x, a0[i]);
+    return x;
+  }
+  #_equal_64(x0, y0) {
+    if (!x0.every((x, i) => y0[i] === x)) return false;
+    return true;
+  }
+  #_equal_65(x0, y0) {
+    if (!x0.every((x, i) => y0[i] === x)) return false;
+    return true;
+  }
+  #_equal_66(x0, y0) {
+    if (!x0.every((x, i) => y0[i] === x)) return false;
+    return true;
+  }
+  #_equal_67(x0, y0) {
+    if (!x0.every((x, i) => y0[i] === x)) return false;
+    return true;
+  }
+  #_equal_68(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_69(x0, y0) {
+    if (!x0.every((x, i) => y0[i] === x)) return false;
+    return true;
+  }
+  #_equal_70(x0, y0) {
+    if (!x0.every((x, i) => y0[i] === x)) return false;
+    return true;
+  }
+  #_equal_71(x0, y0) {
+    if (!x0.every((x, i) => y0[i] === x)) return false;
+    return true;
+  }
+  #_equal_72(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
+  }
+  #_equal_73(x0, y0) {
+    if (!x0.every((x, i) => y0[i] === x)) return false;
+    return true;
+  }
+  #_equal_74(x0, y0) {
+    if (!x0.every((x, i) => y0[i] === x)) return false;
+    return true;
+  }
+  #_equal_75(x0, y0) {
+    if (!x0.every((x, i) => y0[i] === x)) return false;
+    return true;
+  }
+  #_equal_76(x0, y0) {
+    if (x0 !== y0) return false;
+    return true;
   }
   static _query(context, partialProofData, prog) {
     var res;
@@ -2788,7 +6982,7 @@ function ledger(state) {
   };
   return {
     get gameStarted() {
-      return _descriptor_3.fromValue(Contract._query(context,
+      return _descriptor_6.fromValue(Contract._query(context,
                                                      partialProofData,
                                                      [
                                                       { dup: { n: 0 } },
@@ -2807,7 +7001,7 @@ function ledger(state) {
                                                      ]).value);
     },
     get players() {
-      return _descriptor_8.fromValue(Contract._query(context,
+      return _descriptor_7.fromValue(Contract._query(context,
                                                      partialProofData,
                                                      [
                                                       { dup: { n: 0 } },
@@ -2819,25 +7013,6 @@ function ledger(state) {
                                                                                  alignment: _descriptor_11.alignment() } },
                                                                       { tag: 'value',
                                                                         value: { value: _descriptor_11.toValue(1n),
-                                                                                 alignment: _descriptor_11.alignment() } }
-                                                                     ] } },
-                                                      { popeq: { cached: true,
-                                                                 result: undefined } }
-                                                     ]).value);
-    },
-    get internalCounter() {
-      return _descriptor_8.fromValue(Contract._query(context,
-                                                     partialProofData,
-                                                     [
-                                                      { dup: { n: 0 } },
-                                                      { idx: { cached: false,
-                                                               pushPath: false,
-                                                               path: [
-                                                                      { tag: 'value',
-                                                                        value: { value: _descriptor_11.toValue(0n),
-                                                                                 alignment: _descriptor_11.alignment() } },
-                                                                      { tag: 'value',
-                                                                        value: { value: _descriptor_11.toValue(2n),
                                                                                  alignment: _descriptor_11.alignment() } }
                                                                      ] } },
                                                       { popeq: { cached: true,
@@ -2856,7 +7031,7 @@ function ledger(state) {
                                                                         value: { value: _descriptor_11.toValue(0n),
                                                                                  alignment: _descriptor_11.alignment() } },
                                                                       { tag: 'value',
-                                                                        value: { value: _descriptor_11.toValue(3n),
+                                                                        value: { value: _descriptor_11.toValue(2n),
                                                                                  alignment: _descriptor_11.alignment() } }
                                                                      ] } },
                                                       { popeq: { cached: false,
@@ -2867,7 +7042,7 @@ function ledger(state) {
       isEmpty(...args) {
         if (args.length !== 0)
           throw new __compactRuntime.CompactError(`is_empty: expected 0 arguments, received ${args.length}`);
-        return _descriptor_3.fromValue(Contract._query(context,
+        return _descriptor_6.fromValue(Contract._query(context,
                                                        partialProofData,
                                                        [
                                                         { dup: { n: 0 } },
@@ -2878,13 +7053,13 @@ function ledger(state) {
                                                                           value: { value: _descriptor_11.toValue(0n),
                                                                                    alignment: _descriptor_11.alignment() } },
                                                                         { tag: 'value',
-                                                                          value: { value: _descriptor_11.toValue(4n),
+                                                                          value: { value: _descriptor_11.toValue(3n),
                                                                                    alignment: _descriptor_11.alignment() } }
                                                                        ] } },
                                                         'size',
                                                         { push: { storage: false,
-                                                                  value: __compactRuntime.StateValue.newCell({ value: _descriptor_8.toValue(0n),
-                                                                                                               alignment: _descriptor_8.alignment() }).encode() } },
+                                                                  value: __compactRuntime.StateValue.newCell({ value: _descriptor_7.toValue(0n),
+                                                                                                               alignment: _descriptor_7.alignment() }).encode() } },
                                                         'eq',
                                                         { popeq: { cached: true,
                                                                    result: undefined } }
@@ -2893,7 +7068,7 @@ function ledger(state) {
       size(...args) {
         if (args.length !== 0)
           throw new __compactRuntime.CompactError(`size: expected 0 arguments, received ${args.length}`);
-        return _descriptor_8.fromValue(Contract._query(context,
+        return _descriptor_7.fromValue(Contract._query(context,
                                                        partialProofData,
                                                        [
                                                         { dup: { n: 0 } },
@@ -2904,7 +7079,7 @@ function ledger(state) {
                                                                           value: { value: _descriptor_11.toValue(0n),
                                                                                    alignment: _descriptor_11.alignment() } },
                                                                         { tag: 'value',
-                                                                          value: { value: _descriptor_11.toValue(4n),
+                                                                          value: { value: _descriptor_11.toValue(3n),
                                                                                    alignment: _descriptor_11.alignment() } }
                                                                        ] } },
                                                         'size',
@@ -2919,39 +7094,7 @@ function ledger(state) {
         if (!(typeof(key) === 'bigint' && key >= 0 && key <= 4294967295n))
           __compactRuntime.type_error('member',
                                       'argument 1',
-                                      './src/naval-battle-game.compact line 21, char 1',
-                                      'Uint<0..4294967295>',
-                                      key)
-        return _descriptor_3.fromValue(Contract._query(context,
-                                                       partialProofData,
-                                                       [
-                                                        { dup: { n: 0 } },
-                                                        { idx: { cached: false,
-                                                                 pushPath: false,
-                                                                 path: [
-                                                                        { tag: 'value',
-                                                                          value: { value: _descriptor_11.toValue(0n),
-                                                                                   alignment: _descriptor_11.alignment() } },
-                                                                        { tag: 'value',
-                                                                          value: { value: _descriptor_11.toValue(4n),
-                                                                                   alignment: _descriptor_11.alignment() } }
-                                                                       ] } },
-                                                        { push: { storage: false,
-                                                                  value: __compactRuntime.StateValue.newCell({ value: _descriptor_5.toValue(key),
-                                                                                                               alignment: _descriptor_5.alignment() }).encode() } },
-                                                        'member',
-                                                        { popeq: { cached: true,
-                                                                   result: undefined } }
-                                                       ]).value);
-      },
-      lookup(...args) {
-        if (args.length !== 1)
-          throw new __compactRuntime.CompactError(`lookup: expected 1 argument, received ${args.length}`);
-        const key = args[0];
-        if (!(typeof(key) === 'bigint' && key >= 0 && key <= 4294967295n))
-          __compactRuntime.type_error('lookup',
-                                      'argument 1',
-                                      './src/naval-battle-game.compact line 21, char 1',
+                                      './src/naval-battle-game.compact line 19, char 1',
                                       'Uint<0..4294967295>',
                                       key)
         return _descriptor_6.fromValue(Contract._query(context,
@@ -2965,15 +7108,47 @@ function ledger(state) {
                                                                           value: { value: _descriptor_11.toValue(0n),
                                                                                    alignment: _descriptor_11.alignment() } },
                                                                         { tag: 'value',
-                                                                          value: { value: _descriptor_11.toValue(4n),
+                                                                          value: { value: _descriptor_11.toValue(3n),
+                                                                                   alignment: _descriptor_11.alignment() } }
+                                                                       ] } },
+                                                        { push: { storage: false,
+                                                                  value: __compactRuntime.StateValue.newCell({ value: _descriptor_3.toValue(key),
+                                                                                                               alignment: _descriptor_3.alignment() }).encode() } },
+                                                        'member',
+                                                        { popeq: { cached: true,
+                                                                   result: undefined } }
+                                                       ]).value);
+      },
+      lookup(...args) {
+        if (args.length !== 1)
+          throw new __compactRuntime.CompactError(`lookup: expected 1 argument, received ${args.length}`);
+        const key = args[0];
+        if (!(typeof(key) === 'bigint' && key >= 0 && key <= 4294967295n))
+          __compactRuntime.type_error('lookup',
+                                      'argument 1',
+                                      './src/naval-battle-game.compact line 19, char 1',
+                                      'Uint<0..4294967295>',
+                                      key)
+        return _descriptor_4.fromValue(Contract._query(context,
+                                                       partialProofData,
+                                                       [
+                                                        { dup: { n: 0 } },
+                                                        { idx: { cached: false,
+                                                                 pushPath: false,
+                                                                 path: [
+                                                                        { tag: 'value',
+                                                                          value: { value: _descriptor_11.toValue(0n),
+                                                                                   alignment: _descriptor_11.alignment() } },
+                                                                        { tag: 'value',
+                                                                          value: { value: _descriptor_11.toValue(3n),
                                                                                    alignment: _descriptor_11.alignment() } }
                                                                        ] } },
                                                         { idx: { cached: false,
                                                                  pushPath: false,
                                                                  path: [
                                                                         { tag: 'value',
-                                                                          value: { value: _descriptor_5.toValue(key),
-                                                                                   alignment: _descriptor_5.alignment() } }
+                                                                          value: { value: _descriptor_3.toValue(key),
+                                                                                   alignment: _descriptor_3.alignment() } }
                                                                        ] } },
                                                         { popeq: { cached: false,
                                                                    result: undefined } }
@@ -2982,8 +7157,8 @@ function ledger(state) {
       [Symbol.iterator](...args) {
         if (args.length !== 0)
           throw new __compactRuntime.CompactError(`iter: expected 0 arguments, received ${args.length}`);
-        const self = state.asArray()[0].asArray()[4];
-        return self.asMap().keys().map(  (key) => {    const value = self.asMap().get(key).asCell();    return [      _descriptor_5.fromValue(key.value),      _descriptor_6.fromValue(value.value)    ];  })[Symbol.iterator]();
+        const self = state.asArray()[0].asArray()[3];
+        return self.asMap().keys().map(  (key) => {    const value = self.asMap().get(key).asCell();    return [      _descriptor_3.fromValue(key.value),      _descriptor_4.fromValue(value.value)    ];  })[Symbol.iterator]();
       }
     },
     get playerOneCommit() {
@@ -2998,7 +7173,7 @@ function ledger(state) {
                                                                         value: { value: _descriptor_11.toValue(0n),
                                                                                  alignment: _descriptor_11.alignment() } },
                                                                       { tag: 'value',
-                                                                        value: { value: _descriptor_11.toValue(5n),
+                                                                        value: { value: _descriptor_11.toValue(4n),
                                                                                  alignment: _descriptor_11.alignment() } }
                                                                      ] } },
                                                       { popeq: { cached: false,
@@ -3006,7 +7181,7 @@ function ledger(state) {
                                                      ]).value);
     },
     get playerOneHits() {
-      return _descriptor_8.fromValue(Contract._query(context,
+      return _descriptor_7.fromValue(Contract._query(context,
                                                      partialProofData,
                                                      [
                                                       { dup: { n: 0 } },
@@ -3025,7 +7200,7 @@ function ledger(state) {
                                                      ]).value);
     },
     get playerOneHasCommitted() {
-      return _descriptor_3.fromValue(Contract._query(context,
+      return _descriptor_6.fromValue(Contract._query(context,
                                                      partialProofData,
                                                      [
                                                       { dup: { n: 0 } },
@@ -3044,7 +7219,7 @@ function ledger(state) {
                                                      ]).value);
     },
     get playerOneHasJoinedTheGame() {
-      return _descriptor_3.fromValue(Contract._query(context,
+      return _descriptor_6.fromValue(Contract._query(context,
                                                      partialProofData,
                                                      [
                                                       { dup: { n: 0 } },
@@ -3063,7 +7238,7 @@ function ledger(state) {
                                                      ]).value);
     },
     get playerOneTimeToPlay() {
-      return _descriptor_3.fromValue(Contract._query(context,
+      return _descriptor_6.fromValue(Contract._query(context,
                                                      partialProofData,
                                                      [
                                                       { dup: { n: 0 } },
@@ -3082,7 +7257,7 @@ function ledger(state) {
                                                      ]).value);
     },
     get playerOneCurrentMove() {
-      return _descriptor_7.fromValue(Contract._query(context,
+      return _descriptor_5.fromValue(Contract._query(context,
                                                      partialProofData,
                                                      [
                                                       { dup: { n: 0 } },
@@ -3101,7 +7276,7 @@ function ledger(state) {
                                                      ]).value);
     },
     get playerOneIsWinner() {
-      return _descriptor_3.fromValue(Contract._query(context,
+      return _descriptor_6.fromValue(Contract._query(context,
                                                      partialProofData,
                                                      [
                                                       { dup: { n: 0 } },
@@ -3142,7 +7317,7 @@ function ledger(state) {
       isEmpty(...args) {
         if (args.length !== 0)
           throw new __compactRuntime.CompactError(`is_empty: expected 0 arguments, received ${args.length}`);
-        return _descriptor_3.fromValue(Contract._query(context,
+        return _descriptor_6.fromValue(Contract._query(context,
                                                        partialProofData,
                                                        [
                                                         { dup: { n: 0 } },
@@ -3158,8 +7333,8 @@ function ledger(state) {
                                                                        ] } },
                                                         'size',
                                                         { push: { storage: false,
-                                                                  value: __compactRuntime.StateValue.newCell({ value: _descriptor_8.toValue(0n),
-                                                                                                               alignment: _descriptor_8.alignment() }).encode() } },
+                                                                  value: __compactRuntime.StateValue.newCell({ value: _descriptor_7.toValue(0n),
+                                                                                                               alignment: _descriptor_7.alignment() }).encode() } },
                                                         'eq',
                                                         { popeq: { cached: true,
                                                                    result: undefined } }
@@ -3168,7 +7343,7 @@ function ledger(state) {
       size(...args) {
         if (args.length !== 0)
           throw new __compactRuntime.CompactError(`size: expected 0 arguments, received ${args.length}`);
-        return _descriptor_8.fromValue(Contract._query(context,
+        return _descriptor_7.fromValue(Contract._query(context,
                                                        partialProofData,
                                                        [
                                                         { dup: { n: 0 } },
@@ -3194,39 +7369,7 @@ function ledger(state) {
         if (!(typeof(key) === 'bigint' && key >= 0 && key <= 4294967295n))
           __compactRuntime.type_error('member',
                                       'argument 1',
-                                      './src/naval-battle-game.compact line 31, char 1',
-                                      'Uint<0..4294967295>',
-                                      key)
-        return _descriptor_3.fromValue(Contract._query(context,
-                                                       partialProofData,
-                                                       [
-                                                        { dup: { n: 0 } },
-                                                        { idx: { cached: false,
-                                                                 pushPath: false,
-                                                                 path: [
-                                                                        { tag: 'value',
-                                                                          value: { value: _descriptor_11.toValue(1n),
-                                                                                   alignment: _descriptor_11.alignment() } },
-                                                                        { tag: 'value',
-                                                                          value: { value: _descriptor_11.toValue(7n),
-                                                                                   alignment: _descriptor_11.alignment() } }
-                                                                       ] } },
-                                                        { push: { storage: false,
-                                                                  value: __compactRuntime.StateValue.newCell({ value: _descriptor_5.toValue(key),
-                                                                                                               alignment: _descriptor_5.alignment() }).encode() } },
-                                                        'member',
-                                                        { popeq: { cached: true,
-                                                                   result: undefined } }
-                                                       ]).value);
-      },
-      lookup(...args) {
-        if (args.length !== 1)
-          throw new __compactRuntime.CompactError(`lookup: expected 1 argument, received ${args.length}`);
-        const key = args[0];
-        if (!(typeof(key) === 'bigint' && key >= 0 && key <= 4294967295n))
-          __compactRuntime.type_error('lookup',
-                                      'argument 1',
-                                      './src/naval-battle-game.compact line 31, char 1',
+                                      './src/naval-battle-game.compact line 29, char 1',
                                       'Uint<0..4294967295>',
                                       key)
         return _descriptor_6.fromValue(Contract._query(context,
@@ -3243,12 +7386,44 @@ function ledger(state) {
                                                                           value: { value: _descriptor_11.toValue(7n),
                                                                                    alignment: _descriptor_11.alignment() } }
                                                                        ] } },
+                                                        { push: { storage: false,
+                                                                  value: __compactRuntime.StateValue.newCell({ value: _descriptor_3.toValue(key),
+                                                                                                               alignment: _descriptor_3.alignment() }).encode() } },
+                                                        'member',
+                                                        { popeq: { cached: true,
+                                                                   result: undefined } }
+                                                       ]).value);
+      },
+      lookup(...args) {
+        if (args.length !== 1)
+          throw new __compactRuntime.CompactError(`lookup: expected 1 argument, received ${args.length}`);
+        const key = args[0];
+        if (!(typeof(key) === 'bigint' && key >= 0 && key <= 4294967295n))
+          __compactRuntime.type_error('lookup',
+                                      'argument 1',
+                                      './src/naval-battle-game.compact line 29, char 1',
+                                      'Uint<0..4294967295>',
+                                      key)
+        return _descriptor_4.fromValue(Contract._query(context,
+                                                       partialProofData,
+                                                       [
+                                                        { dup: { n: 0 } },
                                                         { idx: { cached: false,
                                                                  pushPath: false,
                                                                  path: [
                                                                         { tag: 'value',
-                                                                          value: { value: _descriptor_5.toValue(key),
-                                                                                   alignment: _descriptor_5.alignment() } }
+                                                                          value: { value: _descriptor_11.toValue(1n),
+                                                                                   alignment: _descriptor_11.alignment() } },
+                                                                        { tag: 'value',
+                                                                          value: { value: _descriptor_11.toValue(7n),
+                                                                                   alignment: _descriptor_11.alignment() } }
+                                                                       ] } },
+                                                        { idx: { cached: false,
+                                                                 pushPath: false,
+                                                                 path: [
+                                                                        { tag: 'value',
+                                                                          value: { value: _descriptor_3.toValue(key),
+                                                                                   alignment: _descriptor_3.alignment() } }
                                                                        ] } },
                                                         { popeq: { cached: false,
                                                                    result: undefined } }
@@ -3258,7 +7433,7 @@ function ledger(state) {
         if (args.length !== 0)
           throw new __compactRuntime.CompactError(`iter: expected 0 arguments, received ${args.length}`);
         const self = state.asArray()[1].asArray()[7];
-        return self.asMap().keys().map(  (key) => {    const value = self.asMap().get(key).asCell();    return [      _descriptor_5.fromValue(key.value),      _descriptor_6.fromValue(value.value)    ];  })[Symbol.iterator]();
+        return self.asMap().keys().map(  (key) => {    const value = self.asMap().get(key).asCell();    return [      _descriptor_3.fromValue(key.value),      _descriptor_4.fromValue(value.value)    ];  })[Symbol.iterator]();
       }
     },
     get playerTwoCommit() {
@@ -3281,7 +7456,7 @@ function ledger(state) {
                                                      ]).value);
     },
     get playerTwoHits() {
-      return _descriptor_8.fromValue(Contract._query(context,
+      return _descriptor_7.fromValue(Contract._query(context,
                                                      partialProofData,
                                                      [
                                                       { dup: { n: 0 } },
@@ -3300,7 +7475,7 @@ function ledger(state) {
                                                      ]).value);
     },
     get playerTwoHasCommitted() {
-      return _descriptor_3.fromValue(Contract._query(context,
+      return _descriptor_6.fromValue(Contract._query(context,
                                                      partialProofData,
                                                      [
                                                       { dup: { n: 0 } },
@@ -3319,7 +7494,7 @@ function ledger(state) {
                                                      ]).value);
     },
     get playerTwoHasJoinedTheGame() {
-      return _descriptor_3.fromValue(Contract._query(context,
+      return _descriptor_6.fromValue(Contract._query(context,
                                                      partialProofData,
                                                      [
                                                       { dup: { n: 0 } },
@@ -3338,7 +7513,7 @@ function ledger(state) {
                                                      ]).value);
     },
     get playerTwoTimeToPlay() {
-      return _descriptor_3.fromValue(Contract._query(context,
+      return _descriptor_6.fromValue(Contract._query(context,
                                                      partialProofData,
                                                      [
                                                       { dup: { n: 0 } },
@@ -3357,7 +7532,7 @@ function ledger(state) {
                                                      ]).value);
     },
     get playerTwoCurrentMove() {
-      return _descriptor_7.fromValue(Contract._query(context,
+      return _descriptor_5.fromValue(Contract._query(context,
                                                      partialProofData,
                                                      [
                                                       { dup: { n: 0 } },
@@ -3376,7 +7551,7 @@ function ledger(state) {
                                                      ]).value);
     },
     get playerTwoIsWinner() {
-      return _descriptor_3.fromValue(Contract._query(context,
+      return _descriptor_6.fromValue(Contract._query(context,
                                                      partialProofData,
                                                      [
                                                       { dup: { n: 0 } },

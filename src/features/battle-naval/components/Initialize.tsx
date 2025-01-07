@@ -7,17 +7,17 @@ export const Initialize = (): ReactElement => {
   const [joinAddressFocus, setJoinAddressFocus] = useState(false);
   const [participants, setParticipants] = useState<string>("");
   const [participantsFocus, setParticipantsFocus] = useState(false);
-  const { dispatch, contractAddress } = useBattleNavalContext();
+  const { dispatch, contractAddress, isLoading } = useBattleNavalContext();
 
-  useEffect(() => {
-    if (joinAddress === "" && contractAddress !== null) {
-      setJoinAddress(contractAddress);
-    }
-  }, [joinAddress, contractAddress]);
+  // useEffect(() => {
+  //   if (joinAddress === "" && contractAddress !== null) {
+  //     setJoinAddress(contractAddress);
+  //   }
+  // }, [setJoinAddress, contractAddress]);
 
   const handleDeploy = async (): Promise<void> => {
-    const deploy = await dispatch({ type: "deploy" });
-    console.log({deploy})
+    await dispatch({ type: "deploy" });
+    console.log("finalizei deploy of contract")    
   };
 
   const handleJoin = async (): Promise<void> => {
@@ -27,6 +27,8 @@ export const Initialize = (): ReactElement => {
   return (
     <div>
       <Button onClick={handleDeploy}>Deploy</Button>
+      {contractAddress}
+      {isLoading && <div>Loading...</div>}
     </div>
   );
 };

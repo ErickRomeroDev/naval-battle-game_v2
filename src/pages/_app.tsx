@@ -11,7 +11,8 @@ import {
 } from "@midnight-ntwrk/midnight-js-network-id";
 import { AppProvider } from "@/features/battle-naval/contexts/battle-naval";
 
-const networkId = "TestNet" as NetworkId;
+const networkId = "Undeployed" as NetworkId;
+// const networkId = "TestNet" as NetworkId;
 setNetworkId(networkId);
 
 export const logger = pino.pino({

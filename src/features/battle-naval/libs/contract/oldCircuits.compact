@@ -1,0 +1,98 @@
+export circuit makeMovePlayer1Old(player: Bytes<32>, move: Uint<0..64>): Void {
+  assert (gameStarted == true) "Game has not started" ;  
+  assert (playerTwoIsWinner == false) "Game has a winner";
+  assert (playerOneIsWinner == false) "Game has a winner";
+  assert (player == playerOnePk) "You are not player two";
+ 
+  assert (playerOneTimeToPlay == true) "It is not player one's turn";
+  assert (playerOnePk == public_key(local_sk())) "You are not player one";
+  assert (playerTwoGrid.lookup(move) == CellState.unset) "Cell has already been played";
+  playerOneCurrentMove.write(move);
+
+  //check if player two move was a hit or a miss, and update player one grid
+  assert (vectorHash(local_gameplay()) == playerOneCommit) "Player one has tampered with the grid";
+    
+    // for gameCell in local_gameplay() do {
+      // internalCounter.increment(1);
+      // if (internalCounter == playerTwoCurrentMove) {        
+        // if (gameCell == CellAssignment.ship) {
+          playerOneGrid.insert(playerTwoCurrentMove, CellState.hit);          
+          if (playerTwoHits == 15) {
+              playerTwoIsWinner.write(true);
+          }
+          playerTwoHits.increment(1);
+    //     }
+    //  else {
+    //       playerOneGrid.insert(playerTwoCurrentMove, CellState.miss);
+    //   } 
+      // }
+    // }
+    // internalCounter.reset_to_default();
+
+    //change turns
+    playerOneTimeToPlay.write(false);
+    playerTwoTimeToPlay.write(true);  
+}
+
+export circuit makeMovePlayer2Old(player: Bytes<32>, move: Uint<0..64>): Void {
+  assert (gameStarted == true) "Game has not started" ;  
+  assert (playerOneIsWinner == false) "Game has a winner";
+  assert (playerTwoIsWinner == false) "Game has a winner";
+  assert (player == playerTwoPk) "You are not player two"; 
+
+  assert (playerTwoTimeToPlay == true) "It is not player two's turn";
+  assert (playerTwoPk == public_key(local_sk())) "You are not player two";
+  assert (playerOneGrid.lookup(move) == CellState.unset) "Cell has already been played";
+  playerTwoCurrentMove.write(move);
+
+    //check if player one move was a hit or a miss, and update player two grid
+  assert (vectorHash(local_gameplay()) == playerTwoCommit) "Player two has tampered with the grid";
+    
+    // for gameCell in local_gameplay() do {
+    //   internalCounter.increment(1);
+    //   if (internalCounter == playerOneCurrentMove) {        
+    //     if (gameCell == CellAssignment.ship) {
+          playerTwoGrid.insert(playerOneCurrentMove, CellState.hit);          
+          if (playerOneHits == 15) {
+              playerOneIsWinner.write(true);
+          }
+          playerOneHits.increment(1);
+    //     } else {
+    //       playerTwoGrid.insert(playerOneCurrentMove, CellState.miss);
+    //   } 
+    // }}
+    // internalCounter.reset_to_default();
+
+    //change turns
+    playerTwoTimeToPlay.write(false);
+    playerOneTimeToPlay.write(true);
+}
+
+export circuit commitGrid(player: Bytes<32>, playerSetup: Vector<64, Uint<1>>): Void {
+  assert (gameStarted == false) "Game has already started" ;  
+
+  for cellPlay in playerSetup do {
+    if (cellPlay == 1) {
+      internalCounter.increment(1);
+    }     
+  }    
+  assert (internalCounter == 16) "Player has not placed 16 ships"; 
+  internalCounter.reset_to_default();
+
+  if (player == playerOnePk) {
+    assert (playerOneHasJoinedTheGame == true) "Player one has not joined the game";
+    assert (playerOneHasCommitted == false) "Player one has already committed";
+    assert (playerOnePk == public_key(local_sk())) "PlayerOne confirmation failed";  
+    const commit = set_local_gameplay(playerSetup);  
+    playerOneCommit.write(commit);
+    playerOneHasCommitted.write(true);
+  } else {  
+    assert (player == playerTwoPk) "You are not player two";  
+    assert (playerTwoHasJoinedTheGame == true) "Player two has not joined the game";    
+    assert (playerTwoHasCommitted == false) "Player two has already committed";
+    assert (playerTwoPk == public_key(local_sk())) "PlayerTwo confirmation failed";
+    const commit = set_local_gameplay(playerSetup);  
+    playerTwoCommit.write(commit);
+    playerTwoHasCommitted.write(true);
+  }
+}

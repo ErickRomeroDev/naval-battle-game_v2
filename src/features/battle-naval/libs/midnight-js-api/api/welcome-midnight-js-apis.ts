@@ -4,12 +4,8 @@ import {
   NavalBattleGameProviders,
   DeployedNavalBattleGameContract,
   FinalizedNavalBattleGameCallTxData,
-} from "./common-types";
-import {
-  CallTxFailedError,
-  deployContract,
-  findDeployedContract,
-} from "@midnight-ntwrk/midnight-js-contracts";
+} from './common-types';
+import { CallTxFailedError, deployContract, findDeployedContract } from '@midnight-ntwrk/midnight-js-contracts';
 import {
   Contract,
   NavalBattlePrivateState,
@@ -17,51 +13,32 @@ import {
   ledger,
   witnesses,
   Ledger,
-  pureCircuits,
-  CellAssignment,
-} from "../../contract";
-import { ContractAddress } from "@midnight-ntwrk/compact-runtime";
-import { FinalizedTxData } from "@midnight-ntwrk/midnight-js-types";
-import {
-  Action,
-  ActionHistory,
-  ActionId,
-  Actions,
-  AsyncActionStates,
-  PlayerGameAPI,
-  PlayerGameState,
-} from "../types";
-import * as Rx from "rxjs";
-import { derivePlayerGameState } from "./derive-organizer-welcome-state";
-import { EphemeralState } from "./ephemeral-state-bloc";
-import { prettifyLedgerState, prettifyOrganizerState } from "./prettify-utils";
+  pureCircuits
+} from '../../contract';
+import { ContractAddress } from '@midnight-ntwrk/compact-runtime';
+import { FinalizedTxData } from '@midnight-ntwrk/midnight-js-types';
+import { Action, ActionHistory, ActionId, Actions, AsyncActionStates, PlayerGameAPI, PlayerGameState } from '../types';
+import * as Rx from 'rxjs';
+import { derivePlayerGameState } from './derive-organizer-welcome-state';
+import { EphemeralState } from './ephemeral-state-bloc';
+import { prettifyLedgerState, prettifyOrganizerState } from './prettify-utils';
 
-export const navalBattleGameContractInstance: NavalBattleGameContract =
-  new Contract(witnesses);
+export const navalBattleGameContractInstance: NavalBattleGameContract = new Contract(witnesses);
 
 export const getNavalBattleGamePrivateState = async (
   providers: NavalBattleGameProviders,
   appProviders: AppProviders,
 ): Promise<NavalBattlePrivateState> => {
-  let existingPrivateState = await providers.privateStateProvider.get(
-    "navalBattleGamePrivateState",
-  );
+  let existingPrivateState = await providers.privateStateProvider.get('navalBattleGamePrivateState');
   if (existingPrivateState === null) {
-    existingPrivateState = createNavalBattleGameInitialPrivateState(
-      appProviders.crypto.randomSk(),
-    );
+    existingPrivateState = createNavalBattleGameInitialPrivateState(appProviders.crypto.randomSk());
   }
+  console.log('private key return from getNavalBattleGamePrivateState function', existingPrivateState.secretKey);
   return existingPrivateState;
 };
 
-const getPlayerSecretKey = async (
-  providers: NavalBattleGameProviders,
-  appProviders: AppProviders,
-): Promise<Uint8Array> => {
-  const privateState = await getNavalBattleGamePrivateState(
-    providers,
-    appProviders,
-  );
+const getPlayerSecretKey = async (providers: NavalBattleGameProviders, appProviders: AppProviders): Promise<Uint8Array> => {
+  const privateState = await getNavalBattleGamePrivateState(providers, appProviders);
   return privateState.secretKey;
 };
 
@@ -80,9 +57,7 @@ const buildAndSubmitCallTx = (
         id: actionId,
       })
       .pipe(
-        Rx.tap(() =>
-          appProviders.logger.info({ submittingTransaction: action }),
-        ),
+        Rx.tap(() => appProviders.logger.info({ submittingTransaction: action })),
         Rx.concatMap(() => submitTx()),
         Rx.tap((finalizedTxData) =>
           appProviders.logger.info({
@@ -95,19 +70,12 @@ const buildAndSubmitCallTx = (
             },
           }),
         ),
-        Rx.concatMap((finalizedTxData) =>
-          appProviders.ephemeralStateBloc.succeedAction(
-            actionId,
-            finalizedTxData.public,
-          ),
-        ),
+        Rx.concatMap((finalizedTxData) => appProviders.ephemeralStateBloc.succeedAction(actionId, finalizedTxData.public)),
         Rx.catchError((error: Error) =>
           appProviders.ephemeralStateBloc.failAction(
             actionId,
             error.message,
-            error instanceof CallTxFailedError
-              ? error.finalizedTxData
-              : undefined,
+            error instanceof CallTxFailedError ? error.finalizedTxData : undefined,
           ),
         ),
       ),
@@ -117,54 +85,34 @@ const buildAndSubmitCallTx = (
 
 const actionHistoriesEqual = (a: ActionHistory, b: ActionHistory): boolean =>
   a.latest === b.latest &&
-  a.all &&
-  b.all &&
   Object.keys(a.all).length === Object.keys(b.all).length &&
-  Object.keys(a.all).every(
-    (key) => key in b.all && a.all[key]?.status === b.all[key]?.status,
-  );
+  Object.keys(a.all).every((key) => key in b.all && a.all[key].status === b.all[key].status);
 
 const playerStatesEqual = (a: PlayerGameState, b: PlayerGameState): boolean =>
-  a.secretKey === b.secretKey &&
-  a.publicKey === b.publicKey &&
-  a.role === b.role &&
-  actionHistoriesEqual(a.actions, b.actions);
+  a.secretKey === b.secretKey && a.publicKey === b.publicKey && a.role === b.role && actionHistoriesEqual(a.actions, b.actions);
 
 const createStateObservable = <W extends PlayerGameState>(
   providers: NavalBattleGameProviders,
   appProviders: AppProviders,
   contractAddress: ContractAddress,
-  derivation: (
-    ledgerState: Ledger,
-    privateState: NavalBattlePrivateState,
-    ephemeralState: EphemeralState,
-  ) => W,
+  derivation: (ledgerState: Ledger, privateState: NavalBattlePrivateState, ephemeralState: EphemeralState) => W,
   equals: (a: W, b: W) => boolean,
   prettify: (w: W) => object,
 ): Rx.Observable<W> => {
   return Rx.combineLatest(
     [
-      providers.publicDataProvider
-        .contractStateObservable(contractAddress, { type: "latest" })
-        .pipe(
-          Rx.map((contractState) => ledger(contractState.data)),
-          Rx.tap((ledgerState) => {
-            appProviders.logger.info({
-              ledgerState: prettifyLedgerState(ledgerState),
-            });
-          }),
-        ),
+      providers.publicDataProvider.contractStateObservable(contractAddress, { type: 'latest' }).pipe(
+        Rx.map((contractState) => ledger(contractState.data)),
+        Rx.tap((ledgerState) => {
+          appProviders.logger.info({ ledgerState: prettifyLedgerState(ledgerState) });
+        }),
+      ),
       Rx.from(getNavalBattleGamePrivateState(providers, appProviders)).pipe(
         Rx.concatMap((existingPrivateState) =>
-          providers.privateStateProvider
-            .state$("navalBattleGamePrivateState")
-            .pipe(
-              Rx.startWith(existingPrivateState),
-              Rx.filter(
-                (privateState): privateState is NavalBattlePrivateState =>
-                  privateState !== null,
-              ),
-            ),
+          providers.privateStateProvider.state$('navalBattleGamePrivateState').pipe(
+            Rx.startWith(existingPrivateState),
+            Rx.filter((privateState): privateState is NavalBattlePrivateState => privateState !== null),
+          ),
         ),
       ),
       appProviders.ephemeralStateBloc.state$,
@@ -177,31 +125,21 @@ const createStateObservable = <W extends PlayerGameState>(
   );
 };
 
-export const playerOnePk = async (
-  providers: NavalBattleGameProviders,
-  appProviders: AppProviders,
-): Promise<Uint8Array> => {
-  return pureCircuits.public_key(
-    await getNavalBattleGamePrivateState(providers, appProviders).then(
-      (s) => s.secretKey,
-    ),
-  );
+export const playerOnePk = async (privateState: NavalBattlePrivateState): Promise<Uint8Array> => {
+  const publicKey = pureCircuits.public_key(privateState.secretKey);
+  console.log('publicKey pass to Deploy as args', publicKey);
+  return publicKey;
 };
 
 // TODO: extract deploy and join functions that work for organizer and participant APIs.
 export class NavalBattleGameMidnightJSAPI implements PlayerGameAPI {
-  static async deploy(
-    providers: NavalBattleGameProviders,
-    appProviders: AppProviders,
-  ): Promise<NavalBattleGameMidnightJSAPI> {
+  static async deploy(providers: NavalBattleGameProviders, appProviders: AppProviders): Promise<NavalBattleGameMidnightJSAPI> {
+    const privateState = await getNavalBattleGamePrivateState(providers, appProviders);
     const deployedContract = await deployContract(providers, {
-      privateStateKey: "navalBattleGamePrivateState",
+      privateStateKey: 'navalBattleGamePrivateState',
       contract: navalBattleGameContractInstance,
-      initialPrivateState: await getNavalBattleGamePrivateState(
-        providers,
-        appProviders,
-      ),
-      args: [await playerOnePk(providers, appProviders)],
+      initialPrivateState: privateState,
+      args: [await playerOnePk(privateState)],
     });
     appProviders.logger.info({
       contractDeployed: {
@@ -209,13 +147,7 @@ export class NavalBattleGameMidnightJSAPI implements PlayerGameAPI {
         block: deployedContract.deployTxData.public.blockHeight,
       },
     });
-    const secretKey = await getPlayerSecretKey(providers, appProviders);
-    return new NavalBattleGameMidnightJSAPI(
-      deployedContract,
-      providers,
-      appProviders,
-      secretKey,
-    );
+    return new NavalBattleGameMidnightJSAPI(deployedContract, providers, appProviders, privateState.secretKey);
   }
 
   static async join(
@@ -223,28 +155,19 @@ export class NavalBattleGameMidnightJSAPI implements PlayerGameAPI {
     appProviders: AppProviders,
     contractAddress: ContractAddress,
   ): Promise<NavalBattleGameMidnightJSAPI> {
-    const existingPrivateState = await getPlayerSecretKey(
-      providers,
-      appProviders,
-    );
+    const privateState = await getNavalBattleGamePrivateState(providers, appProviders);
     const deployedContract = await findDeployedContract(providers, {
       contractAddress,
       contract: navalBattleGameContractInstance,
-      privateStateKey: "navalBattleGamePrivateState",
-      initialPrivateState: existingPrivateState,
+      privateStateKey: 'navalBattleGamePrivateState',
+      initialPrivateState: privateState,
     });
     appProviders.logger.info({
       contractJoined: {
         address: deployedContract.deployTxData.public.contractAddress,
       },
-    });
-    const secretKey = await getPlayerSecretKey(providers, appProviders);
-    return new NavalBattleGameMidnightJSAPI(
-      deployedContract,
-      providers,
-      appProviders,
-      secretKey,
-    );
+    });    
+    return new NavalBattleGameMidnightJSAPI(deployedContract, providers, appProviders, privateState.secretKey);
   }
 
   readonly contractAddress: ContractAddress;
@@ -260,14 +183,7 @@ export class NavalBattleGameMidnightJSAPI implements PlayerGameAPI {
     readonly secretKey: Uint8Array,
   ) {
     this.contractAddress = deployedContract.deployTxData.public.contractAddress;
-    this.finalizedDeployTxData = (({
-      tx,
-      status,
-      txHash,
-      txId,
-      blockHash,
-      blockHeight,
-    }) => ({
+    this.finalizedDeployTxData = (({ tx, status, txHash, txId, blockHash, blockHeight }) => ({
       tx,
       status,
       txHash,
@@ -275,10 +191,10 @@ export class NavalBattleGameMidnightJSAPI implements PlayerGameAPI {
       blockHash,
       blockHeight,
     }))(deployedContract.deployTxData.public);
-    this.initialLedgerState = ledger(
-      deployedContract.deployTxData.public.initialContractState.data,
-    );
-    this.publicKey = pureCircuits.public_key(secretKey);
+    this.initialLedgerState = ledger(deployedContract.deployTxData.public.initialContractState.data);
+    console.log('privateKey pass to Class', this.secretKey);
+    this.publicKey = pureCircuits.public_key(this.secretKey);
+    console.log('publicKey pass to Class', this.publicKey);
     this.state$ = createStateObservable(
       this.providers,
       this.appProviders,
@@ -289,30 +205,23 @@ export class NavalBattleGameMidnightJSAPI implements PlayerGameAPI {
     );
   }
 
-  joinGame(player: Uint8Array): Promise<ActionId> {
-    return buildAndSubmitCallTx(this.appProviders, Actions.joinGame, () =>
-      this.deployedContract.callTx.joinGame(player),
-    );
+  joinGame(): Promise<ActionId> {
+    return buildAndSubmitCallTx(this.appProviders, Actions.joinGame, () => this.deployedContract.callTx.joinGame(this.publicKey));
   }
 
-  commitGrid(
-    player: Uint8Array,
-    playerSetup: CellAssignment[],
-  ): Promise<ActionId> {
+  commitGrid(playerSetup: bigint[]): Promise<ActionId> {
     return buildAndSubmitCallTx(this.appProviders, Actions.commitGrid, () =>
-      this.deployedContract.callTx.commitGrid(player, playerSetup),
+      this.deployedContract.callTx.commitGrid(this.publicKey, playerSetup),
     );
   }
 
   startGame(): Promise<ActionId> {
-    return buildAndSubmitCallTx(this.appProviders, Actions.startGame, () =>
-      this.deployedContract.callTx.startGame(),
-    );
+    return buildAndSubmitCallTx(this.appProviders, Actions.startGame, () => this.deployedContract.callTx.startGame());
   }
 
-  makeMove(player: Uint8Array, move: bigint): Promise<ActionId> {
+  makeMove(move: bigint): Promise<ActionId> {
     return buildAndSubmitCallTx(this.appProviders, Actions.makeMove, () =>
-      this.deployedContract.callTx.makeMove(player, move),
+      this.deployedContract.callTx.makeMove(this.publicKey, move),
     );
   }
 }

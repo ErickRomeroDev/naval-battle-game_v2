@@ -1,7 +1,7 @@
-import { Ledger, pureCircuits, CellAssignment } from './managed/naval-battle-game/contract/index.cjs';
+import { Ledger, pureCircuits } from './managed/naval-battle-game/contract/index.cjs';
 import { WitnessContext } from '@midnight-ntwrk/compact-runtime';
 
-export type LocalGameplay = Map<string, Array<CellAssignment>> | null;
+export type LocalGameplay = Map<string, bigint[]> | null;
 
 export type NavalBattlePrivateState = {
   readonly secretKey: Uint8Array;
@@ -21,9 +21,9 @@ export const witnesses = {
 
   set_local_gameplay: (
     { privateState, contractAddress }: WitnessContext<Ledger, NavalBattlePrivateState>,
-    playerSetup: Array<CellAssignment>,
+    playerSetup: bigint[],
   ): [NavalBattlePrivateState, Uint8Array] => {
-    const updatedGameplay = privateState.localGameplay ?? new Map<string, Array<CellAssignment>>();
+    const updatedGameplay = privateState.localGameplay ?? new Map<string, bigint[]>();
 
     // Update the gameplay map
     updatedGameplay.set(contractAddress, playerSetup);
@@ -40,7 +40,7 @@ export const witnesses = {
   local_gameplay: ({
     privateState,
     contractAddress,
-  }: WitnessContext<Ledger, NavalBattlePrivateState>): [NavalBattlePrivateState, Array<CellAssignment>] => [
+  }: WitnessContext<Ledger, NavalBattlePrivateState>): [NavalBattlePrivateState, bigint[]] => [
     privateState,
     privateState.localGameplay?.get(contractAddress) ?? [],
   ],

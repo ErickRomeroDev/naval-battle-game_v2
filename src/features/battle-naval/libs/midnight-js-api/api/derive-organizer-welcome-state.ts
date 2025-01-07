@@ -4,7 +4,7 @@ import { EphemeralState } from './ephemeral-state-bloc';
 import { toHex } from '@midnight-ntwrk/midnight-js-utils';
 
 export const derivePlayerGameState = (
-  { gameStarted }: Ledger,
+  { gameStarted   }: Ledger,
   { secretKey }: NavalBattlePrivateState,
   { actions }: EphemeralState,
 ): PlayerGameState => {

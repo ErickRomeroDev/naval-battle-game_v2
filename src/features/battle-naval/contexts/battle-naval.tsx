@@ -59,18 +59,16 @@ import {
   getLedgerNetworkId,
   getZswapNetworkId,
 } from "@midnight-ntwrk/midnight-js-network-id";
-import { CellAssignment } from "@/features/battle-naval/libs/contract";
 import semver from "semver";
 
 type DispatchActionType =
-  | { type: typeof Actions.joinGame; player: Uint8Array }
+  | { type: typeof Actions.joinGame }
   | {
-      type: typeof Actions.commitGrid;
-      player: Uint8Array;
-      playerSetup: CellAssignment[];
+      type: typeof Actions.commitGrid;      
+      playerSetup: bigint[];
     }
-  | { type: typeof Actions.startGame; payload: string }
-  | { type: typeof Actions.makeMove; player: Uint8Array; move: bigint }
+  | { type: typeof Actions.startGame }
+  | { type: typeof Actions.makeMove; move: bigint }
   | { type: "deploy" }
   | { type: "join"; contractAddress: ContractAddress };
 
@@ -332,14 +330,14 @@ export const AppProvider = ({
       switch (action.type) {
         case Actions.joinGame: {
           if (api instanceof NavalBattleGameMidnightJSAPI) {
-            return await api.joinGame(action.player);
+            return await api.joinGame();
           } else {
             return undefined;
           }
         }
         case Actions.commitGrid: {
           if (api instanceof NavalBattleGameMidnightJSAPI) {
-            return await api.commitGrid(action.player, action.playerSetup);
+            return await api.commitGrid(action.playerSetup);
           } else {
             return undefined;
           }
@@ -353,7 +351,7 @@ export const AppProvider = ({
         }
         case Actions.makeMove: {
           if (api instanceof NavalBattleGameMidnightJSAPI) {
-            return await api.makeMove(action.player, action.move);
+            return await api.makeMove(action.move);
           } else {
             return undefined;
           }

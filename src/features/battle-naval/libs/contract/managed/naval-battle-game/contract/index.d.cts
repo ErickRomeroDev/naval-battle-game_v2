@@ -2,20 +2,18 @@ import type * as __compactRuntime from '@midnight-ntwrk/compact-runtime';
 
 export enum CellState { unset = 0, hit = 1, miss = 2 }
 
-export enum CellAssignment { blank = 0, ship = 1 }
-
 export type Witnesses<T> = {
   local_sk(context: __compactRuntime.WitnessContext<Ledger, T>): [T, Uint8Array];
-  local_gameplay(context: __compactRuntime.WitnessContext<Ledger, T>): [T, CellAssignment[]];
+  local_gameplay(context: __compactRuntime.WitnessContext<Ledger, T>): [T, bigint[]];
   set_local_gameplay(context: __compactRuntime.WitnessContext<Ledger, T>,
-                     playerSetup: CellAssignment[]): [T, Uint8Array];
+                     playerSetup: bigint[]): [T, Uint8Array];
 }
 
 export type ImpureCircuits<T> = {
   joinGame(context: __compactRuntime.CircuitContext<T>, player: Uint8Array): __compactRuntime.CircuitResults<T, void>;
   commitGrid(context: __compactRuntime.CircuitContext<T>,
              player: Uint8Array,
-             playerSetup: CellAssignment[]): __compactRuntime.CircuitResults<T, void>;
+             playerSetup: bigint[]): __compactRuntime.CircuitResults<T, void>;
   startGame(context: __compactRuntime.CircuitContext<T>): __compactRuntime.CircuitResults<T, void>;
   makeMove(context: __compactRuntime.CircuitContext<T>,
            player: Uint8Array,
@@ -24,26 +22,25 @@ export type ImpureCircuits<T> = {
 
 export type PureCircuits = {
   public_key(sk: Uint8Array): Uint8Array;
-  vectorHash(sk: CellAssignment[]): Uint8Array;
+  vectorHash(sk: bigint[]): Uint8Array;
 }
 
 export type Circuits<T> = {
   joinGame(context: __compactRuntime.CircuitContext<T>, player: Uint8Array): __compactRuntime.CircuitResults<T, void>;
   commitGrid(context: __compactRuntime.CircuitContext<T>,
              player: Uint8Array,
-             playerSetup: CellAssignment[]): __compactRuntime.CircuitResults<T, void>;
+             playerSetup: bigint[]): __compactRuntime.CircuitResults<T, void>;
   startGame(context: __compactRuntime.CircuitContext<T>): __compactRuntime.CircuitResults<T, void>;
   makeMove(context: __compactRuntime.CircuitContext<T>,
            player: Uint8Array,
            move: bigint): __compactRuntime.CircuitResults<T, void>;
   public_key(context: __compactRuntime.CircuitContext<T>, sk: Uint8Array): __compactRuntime.CircuitResults<T, Uint8Array>;
-  vectorHash(context: __compactRuntime.CircuitContext<T>, sk: CellAssignment[]): __compactRuntime.CircuitResults<T, Uint8Array>;
+  vectorHash(context: __compactRuntime.CircuitContext<T>, sk: bigint[]): __compactRuntime.CircuitResults<T, Uint8Array>;
 }
 
 export type Ledger = {
   readonly gameStarted: boolean;
   readonly players: bigint;
-  readonly internalCounter: bigint;
   readonly playerOnePk: Uint8Array;
   playerOneGrid: {
     isEmpty(): boolean;

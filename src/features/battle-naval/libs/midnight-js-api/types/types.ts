@@ -2,7 +2,6 @@ import * as t from 'io-ts';
 import { either } from 'fp-ts';
 import { ValuesOf, block } from '../helpers';
 import { Observable } from 'rxjs';
-import { CellAssignment } from '../../contract';
 export const Actions = {
   joinGame: 'joinGame',
   commitGrid: 'commitGrid',
@@ -138,9 +137,9 @@ export const playerGameStateCodec = t.intersection([
 export type PlayerGameState = t.TypeOf<typeof playerGameStateCodec>;
 
 export interface PlayerGameAPI {
-  state$: Observable<PlayerGameState>;
-  joinGame: (player: Uint8Array) => Promise<ActionId>;
-  commitGrid: (player: Uint8Array, playerSetup: CellAssignment[]) => Promise<ActionId>;
+  state$: Observable<PlayerGameState>;  
+  joinGame: () => Promise<ActionId>;
+  commitGrid: (playerSetup: bigint[]) => Promise<ActionId>;
   startGame: () => Promise<ActionId>;
-  makeMove: (player: Uint8Array, move: bigint) => Promise<ActionId>;
+  makeMove: (move: bigint) => Promise<ActionId>;
 }

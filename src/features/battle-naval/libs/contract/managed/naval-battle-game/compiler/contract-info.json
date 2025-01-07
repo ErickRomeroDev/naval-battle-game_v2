@@ -31,14 +31,10 @@
           "name": "playerSetup",
           "type": {
             "type-name": "Vector",
-            "length": 100,
+            "length": 64,
             "type": {
-              "type-name": "Enum",
-              "name": "CellAssignment",
-              "elements": [
-                "blank",
-                "ship"
-              ]
+              "type-name": "Uint",
+              "maxval": 1
             }
           }
         }
@@ -71,7 +67,7 @@
           "name": "move",
           "type": {
             "type-name": "Uint",
-            "maxval": 100
+            "maxval": 64
           }
         }
       ],
@@ -104,14 +100,10 @@
           "name": "sk",
           "type": {
             "type-name": "Vector",
-            "length": 100,
+            "length": 64,
             "type": {
-              "type-name": "Enum",
-              "name": "CellAssignment",
-              "elements": [
-                "blank",
-                "ship"
-              ]
+              "type-name": "Uint",
+              "maxval": 1
             }
           }
         }
