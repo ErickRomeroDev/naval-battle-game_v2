@@ -36,7 +36,7 @@ const updateAction =
         ...state.actions,
         all: {
           ...state.actions.all,
-          [actionId]: updater(state.actions.all[actionId]!),
+          [actionId]: updater(state.actions.all[actionId]),
         },
       },
     };

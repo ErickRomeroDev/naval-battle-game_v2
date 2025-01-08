@@ -29,7 +29,9 @@ export const getNavalBattleGamePrivateState = async (
   providers: NavalBattleGameProviders,
   appProviders: AppProviders,
 ): Promise<NavalBattlePrivateState> => {
+  console.log("antes de leer o private info")
   let existingPrivateState = await providers.privateStateProvider.get('navalBattleGamePrivateState');
+  console.log('private key return from getNavalBattleGamePrivateState function', existingPrivateState);
   if (existingPrivateState === null) {
     existingPrivateState = createNavalBattleGameInitialPrivateState(appProviders.crypto.randomSk());
   }
@@ -155,7 +157,7 @@ export class NavalBattleGameMidnightJSAPI implements PlayerGameAPI {
     appProviders: AppProviders,
     contractAddress: ContractAddress,
   ): Promise<NavalBattleGameMidnightJSAPI> {
-    const privateState = await getNavalBattleGamePrivateState(providers, appProviders);
+    const privateState = await getNavalBattleGamePrivateState(providers, appProviders);    
     const deployedContract = await findDeployedContract(providers, {
       contractAddress,
       contract: navalBattleGameContractInstance,

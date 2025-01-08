@@ -60,6 +60,7 @@ import {
   getZswapNetworkId,
 } from "@midnight-ntwrk/midnight-js-network-id";
 import semver from "semver";
+import { inMemoryPrivateStateProvider } from "../libs/midnight-js-api/api/in-memory-private-state-provider";
 
 type DispatchActionType =
   | { type: typeof Actions.joinGame }
@@ -97,9 +98,10 @@ const initializeAPIEntrypoint = (
             logger.child({
               entity: "private-state-provider",
             }),
-            levelPrivateStateProvider({
-              privateStateStoreName: "navalBattleGamePrivateState",
-            }),
+            // levelPrivateStateProvider({
+            //   privateStateStoreName: "naval-battle-gameprivateState",
+            // }),
+            inMemoryPrivateStateProvider()
           ),
           zkConfigProvider: new FetchZkConfigProvider(
             `${window.location.origin}/navalBattle`,
@@ -314,6 +316,9 @@ export const AppProvider = ({
       const { latest } = state.actions;
       if (latest != null) {
         const latestAction = state.actions.all[latest];
+        if (latestAction.status !== AsyncActionStates.inProgress) {
+          setIsLoading(false);
+        }
       } else {
         setIsLoading(false);
       }

@@ -1,3 +1,4 @@
+import { NavalBattlePrivateState, Ledger, pureCircuits } from '../../contract';
 import * as t from 'io-ts';
 import { either } from 'fp-ts';
 import { ValuesOf, block } from '../helpers';
@@ -131,7 +132,9 @@ export const Roles = {
 
 export const playerGameStateCodec = t.intersection([
   t.type({ publicKey: t.string, secretKey: t.string }),
-  t.type({ role: t.literal(Roles.player) }),
+  t.type({ role: t.literal(Roles.player) }), 
+  t.type({ playerOnePk: t.string, playerTwoPk: t.string, playerOneCurrentMove: t.string, gameStarted: t.string }),
+  t.type({ playerOneCommit: t.string, playerTwoCommit: t.string }),  
   CommonStateCodec,
 ]);
 export type PlayerGameState = t.TypeOf<typeof playerGameStateCodec>;

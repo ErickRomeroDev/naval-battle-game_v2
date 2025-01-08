@@ -4,18 +4,24 @@ import { EphemeralState } from './ephemeral-state-bloc';
 import { toHex } from '@midnight-ntwrk/midnight-js-utils';
 
 export const derivePlayerGameState = (
-  { gameStarted   }: Ledger,
-  { secretKey }: NavalBattlePrivateState,
+  {playerOnePk, playerOneCommit, playerTwoPk, playerTwoCommit, gameStarted, playerOneCurrentMove}: Ledger,
+  privateState: NavalBattlePrivateState,
   { actions }: EphemeralState,
 ): PlayerGameState => {
-  if (secretKey === null) {
+  if (privateState.secretKey === null) {
     throw new Error('unexpected null secret key');
   }
-  const publicKey = pureCircuits.public_key(secretKey);
+  const publicKey = pureCircuits.public_key(privateState.secretKey);
   return {
     actions,
     role: Roles.player,
     publicKey: toHex(publicKey),
-    secretKey: toHex(secretKey),
+    secretKey: toHex(privateState.secretKey),
+    playerOnePk: toHex(playerOnePk),
+    playerOneCommit: toHex(playerOneCommit),
+    playerTwoPk: toHex(playerTwoPk),
+    playerTwoCommit: toHex(playerTwoCommit),
+    gameStarted: gameStarted.toString(),
+    playerOneCurrentMove: playerOneCurrentMove.toString(),
   };
 };
