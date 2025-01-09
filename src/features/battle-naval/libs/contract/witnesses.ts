@@ -1,7 +1,7 @@
 import { Ledger, pureCircuits } from './managed/naval-battle-game/contract/index.cjs';
 import { WitnessContext } from '@midnight-ntwrk/compact-runtime';
 
-export type LocalGameplay = Map<string, bigint[]> | null;
+export type LocalGameplay = Record<string, string[]>;
 
 export type NavalBattlePrivateState = {
   readonly secretKey: Uint8Array;
@@ -10,7 +10,7 @@ export type NavalBattlePrivateState = {
 
 export const createNavalBattleGameInitialPrivateState = (secretKey: Uint8Array) : NavalBattlePrivateState => ({
   secretKey,
-  localGameplay: null,
+  localGameplay: {},
 });
 
 export const witnesses = {
@@ -23,10 +23,10 @@ export const witnesses = {
     { privateState, contractAddress }: WitnessContext<Ledger, NavalBattlePrivateState>,
     playerSetup: bigint[],
   ): [NavalBattlePrivateState, Uint8Array] => {
-    const updatedGameplay = privateState.localGameplay ?? new Map<string, bigint[]>();
+    const updatedGameplay = { ...privateState.localGameplay }; // Ensure it is an object
 
     // Update the gameplay map
-    updatedGameplay.set(contractAddress, playerSetup);
+    updatedGameplay[contractAddress] = playerSetup.map((value) => value.toString());
 
     return [
       {
@@ -42,6 +42,6 @@ export const witnesses = {
     contractAddress,
   }: WitnessContext<Ledger, NavalBattlePrivateState>): [NavalBattlePrivateState, bigint[]] => [
     privateState,
-    privateState.localGameplay?.get(contractAddress) ?? [],
+    (privateState.localGameplay[contractAddress] ?? []).map((value) => BigInt(value)),   
   ],
 };

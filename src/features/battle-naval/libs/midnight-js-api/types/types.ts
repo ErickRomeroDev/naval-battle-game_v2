@@ -127,14 +127,16 @@ export const ActionHistoryCodec = t.type({
 export type ActionHistory = t.TypeOf<typeof ActionHistoryCodec>;
 
 export const Roles = {
-  player: 'player',
+  player1: 'player1',
+  player2: 'player2',
+  watcher: 'watcher',
 } as const;
 
 export const playerGameStateCodec = t.intersection([
-  t.type({ publicKey: t.string, secretKey: t.string }),
-  t.type({ role: t.literal(Roles.player) }), 
-  t.type({ playerOnePk: t.string, playerTwoPk: t.string, playerOneCurrentMove: t.string, gameStarted: t.string }),
-  t.type({ playerOneCommit: t.string, playerTwoCommit: t.string }),  
+  t.type({ publicKey: t.string, secretKey: t.string }),  
+  t.type({ role: t.union([t.literal(Roles.player1), t.literal(Roles.player2), t.literal(Roles.watcher)]) , isMyTurn: t.boolean, gameStarted: t.string, players: t.number}),
+  t.type({ playerOnePk: t.string, playerOneCommit: t.string, playerOneCurrentMove: t.string, gridPlayer1: t.array(t.array(t.any)), playerOneTimeToPlay: t.boolean, playerOneHasCommitted: t.boolean, playerOneHasJoinedTheGame: t.boolean, playerOneHits: t.number, playerOneIsWinner: t.boolean }),
+  t.type({ playerTwoPk: t.string, playerTwoCommit: t.string, playerTwoCurrentMove: t.string, gridPlayer2: t.array(t.array(t.any)), playerTwoTimeToPlay: t.boolean, playerTwoHasCommitted: t.boolean, playerTwoHasJoinedTheGame: t.boolean, playerTwoHits: t.number, playerTwoIsWinner: t.boolean }),  
   CommonStateCodec,
 ]);
 export type PlayerGameState = t.TypeOf<typeof playerGameStateCodec>;

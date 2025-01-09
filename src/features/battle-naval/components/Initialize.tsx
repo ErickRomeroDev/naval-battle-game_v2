@@ -106,6 +106,14 @@ export const Initialize = (): ReactElement => {
     console.log("move made");
   };
 
+  const makeMoveFail = async (): Promise<void> => {
+    await dispatch({ type: "makeMove", move: 20n });
+    console.log("move made");
+  };
+
+  console.log("Player1GRID", state?.gridPlayer1);
+  console.log("Player2GRID", state?.gridPlayer2);
+
   return (
     <div>
       <div className="space-x-2">
@@ -116,6 +124,7 @@ export const Initialize = (): ReactElement => {
         <Button onClick={handleCommit}>Commit</Button>
         <Button onClick={startGame}>Start Game</Button>
         <Button onClick={makeMove}>Make Move</Button>
+        <Button onClick={makeMoveFail}>Make Move Fail</Button>
       </div>
 
       <div className="flex">Contract Address: {contractAddress}</div>
@@ -127,6 +136,9 @@ export const Initialize = (): ReactElement => {
       <div className="flex">PlayerTwoCommit: {state?.playerTwoCommit}</div>
       <div className="flex">Game Started?: {state?.gameStarted}</div>
       <div className="flex">Player 1 current move: {state?.playerOneCurrentMove}</div>
+      <div className="flex">Player 2 current move: {state?.playerTwoCurrentMove}</div>
+      <div className="flex">Your role is: {state?.role}</div>
+      <div className="flex">Is my turn: {state?.isMyTurn.toString()}</div>
       {isLoading && <div>Loading...</div>}
     </div>
   );
