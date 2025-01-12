@@ -85,20 +85,11 @@ const buildAndSubmitCallTx = (
   return Promise.resolve(actionId);
 };
 
-const actionHistoriesEqual = (a: ActionHistory, b: ActionHistory): boolean =>
-  a.latest === b.latest &&
-  Object.keys(a.all).length === Object.keys(b.all).length &&
-  Object.keys(a.all).every((key) => key in b.all && a.all[key].status === b.all[key].status);
-
-const playerStatesEqual = (a: PlayerGameState, b: PlayerGameState): boolean =>
-  a.secretKey === b.secretKey && a.publicKey === b.publicKey && a.role === b.role && actionHistoriesEqual(a.actions, b.actions);
-
 const createStateObservable = <W extends PlayerGameState>(
   providers: NavalBattleGameProviders,
   appProviders: AppProviders,
   contractAddress: ContractAddress,
-  derivation: (ledgerState: Ledger, privateState: NavalBattlePrivateState, ephemeralState: EphemeralState) => W,
-  equals: (a: W, b: W) => boolean,
+  derivation: (ledgerState: Ledger, privateState: NavalBattlePrivateState, ephemeralState: EphemeralState) => W,  
   prettify: (w: W) => object,
 ): Rx.Observable<W> => {
   return Rx.combineLatest(
@@ -120,8 +111,7 @@ const createStateObservable = <W extends PlayerGameState>(
       appProviders.ephemeralStateBloc.state$,
     ],
     derivation,
-  ).pipe(
-    Rx.distinctUntilChanged(equals),
+  ).pipe(    
     Rx.tap((w) => appProviders.logger.info({ localState: prettify(w) })),
     Rx.shareReplay({ bufferSize: 1, refCount: true }),
   );
@@ -201,8 +191,7 @@ export class NavalBattleGameMidnightJSAPI implements PlayerGameAPI {
       this.providers,
       this.appProviders,
       this.contractAddress,
-      derivePlayerGameState,
-      playerStatesEqual,
+      derivePlayerGameState,      
       prettifyOrganizerState,
     );
   }

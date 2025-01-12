@@ -45,6 +45,8 @@ export const derivePlayerGameState = (
   const publicKey = pureCircuits.public_key(privateState.secretKey);
   console.log({ publicKey });
   console.log({ playerOnePk });
+  console.log({playerOneTimeToPlay});
+  console.log({playerTwoTimeToPlay});
 
   let role;
   let isMyTurn: boolean;

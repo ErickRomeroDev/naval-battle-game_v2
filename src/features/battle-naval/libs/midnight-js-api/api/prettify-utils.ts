@@ -14,7 +14,9 @@ export const prettifyOrganizerState = (organizerState: PlayerGameState) => ({
   actions: prettifyActions(organizerState.actions),
 });
 
-export const prettifyLedgerState = ({ playerOneGrid, playerTwoGrid }: Ledger) => ({  
+export const prettifyLedgerState = ({ playerOneGrid, playerTwoGrid, playerOneTimeToPlay, playerTwoTimeToPlay }: Ledger) => ({  
   eligibleParticipants: [...playerOneGrid],
   checkedInParticipants: [...playerTwoGrid],
+  playerOneTimeToPlay,
+  playerTwoTimeToPlay
 });

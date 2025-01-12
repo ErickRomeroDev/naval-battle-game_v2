@@ -192,6 +192,7 @@ export const AppProvider = ({
     organizerWelcomeAPI.state$.subscribe({
       next: (state: PlayerGameState) => {
         setState(state);
+        console.log("UI State inside subscription", state)
       },
     });
   };
@@ -362,15 +363,15 @@ export const AppProvider = ({
           }
         }
         case "deploy":
-          if (api instanceof APIEntrypoint) {            
-            await initializeWelcomeAPI("deploy", api);
+          if (api instanceof APIEntrypoint) {                   
+            await initializeWelcomeAPI("deploy", api);                
             return;
           } else {
             return undefined;
           }
         case "join":
           if (api instanceof APIEntrypoint) {
-            await initializeWelcomeAPI("join", api, action.contractAddress);
+            await initializeWelcomeAPI("join", api, action.contractAddress);            
             return;
           } else {
             return undefined;
