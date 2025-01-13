@@ -37,6 +37,6 @@
     "**/*.cjs",
     "**/*.js",
     ".next/types/**/*.ts"
-  ],
+, "src/features/battle-naval/components/battle-ship"  ],
   "exclude": ["node_modules"]
 }

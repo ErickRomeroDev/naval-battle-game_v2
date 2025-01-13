@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 export const Initialize = (): ReactElement => {
-  const { dispatch, contractAddress, isLoading, state } =
+  const { dispatch, contractAddress, isLoading, state, isClientInitialized } =
     useBattleNavalContext();
   const [inputAddress, setInputAddress] = useState("");
 

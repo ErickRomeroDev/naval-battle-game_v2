@@ -10,6 +10,7 @@ import {
   type NetworkId,
 } from "@midnight-ntwrk/midnight-js-network-id";
 import { AppProvider } from "@/features/battle-naval/contexts/battle-naval";
+import { Toaster } from "@/components/ui/toaster";
 
 const networkId = "Undeployed" as NetworkId;
 // const networkId = "TestNet" as NetworkId;
@@ -26,6 +27,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
     <div className={GeistSans.className}>
       <AppProvider logger={logger}>
         <Component {...pageProps} />
+        <Toaster />
       </AppProvider>
     </div>
   );
