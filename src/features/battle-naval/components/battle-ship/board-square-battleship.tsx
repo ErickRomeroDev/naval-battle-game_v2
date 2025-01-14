@@ -3,6 +3,7 @@ import { useDrop } from "react-dnd";
 import { Square } from "./square";
 import { Overlay, OverlayType } from "./overlay";
 import { Game, Orientation } from "./game";
+import { useBattleNavalContext } from "../../hooks/useBattleNavalContext";
 
 export interface BoardSquareProps {
   x: number;
@@ -19,6 +20,8 @@ export const BoardSquareBattleship = ({
   children,
   game,
 }: BoardSquareProps) => {
+  const { dispatch, contractAddress, isLoading, state, isClientInitialized } =
+    useBattleNavalContext();
   const boardSquareRef = useRef<HTMLDivElement>(null);
 
   const [{ isOver, canDrop }, drop] = useDrop(
@@ -45,7 +48,27 @@ export const BoardSquareBattleship = ({
       className="relative h-full w-full"
     >
       <Square>{children}</Square>
-      {isOver && !canDrop && <Overlay type={OverlayType.IllegalMoveHover} />}      
+      {state &&
+        state.publicKey === state.playerOnePk &&
+        state.gridPlayer1?.[y]?.[x] === 1 && (
+          <div className="absolute z-40 top-[12px] left-[12px] h-4 w-4 rounded-full bg-pink-300"></div>
+        )}
+      {state &&
+        state.publicKey === state.playerOnePk &&
+        state.gridPlayer1?.[y]?.[x] === 2 && (
+          <div className="absolute z-40 top-[12px] left-[12px] h-4 w-4 rounded-full bg-blue-300"></div>
+        )}
+      {state &&
+        state.publicKey === state.playerTwoPk &&
+        state.gridPlayer2?.[y]?.[x] === 1 && (
+          <div className="absolute z-40 top-[12px] left-[12px] h-4 w-4 rounded-full bg-pink-300"></div>
+        )}
+      {state &&
+        state.publicKey === state.playerTwoPk &&
+        state.gridPlayer2?.[y]?.[x] === 2 && (
+          <div className="absolute z-40 top-[12px] left-[12px] h-4 w-4 rounded-full bg-blue-300"></div>
+        )}
+      {isOver && !canDrop && <Overlay type={OverlayType.IllegalMoveHover} />}
       {isOver && canDrop && <Overlay type={OverlayType.LegalMoveHover} />}
     </div>
   );

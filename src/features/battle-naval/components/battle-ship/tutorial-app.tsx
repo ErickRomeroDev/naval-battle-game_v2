@@ -116,26 +116,44 @@ export const TutorialApp = () => {
                 <span>7</span>
                 <span>8</span>
               </div>
-              <div className="h-[350px] w-[350px]">
+              <div className="relative h-[350px] w-[350px]">
                 <Board game={game} />
+                {state &&
+                  state.publicKey === state.playerOnePk &&
+                  state.playerOneHasCommitted && (
+                    <div className="absolute top-0 z-40 h-[350px] w-[350px]"></div>
+                  )}
+                {state &&
+                  state.publicKey === state.playerTwoPk &&
+                  state.playerTwoHasCommitted && (
+                    <div className="absolute top-0 z-40 h-[350px] w-[350px]"></div>
+                  )}
               </div>
             </div>
           </div>
           <OpponentBoard />
         </div>
         <div>
-          <Button
-            className="w-[150px] space-x-1 rounded-[8px]"
-            onClick={startGame}
-            disabled={
-              !state ||
-              // Otherwise, disable only if both have committed
-              (!state.playerOneHasCommitted && !state.playerTwoHasCommitted) || state.gameStarted === "true"
-            }
-          >
-            <Image src="/sailboat.svg" alt="sailboat" width={16} height={16} />
-            <span>Start Game</span>
-          </Button>
+          {state && (
+            <Button
+              className="w-[150px] space-x-1 rounded-[8px]"
+              onClick={startGame}
+              disabled={
+                // Otherwise, disable only if both have committed
+                (!state.playerOneHasCommitted &&
+                  !state.playerTwoHasCommitted) ||
+                state.gameStarted === "true"
+              }
+            >
+              <Image
+                src="/sailboat.svg"
+                alt="sailboat"
+                width={16}
+                height={16}
+              />
+              <span>Start Game</span>
+            </Button>
+          )}
         </div>
       </div>
       <div className="flex items-center">

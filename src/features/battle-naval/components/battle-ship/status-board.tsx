@@ -3,44 +3,37 @@ import { useBattleNavalContext } from "../../hooks/useBattleNavalContext";
 export const StatusBoard = () => {
   const { dispatch, contractAddress, isLoading, state, isClientInitialized } =
     useBattleNavalContext();
+
+  const countMissesPlayer1 =
+    state && state.gridPlayer1.flat().filter((val) => val === 2).length;
+
+  const countMissesPlayer2 =
+    state && state.gridPlayer2.flat().filter((val) => val === 2).length;
+
   return (
     <div className="mt-12 grid h-[350px] auto-rows-auto grid-cols-3 rounded-[8px] border-[1.5px] border-gray-200 text-[15px] text-gray-600">
       <div className="px-4 py-1 font-bold"></div>
       <div className="flex items-center justify-center px-4 py-1 text-center font-bold">
-        You
+        {`Player1 ${state && state.publicKey === state.playerOnePk ? ": YOU" : ""}`}
       </div>
       <div className="flex items-center justify-center px-4 py-1 text-center font-bold">
-        Opponent
+        {`Player2 ${state && state.publicKey === state.playerTwoPk ? ": YOU" : ""}`}
       </div>
 
       <div className="px-4 py-1 font-bold">Turn</div>
       <div className="px-4 py-1 text-center">
-        {state && state.isMyTurn.toString()}
+        {state && state.playerOneTimeToPlay.toString()}
       </div>
       <div className="px-4 py-1 text-center">
-        {state && (!state.isMyTurn).toString()}
+        {state && state.playerTwoTimeToPlay.toString()}
       </div>
 
       <div className="px-4 py-1 font-bold">Joinned?</div>
       <div className="px-4 py-1 text-center">
-        {state &&
-          (
-            (state.publicKey === state.playerOnePk &&
-              state.playerOneHasJoinedTheGame) ||
-            (state.publicKey === state.playerTwoPk &&
-              state.playerTwoHasJoinedTheGame)
-          ).toString()}
+        {state && state.playerOneHasJoinedTheGame.toString()}
       </div>
       <div className="px-4 py-1 text-center">
-        {state &&
-          state.playerTwoPk !==
-            "0000000000000000000000000000000000000000000000000000000000000000" &&
-          (
-            (state.publicKey !== state.playerOnePk &&
-              state.playerTwoHasJoinedTheGame) ||
-            (state.publicKey !== state.playerTwoPk &&
-              state.playerOneHasJoinedTheGame)
-          ).toString()}
+        {state && state.playerTwoHasJoinedTheGame.toString()}
       </div>
 
       <div className="px-4 py-1 font-bold"># of players?</div>
@@ -55,36 +48,31 @@ export const StatusBoard = () => {
 
       <div className="px-4 py-1 font-bold">Commit</div>
       <div className="px-4 py-1 text-center">
-        {state &&
-          (
-            (state.publicKey === state.playerOnePk &&
-              state.playerOneHasCommitted) ||
-            (state.publicKey === state.playerTwoPk &&
-              state.playerTwoHasCommitted)
-          ).toString()}
+        {state && state.playerOneHasCommitted.toString()}
       </div>
       <div className="px-4 py-1 text-center">
-        {state && state.playerTwoPk !==
-            "0000000000000000000000000000000000000000000000000000000000000000" &&
-          (
-            (state.publicKey !== state.playerOnePk &&
-              state.playerTwoHasCommitted) ||
-            (state.publicKey !== state.playerTwoPk &&
-              state.playerOneHasCommitted)
-          ).toString()}
+        {state && state.playerTwoHasCommitted.toString()}
       </div>
 
       <div className="px-4 py-1 font-bold">Hits</div>
-      <div className="px-4 py-1 text-center">4</div>
-      <div className="px-4 py-1 text-center">0</div>
+      <div className="px-4 py-1 text-center">
+        {state && state.playerOneHits}
+      </div>
+      <div className="px-4 py-1 text-center">
+        {state && state.playerTwoHits}
+      </div>
 
       <div className="px-4 py-1 font-bold">Misses</div>
-      <div className="px-4 py-1 text-center">0</div>
-      <div className="px-4 py-1 text-center">4</div>
+      <div className="px-4 py-1 text-center">{state && countMissesPlayer2}</div>
+      <div className="px-4 py-1 text-center">{state && countMissesPlayer1}</div>
 
       <div className="px-4 py-1 font-bold">Winner</div>
-      <div className="px-4 py-1 text-center">X</div>
-      <div className="px-4 py-1 text-center">O</div>
+      <div className="px-4 py-1 text-center">
+        {state && state.playerOneIsWinner}
+      </div>
+      <div className="px-4 py-1 text-center">
+        {state && state.playerTwoIsWinner}
+      </div>
     </div>
   );
 };
