@@ -60,6 +60,14 @@ export const OpponentBoard = () => {
     }
   };
 
+  let latestAction;
+  if (state) {
+    const { latest } = state.actions;
+    if (latest != null) {
+      latestAction = state.actions.all[latest];
+    }
+  }
+
   return (
     <div>
       <div className="grid w-full grid-cols-9 text-center text-xl text-gray-500">
@@ -137,9 +145,16 @@ export const OpponentBoard = () => {
       <Button
         className="ml-8 mt-4 rounded-[8px] border-[1.5px] border-pink-500 bg-transparent text-pink-500 hover:bg-pink-500 hover:text-white"
         onClick={logFlatArrayPositions}
-        disabled={state && !state.isMyTurn}
-      >
-        Make Move
+        disabled={
+          state &&
+          (state.gameStarted !== "true" ||
+            (state.gameStarted === "true" && !state.isMyTurn))
+        }
+      >       
+        {state && state.isMyTurn && isLoading &&
+          (latestAction?.action === "makeMove" ? "Loading" : "Make Move")}
+        {state && state.isMyTurn && !isLoading && "Make Move"}
+        {state && !state.isMyTurn && "Opponent's turn"}
       </Button>
     </div>
   );

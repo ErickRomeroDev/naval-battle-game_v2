@@ -25,11 +25,67 @@ export const TutorialApp = () => {
     useBattleNavalContext();
 
   useEffect(() => {
-    toast({
-      title: "Deploy",
-      description: "Deploying new game",
-    });
+    let latestAction;
+    if (state) {
+      const { latest } = state.actions;
+      if (latest != null) {
+        latestAction = state.actions.all[latest];
+        if (
+          latestAction?.action === "joinGame" &&
+          latestAction?.status !== "error"
+        ) {
+          toast({
+            title: "Action being submitted",
+            description: "Joining Game...",
+          });
+        }
+        if (
+          latestAction?.action === "commitGrid" &&
+          latestAction?.status !== "error"
+        ) {
+          toast({
+            title: "Action being submitted",
+            description: "Comitting game...",
+          });
+        }
+        if (
+          latestAction?.action === "startGame" &&
+          latestAction?.status !== "error"
+        ) {
+          toast({
+            title: "Action being submitted",
+            description: "Starting game...",
+          });
+        }
+        if (
+          latestAction?.action === "makeMove" &&
+          latestAction?.status !== "error"
+        ) {
+          toast({
+            title: "Action being submitted",
+            description: "Making move...",
+          });
+        }
+      }
+    }
   }, [isLoading]);
+
+  useEffect(() => {
+    let latestAction;
+    if (state) {
+      const { latest } = state.actions;
+      if (latest != null) {
+        latestAction = state.actions.all[latest];
+        if (latestAction?.status === "error") {
+          toast({
+            variant: "destructive",
+            title: "Error",
+            description: "Something went wrong",
+          });
+        }
+      }
+    }
+  }, [state]);
 
   const handleDeploy = async (): Promise<void> => {
     await dispatch({ type: "deploy" });
@@ -52,12 +108,20 @@ export const TutorialApp = () => {
     state?.role === "player2" ||
     contractAddress === null;
 
+  let latestAction;
+  if (state) {
+    const { latest } = state.actions;
+    if (latest != null) {
+      latestAction = state.actions.all[latest];
+    }
+  }
+
   return (
     <div className="flex space-x-5">
       <div className="flex items-center justify-center space-y-6">
         <div className="mt-10 flex h-[350px] flex-col items-center justify-center space-y-6 rounded-[8px] border-[1.5px] border-gray-200 px-14">
           <Button className="w-fit rounded-[8px]" onClick={handleDeploy}>
-            Create New Game
+            {isLoading && state === undefined ? "Loading" : "Create New Game"}
           </Button>
           <div className="flex items-center space-x-2">
             <div className="h-[1px] w-[54px] bg-gray-300" />
@@ -69,96 +133,113 @@ export const TutorialApp = () => {
         </div>
       </div>
 
-      <div className="flex flex-col items-center space-y-5">
-        <div className="flex w-full items-center justify-between space-x-12">
-          <div className="text-[16px] text-gray-500">
-            {contractAddress ? contractAddress : "# of Contract Address"}
-          </div>
-          <Button
-            className="flex w-[150px] items-center space-x-1 rounded-[8px]"
-            onClick={joinGame}
-            disabled={disableButton}
-          >
-            <Image src="/join.svg" alt="join" width={13} height={13} />
-            <span>Become a player</span>
-          </Button>
-          <div className="w-[140px]" />
-        </div>
-        <div className="grid w-full grid-cols-2 pt-5 text-center text-xl">
-          <div className="mx-6 flex h-[35px] items-center justify-center rounded-[8px] bg-pink-400 text-base font-medium text-white">
-            YOUR FLEET
-          </div>
-          <div className="ml-12 flex h-[35px] items-center justify-center rounded-[8px] bg-gray-400 text-base font-medium text-white">
-            OPPONENT
-          </div>
-        </div>
-        <div className="flex space-x-10">
-          <div className="flex flex-col">
-            <div className="grid w-full grid-cols-9 text-center text-xl text-gray-500">
-              <span></span>
-              <span>A</span>
-              <span>B</span>
-              <span>C</span>
-              <span>D</span>
-              <span>E</span>
-              <span>F</span>
-              <span>G</span>
-              <span>H</span>
-            </div>
-            <div className="flex">
-              <div className="grid grid-cols-[35px] items-center text-center text-xl text-gray-500">
-                <span>1</span>
-                <span>2</span>
-                <span>3</span>
-                <span>4</span>
-                <span>5</span>
-                <span>6</span>
-                <span>7</span>
-                <span>8</span>
+      {state && (
+        <>
+          <div className="flex flex-col items-center space-y-5">
+            <div className="flex w-full items-center justify-between space-x-12">
+              <div className="text-[16px] text-gray-500">
+                {contractAddress ? contractAddress : "# of Contract Address"}
               </div>
-              <div className="relative h-[350px] w-[350px]">
-                <Board game={game} />
-                {state &&
-                  state.publicKey === state.playerOnePk &&
-                  state.playerOneHasCommitted && (
-                    <div className="absolute top-0 z-40 h-[350px] w-[350px]"></div>
-                  )}
-                {state &&
-                  state.publicKey === state.playerTwoPk &&
-                  state.playerTwoHasCommitted && (
-                    <div className="absolute top-0 z-40 h-[350px] w-[350px]"></div>
-                  )}
+              <Button
+                className="flex w-[150px] items-center space-x-1 rounded-[8px]"
+                onClick={joinGame}
+                disabled={disableButton}
+              >
+                <Image src="/join.svg" alt="join" width={13} height={13} />
+                <span>
+                  {isLoading &&
+                    (latestAction?.action === "joinGame"
+                      ? "Loading"
+                      : "Become a player")}
+                  {!isLoading && "Become a player"}
+                </span>
+              </Button>
+              <div className="w-[140px]" />
+            </div>
+            <div className="grid w-full grid-cols-2 pt-5 text-center text-xl">
+              <div className="mx-6 flex h-[35px] items-center justify-center rounded-[8px] bg-pink-400 text-base font-medium text-white">
+                YOUR FLEET
+              </div>
+              <div className="ml-12 flex h-[35px] items-center justify-center rounded-[8px] bg-gray-400 text-base font-medium text-white">
+                OPPONENT
               </div>
             </div>
+            <div className="flex space-x-10">
+              <div className="flex flex-col">
+                <div className="grid w-full grid-cols-9 text-center text-xl text-gray-500">
+                  <span></span>
+                  <span>A</span>
+                  <span>B</span>
+                  <span>C</span>
+                  <span>D</span>
+                  <span>E</span>
+                  <span>F</span>
+                  <span>G</span>
+                  <span>H</span>
+                </div>
+                <div className="flex">
+                  <div className="grid grid-cols-[35px] items-center text-center text-xl text-gray-500">
+                    <span>1</span>
+                    <span>2</span>
+                    <span>3</span>
+                    <span>4</span>
+                    <span>5</span>
+                    <span>6</span>
+                    <span>7</span>
+                    <span>8</span>
+                  </div>
+                  <div className="relative h-[350px] w-[350px]">
+                    <Board game={game} />
+                    {state &&
+                      state.publicKey === state.playerOnePk &&
+                      state.playerOneHasCommitted && (
+                        <div className="absolute top-0 z-40 h-[350px] w-[350px]"></div>
+                      )}
+                    {state &&
+                      state.publicKey === state.playerTwoPk &&
+                      state.playerTwoHasCommitted && (
+                        <div className="absolute top-0 z-40 h-[350px] w-[350px]"></div>
+                      )}
+                  </div>
+                </div>
+              </div>
+              <OpponentBoard />
+            </div>
+            <div>
+              {state && (
+                <Button
+                  className="w-[150px] space-x-1 rounded-[8px]"
+                  onClick={startGame}
+                  disabled={
+                    !state.playerOneHasCommitted ||
+                    !state.playerTwoHasCommitted ||
+                    state.gameStarted === "true" ||
+                    (!state.playerOneHasCommitted &&
+                      !state.playerTwoHasCommitted)
+                  }
+                >
+                  <Image
+                    src="/sailboat.svg"
+                    alt="sailboat"
+                    width={16}
+                    height={16}
+                  />
+                  <span>
+                    {isLoading &&
+                      (latestAction?.action === "startGame"
+                        ? "Loading"
+                        : "Start Game")}
+                    {!isLoading && "Start Game"}
+                  </span>
+                </Button>
+              )}
+            </div>
           </div>
-          <OpponentBoard />
-        </div>
-        <div>
-          {state && (
-            <Button
-              className="w-[150px] space-x-1 rounded-[8px]"
-              onClick={startGame}
-              disabled={
-                // Otherwise, disable only if both have committed
-                (!state.playerOneHasCommitted &&
-                  !state.playerTwoHasCommitted) ||
-                state.gameStarted === "true"
-              }
-            >
-              <Image
-                src="/sailboat.svg"
-                alt="sailboat"
-                width={16}
-                height={16}
-              />
-              <span>Start Game</span>
-            </Button>
-          )}
-        </div>
-      </div>
-      <div className="flex items-center">
-        <StatusBoard />
-      </div>
+          <div className="flex items-center">
+            <StatusBoard />
+          </div>
+        </>
+      )}
     </div>
   );
 };

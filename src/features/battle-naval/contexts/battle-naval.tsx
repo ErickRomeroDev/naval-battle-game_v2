@@ -176,7 +176,7 @@ export const AppProvider = ({
   children: ReactNode;
   logger: Logger;
 }): ReactElement => {
-  const [state, setState] = useState<PlayerGameState>();
+  const [state, setState] = useState<PlayerGameState | undefined>(undefined);
   const [api, setAPI] = useState<
     NavalBattleGameMidnightJSAPI | APIEntrypoint | null
   >(null);

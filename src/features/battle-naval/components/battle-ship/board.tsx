@@ -128,6 +128,14 @@ export const Board = ({ game }: BoardProps) => {
     squares.push(renderSquare(i));
   }
 
+  let latestAction;
+  if (state) {
+    const { latest } = state.actions;
+    if (latest != null) {
+      latestAction = state.actions.all[latest];
+    }
+  }
+
   return (
     <>
       <div className="flex h-full w-full flex-wrap">{squares}</div>
@@ -144,10 +152,16 @@ export const Board = ({ game }: BoardProps) => {
           ((state.publicKey === state.playerOnePk &&
             state.playerOneHasCommitted) ||
             (state.publicKey === state.playerTwoPk &&
-              state.playerTwoHasCommitted) || contractAddress === null)
+              state.playerTwoHasCommitted) ||
+            (state.publicKey !== state.playerTwoPk &&
+              state.publicKey !== state.playerOnePk))
         }
       >
-        Commit Positions
+        {isLoading &&
+          (latestAction?.action === "commitGrid"
+            ? "Loading"
+            : "Commit Positions")}
+        {!isLoading && "Commit Positions"}
       </Button>
     </>
   );
