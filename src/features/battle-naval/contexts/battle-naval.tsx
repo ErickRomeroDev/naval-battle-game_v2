@@ -189,6 +189,7 @@ export const AppProvider = ({
     organizerWelcomeAPI: NavalBattleGameMidnightJSAPI,
   ): void => {
     setAPI(organizerWelcomeAPI);
+    console.log({organizerWelcomeAPI})
     organizerWelcomeAPI.state$.subscribe({
       next: (state: PlayerGameState) => {
         setState(state);
