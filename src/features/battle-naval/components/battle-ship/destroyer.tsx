@@ -44,7 +44,7 @@ export const Destroyer = ({game, orientation}: PieceProps) => {
       >
         <div 
         className="absolute inset-0 z-30 rounded-3xl bg-gray-300 hover:bg-gray-200"
-        style={{width: destroyerSize * 43}} 
+        style={{width: destroyerSize * 34}} 
         />
       </motion.div>
     </>

@@ -13,6 +13,7 @@ import { PieceSubmarine } from "./piece-submarine";
 import { BoardSquareDestroyer } from "./board-square-destroyer";
 import { PieceDestroyer } from "./piece-destroyer";
 import { useBattleNavalContext } from "../../hooks/useBattleNavalContext";
+import Image from "next/image";
 
 export interface BoardProps {
   game: Game;
@@ -54,11 +55,11 @@ export const Board = ({ game }: BoardProps) => {
   }, [game]);
 
   function renderSquare(i: number) {
-    const x = i % 8;
-    const y = Math.floor(i / 8);
+    const x = i % 10;
+    const y = Math.floor(i / 10);
 
     return (
-      <div key={i} className="h-[12.5%] w-[12.5%]">
+      <div key={i} className="h-[10%] w-[10%]">
         <BoardSquareCarrier
           x={x}
           y={y}
@@ -124,7 +125,7 @@ export const Board = ({ game }: BoardProps) => {
   }
 
   const squares = [];
-  for (let i = 0; i < 64; i += 1) {
+  for (let i = 0; i < 100; i += 1) {
     squares.push(renderSquare(i));
   }
 
@@ -148,19 +149,30 @@ export const Board = ({ game }: BoardProps) => {
           console.log({ allPositions, gridArray });
         }}
         disabled={
-          state &&
+          (state &&
           ((state.publicKey === state.playerOnePk &&
             state.playerOneHasCommitted) ||
             (state.publicKey === state.playerTwoPk &&
               state.playerTwoHasCommitted) ||
             (state.publicKey !== state.playerTwoPk &&
-              state.publicKey !== state.playerOnePk))
+              state.publicKey !== state.playerOnePk))) || isLoading
         }
       >
         {isLoading &&
-          (latestAction?.action === "commitGrid"
-            ? "Loading"
-            : "Commit Positions")}
+          (latestAction?.action === "commitGrid" ? (
+            <div className="flex items-center space-x-2">
+              <Image
+                className="animate-spin"
+                src="loader-circle-pink.svg"
+                alt="loading"
+                width={17}
+                height={17}
+              />
+              <span>Loading</span>
+            </div>
+          ) : (
+            "Commit Positions"
+          ))}
         {!isLoading && "Commit Positions"}
       </Button>
     </>

@@ -99,7 +99,7 @@ export class Game {
     });
   
     const gridArray: number[] = [];
-    const gridSize = 8; 
+    const gridSize = 10; 
   
     for (let col = 0; col < gridSize; col++) {
       for (let row = 0; row < gridSize; row++) {
@@ -109,6 +109,7 @@ export class Game {
         gridArray.push(occupiedSet.has(key) ? 1 : 0);
       }
     }
+    console.log({gridArray})
   
     return gridArray.map((num) => BigInt(num));
   }

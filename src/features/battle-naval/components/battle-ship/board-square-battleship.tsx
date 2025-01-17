@@ -51,22 +51,22 @@ export const BoardSquareBattleship = ({
       {state &&
         state.publicKey === state.playerOnePk &&
         state.gridPlayer1?.[y]?.[x] === 1 && (
-          <div className="absolute z-40 top-[12px] left-[12px] h-4 w-4 rounded-full bg-pink-300"></div>
+          <div className="absolute z-40 top-[9px] left-[9px] h-4 w-4 rounded-full bg-pink-500"></div>
         )}
       {state &&
         state.publicKey === state.playerOnePk &&
         state.gridPlayer1?.[y]?.[x] === 2 && (
-          <div className="absolute z-40 top-[12px] left-[12px] h-4 w-4 rounded-full bg-blue-300"></div>
+          <div className="absolute z-40 top-[9px] left-[9px] h-4 w-4 rounded-full bg-blue-500"></div>
         )}
       {state &&
         state.publicKey === state.playerTwoPk &&
         state.gridPlayer2?.[y]?.[x] === 1 && (
-          <div className="absolute z-40 top-[12px] left-[12px] h-4 w-4 rounded-full bg-pink-300"></div>
+          <div className="absolute z-40 top-[9px] left-[9px] h-4 w-4 rounded-full bg-pink-500"></div>
         )}
       {state &&
         state.publicKey === state.playerTwoPk &&
         state.gridPlayer2?.[y]?.[x] === 2 && (
-          <div className="absolute z-40 top-[12px] left-[12px] h-4 w-4 rounded-full bg-blue-300"></div>
+          <div className="absolute z-40 top-[9px] left-[9px] h-4 w-4 rounded-full bg-blue-500"></div>
         )}
       {isOver && !canDrop && <Overlay type={OverlayType.IllegalMoveHover} />}
       {isOver && canDrop && <Overlay type={OverlayType.LegalMoveHover} />}

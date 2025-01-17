@@ -116,12 +116,43 @@ export const TutorialApp = () => {
     }
   }
 
+  const handleCopyToClipboard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      toast({
+        title: "# Contract copied to clipboard",
+      });
+    } catch (err) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to copy # Contract",
+      });
+    }
+  };
+
   return (
     <div className="flex space-x-5">
       <div className="flex items-center justify-center space-y-6">
-        <div className="mt-10 flex h-[350px] flex-col items-center justify-center space-y-6 rounded-[8px] border-[1.5px] border-gray-200 px-14">
-          <Button className="w-fit rounded-[8px]" onClick={handleDeploy}>
-            {isLoading && state === undefined ? "Loading" : "Create New Game"}
+        <div className="mt-12 flex h-[350px] flex-col items-center justify-center space-y-6 rounded-[15px] border-[1.5px] border-gray-200 px-14">
+          <Button
+            className="w-fit rounded-[8px] bg-gray-700 hover:bg-gray-700/80 disabled:bg-gray-500"
+            onClick={handleDeploy}
+          >
+            {isLoading && state === undefined ? (
+              <div className="flex items-center space-x-2">
+                <Image
+                  className="animate-spin"
+                  src="loader-circle.svg"
+                  alt="loading"
+                  width={17}
+                  height={17}
+                />
+                <span>Loading</span>
+              </div>
+            ) : (
+              "Create New Game"
+            )}
           </Button>
           <div className="flex items-center space-x-2">
             <div className="h-[1px] w-[54px] bg-gray-300" />
@@ -137,24 +168,62 @@ export const TutorialApp = () => {
         <>
           <div className="flex flex-col items-center space-y-5">
             <div className="flex w-full items-center justify-between space-x-12">
-              <div className="text-[16px] text-gray-500">
-                {contractAddress ? contractAddress : "# of Contract Address"}
+              <div className="ml-5 text-[16px] text-gray-500">
+                {contractAddress ? (
+                  <div className="flex items-center gap-x-2">
+                    <div className="rounded-full border-[1.5px] border-gray-400 px-3 py-1.5">
+                      # Contract
+                    </div>
+                    <span>{`${contractAddress.substring(0, 6)}...${contractAddress.slice(-6)}`}</span>
+                    <Image
+                      className="cursor-pointer"
+                      src="copy.svg"
+                      alt="copy contract"
+                      width={17}
+                      height={17}
+                      onClick={() => handleCopyToClipboard(contractAddress)}
+                    />
+                  </div>
+                ) : (
+                  "# of Contract Address"
+                )}
               </div>
               <Button
-                className="flex w-[150px] items-center space-x-1 rounded-[8px]"
+                className="flex w-[160px] items-center space-x-1 rounded-[8px] bg-gray-700 hover:bg-gray-700/80 disabled:bg-gray-500"
                 onClick={joinGame}
                 disabled={disableButton}
               >
-                <Image src="/join.svg" alt="join" width={13} height={13} />
-                <span>
-                  {isLoading &&
-                    (latestAction?.action === "joinGame"
-                      ? "Loading"
-                      : "Become a player")}
-                  {!isLoading && "Become a player"}
-                </span>
+                {isLoading &&
+                  (latestAction?.action === "joinGame" ? (
+                    <div className="flex items-center space-x-2">
+                      <Image
+                        className="animate-spin"
+                        src="loader-circle.svg"
+                        alt="loading"
+                        width={17}
+                        height={17}
+                      />
+                      <span>Loading</span>
+                    </div>
+                  ) : (
+                    <div className="flex items-center space-x-2">
+                      <Image
+                        src="/join.svg"
+                        alt="join"
+                        width={12}
+                        height={12}
+                      />
+                      <span>Become a player</span>
+                    </div>
+                  ))}
+                {!isLoading && (
+                  <div className="flex items-center space-x-2">
+                    <Image src="/join.svg" alt="join" width={12} height={12} />
+                    <span>Become a player</span>
+                  </div>
+                )}
               </Button>
-              <div className="w-[140px]" />
+              <div className="w-[250px]" />
             </div>
             <div className="grid w-full grid-cols-2 pt-5 text-center text-xl">
               <div className="mx-6 flex h-[35px] items-center justify-center rounded-[8px] bg-pink-400 text-base font-medium text-white">
@@ -166,27 +235,31 @@ export const TutorialApp = () => {
             </div>
             <div className="flex space-x-10">
               <div className="flex flex-col">
-                <div className="grid w-full grid-cols-9 text-center text-xl text-gray-500">
+                <div className="grid w-full grid-cols-11 text-center text-xl text-gray-500">
                   <span></span>
-                  <span>A</span>
-                  <span>B</span>
-                  <span>C</span>
-                  <span>D</span>
-                  <span>E</span>
-                  <span>F</span>
-                  <span>G</span>
-                  <span>H</span>
+                  <span>1</span>
+                  <span>2</span>
+                  <span>3</span>
+                  <span>4</span>
+                  <span>5</span>
+                  <span>6</span>
+                  <span>7</span>
+                  <span>8</span>
+                  <span>9</span>
+                  <span>10</span>
                 </div>
                 <div className="flex">
                   <div className="grid grid-cols-[35px] items-center text-center text-xl text-gray-500">
-                    <span>1</span>
-                    <span>2</span>
-                    <span>3</span>
-                    <span>4</span>
-                    <span>5</span>
-                    <span>6</span>
-                    <span>7</span>
-                    <span>8</span>
+                    <span>A</span>
+                    <span>B</span>
+                    <span>C</span>
+                    <span>D</span>
+                    <span>E</span>
+                    <span>F</span>
+                    <span>G</span>
+                    <span>H</span>
+                    <span>I</span>
+                    <span>J</span>
                   </div>
                   <div className="relative h-[350px] w-[350px]">
                     <Board game={game} />
@@ -208,7 +281,7 @@ export const TutorialApp = () => {
             <div>
               {state && (
                 <Button
-                  className="w-[150px] space-x-1 rounded-[8px]"
+                  className="w-[150px] space-x-1 rounded-[8px] bg-gray-700 hover:bg-gray-700/80 disabled:bg-gray-500"
                   onClick={startGame}
                   disabled={
                     !state.playerOneHasCommitted ||
@@ -226,9 +299,20 @@ export const TutorialApp = () => {
                   />
                   <span>
                     {isLoading &&
-                      (latestAction?.action === "startGame"
-                        ? "Loading"
-                        : "Start Game")}
+                      (latestAction?.action === "startGame" ? (
+                        <div className="flex items-center space-x-2">
+                          <Image
+                            className="animate-spin"
+                            src="loader-circle.svg"
+                            alt="loading"
+                            width={17}
+                            height={17}
+                          />
+                          <span>Loading</span>
+                        </div>
+                      ) : (
+                        "Start Game"
+                      ))}
                     {!isLoading && "Start Game"}
                   </span>
                 </Button>

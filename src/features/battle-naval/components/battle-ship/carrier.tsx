@@ -45,7 +45,7 @@ export const Carrier = ({game, orientation}: PieceProps) => {
         <div 
         
         className="absolute inset-0 z-30 rounded-[10px] bg-gray-300 hover:bg-gray-200"
-        style={{width: carrierSize * 43}} 
+        style={{width: carrierSize * 34}} 
         />
       </motion.div>
     </>

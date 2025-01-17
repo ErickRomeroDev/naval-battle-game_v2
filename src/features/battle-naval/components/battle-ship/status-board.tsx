@@ -11,7 +11,7 @@ export const StatusBoard = () => {
     state && state.gridPlayer2.flat().filter((val) => val === 2).length;
 
   return (
-    <div className="mt-12 grid h-[350px] auto-rows-auto grid-cols-3 rounded-[8px] border-[1.5px] border-gray-200 text-[15px] text-gray-600">
+    <div className="mt-12 grid h-[350px] auto-rows-auto grid-cols-3 rounded-[15px] border-[1.5px] border-gray-200 text-[15px] text-gray-600">
       <div className="px-4 py-1 font-bold"></div>
       <div className="flex items-center justify-center px-4 py-1 text-center font-bold">
         {`Player1 ${state && state.publicKey === state.playerOnePk ? ": YOU" : ""}`}

@@ -69,13 +69,13 @@ export const derivePlayerGameState = (
     isMyTurn = false;
   }
 
-  const rows = 8;
-  const cols = 8;
+  const rows = 10;
+  const cols = 10;
   const gridPlayer2 = Array.from({ length: rows }, () =>
     Array(cols).fill(null),
   ); // Initialize empty grid
 
-  for (let key = 1n; key <= 64n; key++) {
+  for (let key = 1n; key <= 100n; key++) {
     const cellState = playerTwoGrid.lookup(key) ?? 0;
     // Ensure the cellState is defined
     const index = Number(key) - 1;
@@ -89,7 +89,7 @@ export const derivePlayerGameState = (
     Array(cols).fill(null),
   ); // Initialize empty grid
 
-  for (let key = 1n; key <= 64n; key++) {
+  for (let key = 1n; key <= 100n; key++) {
     const cellState = playerOneGrid.lookup(key) ?? 0;
     // Ensure the cellState is defined
     const index = Number(key) - 1;
