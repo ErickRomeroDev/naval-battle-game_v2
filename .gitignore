@@ -47,4 +47,4 @@ yarn-error.log*
 
 # idea files
 .idea
-/public/navalBattle/zkir/*
+# /public/navalBattle/zkir/*

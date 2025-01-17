@@ -1,1 +1,2 @@
 public/navalBattle/zkir/* filter=lfs diff=lfs merge=lfs -text
+public/navalBattle/keys/* filter=lfs diff=lfs merge=lfs -text
