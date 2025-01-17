@@ -8,10 +8,10 @@ export function BattleShip() {
 
   return (
     <>     
-      <div className="relative flex min-h-screen items-center justify-center">
+      <div className="relative flex min-h-screen items-center justify-center  ">
         <div className="App">
           <DndProvider backend={HTML5Backend}>
-            <div className="fixed inset-0 h-16 border">
+            <div className="fixed inset-0 h-16 border-b-[1.5px] border-gray-200">
               <Header />
             </div>
             <TutorialApp />

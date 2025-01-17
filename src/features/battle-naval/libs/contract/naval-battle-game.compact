@@ -8,8 +8,8 @@ export enum CellState { unset, hit, miss }
 //private state
 witness local_sk(): Bytes<32>;
 
-witness local_gameplay(): Vector<64, Uint<1>>;
-witness set_local_gameplay(playerSetup: Vector<64, Uint<1>>): Bytes<32>;         
+witness local_gameplay(): Vector<100, Uint<1>>;
+witness set_local_gameplay(playerSetup: Vector<100, Uint<1>>): Bytes<32>;         
 
 // public state
 export ledger gameStarted: Cell<Boolean>;
@@ -22,7 +22,7 @@ export ledger playerOneHits: Counter;
 export ledger playerOneHasCommitted: Cell<Boolean>;
 export ledger playerOneHasJoinedTheGame: Cell<Boolean>;
 export ledger playerOneTimeToPlay: Cell<Boolean>;
-export ledger playerOneCurrentMove: Cell<Uint<0..64>>;
+export ledger playerOneCurrentMove: Cell<Uint<0..100>>;
 export ledger playerOneIsWinner: Cell<Boolean>;
 
 export ledger playerTwoPk: Cell<Bytes<32>>;
@@ -32,11 +32,11 @@ export ledger playerTwoHits: Counter;
 export ledger playerTwoHasCommitted: Cell<Boolean>;
 export ledger playerTwoHasJoinedTheGame: Cell<Boolean>;
 export ledger playerTwoTimeToPlay: Cell<Boolean>;
-export ledger playerTwoCurrentMove: Cell<Uint<0..64>>;
+export ledger playerTwoCurrentMove: Cell<Uint<0..100>>;
 export ledger playerTwoIsWinner: Cell<Boolean>;
 
 constructor(plOne: Bytes<32>) {
-  for i = 1 to 65 do {
+  for i = 1 to 101 do {
     playerOneGrid.insert(i, CellState.unset);
     playerTwoGrid.insert(i, CellState.unset);
   }
@@ -62,7 +62,7 @@ export circuit joinGame(player: Bytes<32>): Void {
   players.increment(1);
 }
 
-export circuit commitGrid(player: Bytes<32>, playerSetup: Vector<64, Uint<1>>): Void {
+export circuit commitGrid(player: Bytes<32>, playerSetup: Vector<100, Uint<1>>): Void {
   assert (gameStarted == false) "Game has already started" ; 
 
   const numberOfShips = fold((acc, x): Field => acc + x as Field, 0, playerSetup); 
@@ -96,7 +96,7 @@ export circuit startGame(): Void {
   gameStarted.write(true);  
 }
 
-export circuit makeMove(player: Bytes<32>, move: Uint<0..64>): Void {
+export circuit makeMove(player: Bytes<32>, move: Uint<0..100>): Void {
   assert (gameStarted == true) "Game has not started" ;  
   assert (playerTwoIsWinner == false) "Game has a winner";
   assert (playerOneIsWinner == false) "Game has a winner";
@@ -160,8 +160,8 @@ export circuit public_key(sk: Bytes<32>): Bytes<32> {
   return persistent_hash<Vector<2, Bytes<32>>>([pad(32, "naval-battle-game:pk:"), sk]);
 }
 
-export circuit vectorHash(sk: Vector<64, Uint<1>>): Bytes<32> {
-  return persistent_hash<Vector<64, Uint<1>>>(sk);
+export circuit vectorHash(sk: Vector<100, Uint<1>>): Bytes<32> {
+  return persistent_hash<Vector<100, Uint<1>>>(sk);
 }
 
 

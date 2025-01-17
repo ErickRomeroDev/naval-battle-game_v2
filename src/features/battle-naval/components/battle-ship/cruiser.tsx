@@ -44,7 +44,7 @@ export const Cruiser = ({game, orientation}: PieceProps) => {
       >
         <div 
         className="absolute inset-0 z-30 rounded-2xl bg-gray-300 hover:bg-gray-200"
-        style={{width: cruiserSize * 43}} 
+        style={{width: cruiserSize * 34}} 
         />
       </motion.div>
     </>

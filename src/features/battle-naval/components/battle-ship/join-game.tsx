@@ -44,7 +44,7 @@ export const JoinGame = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col space-y-4"
+        className="flex flex-col space-y-5"
       >
         <FormField
           control={form.control}
@@ -62,7 +62,8 @@ export const JoinGame = () => {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-fit rounded-[8px]">
+        <Button type="submit" className="w-fit rounded-[8px] bg-gray-700 hover:bg-gray-700/80
+                disabled:bg-gray-500">
           Join Existing Game
         </Button>
       </form>

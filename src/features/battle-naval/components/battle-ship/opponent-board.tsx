@@ -6,8 +6,8 @@ export const OpponentBoard = () => {
   const { dispatch, contractAddress, isLoading, state, isClientInitialized } =
     useBattleNavalContext();
 
-  const gridSize = 8; // 8x8 grid
-  const cellSize = 43.3; // Each cell's total size (450px ÷ 8)
+  const gridSize = 10;
+  const cellSize = 35;
 
   // State to track circles in the grid
   const [circles, setCircles] = useState<boolean[][]>(
@@ -70,37 +70,41 @@ export const OpponentBoard = () => {
 
   return (
     <div>
-      <div className="grid w-full grid-cols-9 text-center text-xl text-gray-500">
+      <div className="grid w-full grid-cols-11 text-center text-xl text-gray-500">
         <span></span>
-        <span>A</span>
-        <span>B</span>
-        <span>C</span>
-        <span>D</span>
-        <span>E</span>
-        <span>F</span>
-        <span>G</span>
-        <span>H</span>
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+        <span>4</span>
+        <span>5</span>
+        <span>6</span>
+        <span>7</span>
+        <span>8</span>
+        <span>9</span>
+        <span>10</span>
       </div>
       <div className="flex">
         <div className="grid grid-cols-[35px] items-center text-center text-xl text-gray-500">
-          <span>1</span>
-          <span>2</span>
-          <span>3</span>
-          <span>4</span>
-          <span>5</span>
-          <span>6</span>
-          <span>7</span>
-          <span>8</span>
+          <span>A</span>
+          <span>B</span>
+          <span>C</span>
+          <span>D</span>
+          <span>E</span>
+          <span>F</span>
+          <span>G</span>
+          <span>H</span>
+          <span>I</span>
+          <span>J</span>
         </div>
         <div
-          className="relative grid h-[350px] w-[350px] grid-cols-8 gap-0 bg-white"
+          className="relative grid h-[350px] w-[350px] grid-cols-10 gap-0"
           style={{ gridTemplateRows: "repeat(10, 1fr)" }}
         >
           {circles.map((row, rowIndex) =>
             row.map((hasCircle, colIndex) => (
               <div
                 key={`${rowIndex}-${colIndex}`}
-                className="relative flex cursor-pointer items-center justify-center rounded-[8px] border-[1.3px] border-white bg-gray-200"
+                className="relative flex cursor-pointer items-center justify-center rounded-[8px] border-[1.3px] border-[#FAFAFA] bg-gray-200"
                 onClick={() => {
                   toggleCircle(rowIndex, colIndex);
                 }}
@@ -114,28 +118,28 @@ export const OpponentBoard = () => {
                   (state.gridPlayer1?.[rowIndex]?.[colIndex] !== 1 ||
                     state.gridPlayer1?.[rowIndex]?.[colIndex] !== 2) &&
                   hasCircle && (
-                    <div className="h-4 w-4 rounded-full bg-zinc-500"></div>
+                    <div className="h-4 w-4 rounded-full bg-slate-500"></div>
                   )}
                 {state &&
                   state.publicKey === state.playerTwoPk &&
                   state.gridPlayer1?.[rowIndex]?.[colIndex] === 1 && (
-                    <div className="h-4 w-4 rounded-full bg-pink-300"></div>
+                    <div className="h-4 w-4 rounded-full bg-pink-500"></div>
                   )}
                 {state &&
                   state.publicKey === state.playerTwoPk &&
                   state.gridPlayer1?.[rowIndex]?.[colIndex] === 2 && (
-                    <div className="h-4 w-4 rounded-full bg-blue-400"></div>
+                    <div className="h-4 w-4 rounded-full bg-blue-500"></div>
                   )}
 
                 {state &&
                   state.publicKey === state.playerOnePk &&
                   state.gridPlayer2?.[rowIndex]?.[colIndex] === 1 && (
-                    <div className="h-4 w-4 rounded-full bg-pink-300"></div>
+                    <div className="h-4 w-4 rounded-full bg-pink-500"></div>
                   )}
                 {state &&
                   state.publicKey === state.playerOnePk &&
                   state.gridPlayer2?.[rowIndex]?.[colIndex] === 2 && (
-                    <div className="h-4 w-4 rounded-full bg-blue-400"></div>
+                    <div className="h-4 w-4 rounded-full bg-blue-500"></div>
                   )}
               </div>
             )),
@@ -150,8 +154,10 @@ export const OpponentBoard = () => {
           (state.gameStarted !== "true" ||
             (state.gameStarted === "true" && !state.isMyTurn))
         }
-      >       
-        {state && state.isMyTurn && isLoading &&
+      >
+        {state &&
+          state.isMyTurn &&
+          isLoading &&
           (latestAction?.action === "makeMove" ? "Loading" : "Make Move")}
         {state && state.isMyTurn && !isLoading && "Make Move"}
         {state && !state.isMyTurn && "Opponent's turn"}
