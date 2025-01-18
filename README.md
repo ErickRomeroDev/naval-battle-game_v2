@@ -1,5 +1,5 @@
 # Battleship DApp Documentation
-![Game UI](/gameimage.jpg)
+<a href="/gameimage.jpeg" alt="Game Play UI">Take a look at our Game Play UI</a>
 
 ## 1. Introduction
 
