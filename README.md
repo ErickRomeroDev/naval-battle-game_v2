@@ -1,5 +1,5 @@
 # Battleship DApp Documentation
-![Game UI](/gameimage.jpeg)
+![Game UI](/gameimage.jpg)
 
 ## 1. Introduction
 
