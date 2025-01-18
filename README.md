@@ -1,5 +1,5 @@
 # Battleship DApp Documentation
-<a href="/gameimage.jpeg" alt="Game Play UI">Take a look at our Game Play UI</a>
+<a href="https://github.com/ErickRomeroDev/naval-battle-game_v2/blob/main/public/gameimage.jpeg" alt="Game Play UI">Take a look at our Game Play UI</a>
 
 ## 1. Introduction
 
