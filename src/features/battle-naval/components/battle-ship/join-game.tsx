@@ -62,7 +62,7 @@ export const JoinGame = () => {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-fit rounded-[8px] bg-gray-700 hover:bg-gray-700/80
+        <Button type="submit" className="w-fit rounded-[8px] bg-gray-500 hover:bg-gray-500/80
                 disabled:bg-gray-500">
           Join Existing Game
         </Button>

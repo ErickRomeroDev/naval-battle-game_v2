@@ -35,7 +35,7 @@ export const TutorialApp = () => {
           latestAction?.status !== "error"
         ) {
           toast({
-            title: "Action being submitted",
+            title: "Submitting Action",
             description: "Joining Game...",
           });
         }
@@ -44,8 +44,8 @@ export const TutorialApp = () => {
           latestAction?.status !== "error"
         ) {
           toast({
-            title: "Action being submitted",
-            description: "Comitting game...",
+            title: "Submitting Action",
+            description: "Comitting your positions...",
           });
         }
         if (
@@ -53,8 +53,8 @@ export const TutorialApp = () => {
           latestAction?.status !== "error"
         ) {
           toast({
-            title: "Action being submitted",
-            description: "Starting game...",
+            title: "Submitting Action",
+            description: "Starting a game...",
           });
         }
         if (
@@ -62,8 +62,8 @@ export const TutorialApp = () => {
           latestAction?.status !== "error"
         ) {
           toast({
-            title: "Action being submitted",
-            description: "Making move...",
+            title: "Submitting Action",
+            description: "Making your move...",
           });
         }
       }
@@ -134,9 +134,14 @@ export const TutorialApp = () => {
   return (
     <div className="flex space-x-5">
       <div className="flex items-center justify-center space-y-6">
-        <div className="mt-12 flex h-[350px] flex-col items-center justify-center space-y-6 rounded-[15px] border-[1.5px] border-gray-200 px-14">
+        <div className="relative mt-[86px] flex h-[350px] flex-col items-center space-y-6 rounded-[15px] border-[1.5px] border-gray-200 px-14 pt-[74px]">
+          <div className="absolute top-10 flex gap-x-2">
+            <Image src="/ship.svg" alt="ship" width={18} height={18} />
+            <span className="font-bold">BATTLESHIP</span>
+          </div>
+
           <Button
-            className="w-fit rounded-[8px] bg-gray-700 hover:bg-gray-700/80 disabled:bg-gray-500"
+            className="w-fit rounded-[8px] bg-gray-500 hover:bg-gray-500/80 disabled:bg-gray-500"
             onClick={handleDeploy}
           >
             {isLoading && state === undefined ? (
@@ -167,8 +172,8 @@ export const TutorialApp = () => {
       {state && (
         <>
           <div className="flex flex-col items-center space-y-5">
-            <div className="flex w-full items-center justify-between space-x-12">
-              <div className="ml-5 text-[16px] text-gray-500">
+            <div className="grid w-full grid-cols-2">
+              <div className="pl-5 text-[16px] text-gray-500">
                 {contractAddress ? (
                   <div className="flex items-center gap-x-2">
                     <div className="rounded-full border-[1.5px] border-gray-400 px-3 py-1.5">
@@ -188,24 +193,36 @@ export const TutorialApp = () => {
                   "# of Contract Address"
                 )}
               </div>
-              <Button
-                className="flex w-[160px] items-center space-x-1 rounded-[8px] bg-gray-700 hover:bg-gray-700/80 disabled:bg-gray-500"
-                onClick={joinGame}
-                disabled={disableButton}
-              >
-                {isLoading &&
-                  (latestAction?.action === "joinGame" ? (
-                    <div className="flex items-center space-x-2">
-                      <Image
-                        className="animate-spin"
-                        src="loader-circle.svg"
-                        alt="loading"
-                        width={17}
-                        height={17}
-                      />
-                      <span>Loading</span>
-                    </div>
-                  ) : (
+              <div className="flex justify-end gap-x-12">
+                <Button
+                  className="flex w-[160px] items-center space-x-1 rounded-[8px] bg-gray-500 hover:bg-gray-500/80 disabled:bg-gray-500"
+                  onClick={joinGame}
+                  disabled={disableButton}
+                >
+                  {isLoading &&
+                    (latestAction?.action === "joinGame" ? (
+                      <div className="flex items-center space-x-2">
+                        <Image
+                          className="animate-spin"
+                          src="loader-circle.svg"
+                          alt="loading"
+                          width={17}
+                          height={17}
+                        />
+                        <span>Loading</span>
+                      </div>
+                    ) : (
+                      <div className="flex items-center space-x-2">
+                        <Image
+                          src="/join.svg"
+                          alt="join"
+                          width={12}
+                          height={12}
+                        />
+                        <span>Become a player</span>
+                      </div>
+                    ))}
+                  {!isLoading && (
                     <div className="flex items-center space-x-2">
                       <Image
                         src="/join.svg"
@@ -213,17 +230,59 @@ export const TutorialApp = () => {
                         width={12}
                         height={12}
                       />
-                      <span>Become a player</span>
+                      <span>Become a Player</span>
                     </div>
-                  ))}
-                {!isLoading && (
-                  <div className="flex items-center space-x-2">
-                    <Image src="/join.svg" alt="join" width={12} height={12} />
-                    <span>Become a player</span>
-                  </div>
-                )}
-              </Button>
-              <div className="w-[250px]" />
+                  )}
+                </Button>
+                <Button
+                  className="w-[150px] space-x-1 rounded-[8px] bg-gray-500 hover:bg-gray-500/80 disabled:bg-gray-500"
+                  onClick={startGame}
+                  disabled={
+                    !state.playerOneHasCommitted ||
+                    !state.playerTwoHasCommitted ||
+                    state.gameStarted === "true" ||
+                    (!state.playerOneHasCommitted &&
+                      !state.playerTwoHasCommitted)
+                  }
+                >
+                  <span>
+                    {isLoading &&
+                      (latestAction?.action === "startGame" ? (
+                        <div className="flex items-center space-x-2">
+                          <Image
+                            className="animate-spin"
+                            src="loader-circle.svg"
+                            alt="loading"
+                            width={17}
+                            height={17}
+                          />
+                          <span>Loading</span>
+                        </div>
+                      ) : (
+                        <div className="flex items-center space-x-2">
+                          <Image
+                            src="/sailboat.svg"
+                            alt="sailboat"
+                            width={16}
+                            height={16}
+                          />
+                          <span>Start Game</span>
+                        </div>
+                      ))}
+                    {!isLoading && (
+                      <div className="flex items-center space-x-2">
+                        <Image
+                          src="/sailboat.svg"
+                          alt="sailboat"
+                          width={16}
+                          height={16}
+                        />
+                        <span>Start Game</span>
+                      </div>
+                    )}
+                  </span>
+                </Button>
+              </div>
             </div>
             <div className="grid w-full grid-cols-2 pt-5 text-center text-xl">
               <div className="mx-6 flex h-[35px] items-center justify-center rounded-[8px] bg-pink-400 text-base font-medium text-white">
@@ -278,47 +337,9 @@ export const TutorialApp = () => {
               </div>
               <OpponentBoard />
             </div>
-            <div>
-              {state && (
-                <Button
-                  className="w-[150px] space-x-1 rounded-[8px] bg-gray-700 hover:bg-gray-700/80 disabled:bg-gray-500"
-                  onClick={startGame}
-                  disabled={
-                    !state.playerOneHasCommitted ||
-                    !state.playerTwoHasCommitted ||
-                    state.gameStarted === "true" ||
-                    (!state.playerOneHasCommitted &&
-                      !state.playerTwoHasCommitted)
-                  }
-                >
-                  <Image
-                    src="/sailboat.svg"
-                    alt="sailboat"
-                    width={16}
-                    height={16}
-                  />
-                  <span>
-                    {isLoading &&
-                      (latestAction?.action === "startGame" ? (
-                        <div className="flex items-center space-x-2">
-                          <Image
-                            className="animate-spin"
-                            src="loader-circle.svg"
-                            alt="loading"
-                            width={17}
-                            height={17}
-                          />
-                          <span>Loading</span>
-                        </div>
-                      ) : (
-                        "Start Game"
-                      ))}
-                    {!isLoading && "Start Game"}
-                  </span>
-                </Button>
-              )}
-            </div>
+            <div />
           </div>
+
           <div className="flex items-center">
             <StatusBoard />
           </div>

@@ -9,10 +9,16 @@ export const Header = () => {
         <span className="font-bold">BATTLESHIP</span>
       </div>
       <div>
-        <div className="flex gap-x-2 cursor-pointer">
+          <Link
+            href="https://github.com/ErickRomeroDev/naval-battle-game_v2/blob/main/README.md"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+        <div className="flex cursor-pointer gap-x-2">
             <Image src="/file.svg" alt="file" width={18} height={18} />
             <span className="">Documentation</span>
         </div>
+          </Link>
       </div>
     </div>
   );

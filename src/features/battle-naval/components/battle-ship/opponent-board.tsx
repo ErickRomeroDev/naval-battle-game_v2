@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useBattleNavalContext } from "../../hooks/useBattleNavalContext";
+import Image from "next/image";
 
 export const OpponentBoard = () => {
   const { dispatch, contractAddress, isLoading, state, isClientInitialized } =
@@ -150,17 +151,47 @@ export const OpponentBoard = () => {
         className="ml-8 mt-4 rounded-[8px] border-[1.5px] border-pink-500 bg-transparent text-pink-500 hover:bg-pink-500 hover:text-white"
         onClick={logFlatArrayPositions}
         disabled={
-          state &&
-          (state.gameStarted !== "true" ||
-            (state.gameStarted === "true" && !state.isMyTurn))
+          (state &&
+            //se o jogo nao comecou ou o jogo comecou e nao e' a vez do jogador, ou esta loading
+            (state.gameStarted !== "true" ||
+              (state.gameStarted === "true" && !state.isMyTurn))) ||
+          isLoading
         }
       >
         {state &&
           state.isMyTurn &&
           isLoading &&
-          (latestAction?.action === "makeMove" ? "Loading" : "Make Move")}
-        {state && state.isMyTurn && !isLoading && "Make Move"}
-        {state && !state.isMyTurn && "Opponent's turn"}
+          (latestAction?.action === "makeMove" ? (
+            <div className="flex items-center space-x-2">
+              <Image
+                className="animate-spin"
+                src="loader-circle-pink.svg"
+                alt="loading"
+                width={17}
+                height={17}
+              />
+              <span>Loading</span>
+            </div>
+          ) : state && state.isMyTurn && !isLoading && (
+            "Make Move"
+          ))}
+        {state && state.isMyTurn && !isLoading && state.gameStarted === "true" && "Make Move"}
+        
+        {state && !state.isMyTurn && state.gameStarted === "true" && (
+          <div className="flex items-center space-x-2">
+            <Image
+              className="animate-spin"
+              src="loader-circle-pink.svg"
+              alt="loading"
+              width={17}
+              height={17}
+            />
+            <span>Opponent&apos;s Turn</span>
+          </div>
+        )}
+        {state && state.gameStarted !== "true" && (!isLoading || latestAction?.action === "joinGame" || latestAction?.action === "commitGrid" || latestAction?.action === "startGame" ) &&
+        "Make Move"
+        }
       </Button>
     </div>
   );
