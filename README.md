@@ -1,5 +1,5 @@
 # Battleship DApp Documentation
-<img src="/ship.svg" alt="Game UI" style="width:300px; height:auto; display:block; margin:auto;">
+![Game UI](/gameimage.jpeg)
 
 ## 1. Introduction
 
