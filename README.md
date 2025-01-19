@@ -92,6 +92,7 @@ Design and implement a responsive, user-friendly interface that seamlessly integ
 #### Features Developed:
 - Real-time updates for blockchain actions.
 - Dynamic 10x10 grid representation with real-time updates for hits(red points) and misses(blue points).
+- Use drag-and-drop to position ships.
 - Enables horizontal or vertical placement with a simple mouse click.
 - Allows users to make a move by simply selecting a position on the grid.
 - Each user is presented with two grids: one displaying their gameplay, including hits and misses received from the opponent, and another showing their moves along with indicators of whether they were hits or misses.
@@ -105,10 +106,11 @@ Design and implement a responsive, user-friendly interface that seamlessly integ
 - Ensures only valid grid coordinates can be guessed.
 - Declares a winner when all of an opponent's boats are sunk.
 - Clean UI design and optimal user experience.
+- Drag and Drop ships placement with mouse click commands to change orientation.
 #### Innovative approach or execution
 - Adhering to best practices in developing React components to ensure they are clear, maintainable, and easy for other developers to understand.
-- Components are organized by features, allowing the application to be logically segmented and scalable, ensuring sustainability as new features are added and more developers join the project.- 
-
+- Components are organized by features, allowing the application to be logically segmented and scalable, ensuring sustainability as new features are added and more developers join the project.
+- We utilized the React-DnD library to add drag-and-drop functionality and enhance the user experience. 
 
 ## 4. Installation and Setup
 For developing a Midnight dApp, we have outlined four phases of development. To simply run the dApp, the contract compilation output, cryptographic keys and logic are already provided, with the process detailed in section 4.1. For those interested in modifying the contract or experimenting further, we’ve included the repository where Phase 1 and Phase 2 were developed, along with additional testing resources in section 4.2.
