@@ -35,10 +35,10 @@ A demo of the application showcasing two users playing the game is available. [H
 
 ## 3. Development Process & Features
 The development process was divided into four phases, each focusing on a key aspect of the DApp development and its features:
-- Contract Logic and Unit Testing
-- Integration with Providers and Local Network Testing
-- React Integration with Hooks
-- UI Integration
+- Phase One: Contract Logic and Unit Testing
+- Phase Two: Integration with Providers and Local Network Testing
+- Phase Three: React Integration with Hooks
+- Phase Four: UI Integration
 
 ### 3.1 Phase-One: Contract Logic and Unit Testing
 Develop the core logic of the **Compact smart contract**, ensuring that the foundational game mechanics and rules are enforced directly at the contract level. All functionality is thoroughly tested using the contract logic and the outputs of the circuits after compilation.
@@ -66,7 +66,7 @@ Set up a **local blockchain** and integrate it with **Midnight’s providers**. 
 - Enabled seamless interaction with the blockchain for game actions like join game, commit, start game and make move.
 - Implemented functionality for submitting transactions and verifying results real-time.
 - Unit testing using docker, local network, providers, Jest, and an instance of the Contract API Class.
-- It was used a headless Lace wallet implementation.
+- A headless Lace wallet implementation was used.
 - Automated error handling and transaction monitoring.
 #### Innovative approach or execution
 - The code structure for Phase 1 and Phase 2 is designed to be easily integrated into the UI, either manually or through an npm package.
@@ -101,7 +101,7 @@ Design and implement a responsive, user-friendly interface that seamlessly integ
 - Visually communicates the correct player turn and game execution order by disabling buttons when actions are not allowed.
 - Optimized for desktop devices.
 - Displays each player’s remaining boats, hit/miss statistics, and game status.
-- Animations for hits, misses, and winning/losing conditions.
+- Visual representation for hits, misses, and winning/losing conditions.
 - User-friendly messages(toasters) for errors like invalid actions, valid actions, loading states and disconnected wallets.
 - Highlights the active player’s grid and status. 
 - Ensures only valid grid coordinates can be guessed.
