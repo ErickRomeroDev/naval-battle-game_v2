@@ -17,7 +17,7 @@ This repository includes all the necessary UI components to deliver a polished a
 - Provide a real-world example of how private and complex logic can be executed seamlessly while maintaining user confidentiality, leveraging Midnight's Compact smart contracts, APIs, providers and Lace Wallet.
 
 ### 1.3 Demo
-A demo of the application showcasing two users playing the game is available. You can access the demo through this [link](https://youtube.com)
+A demo of the application showcasing two users playing the game is available. [Here’s a demo video of the game you can watch.](https://drive.google.com/file/d/17w3DHe15oUpuxIOXdBhm2OMdWsdnKka3/view?usp=sharing )
 
 ## 2. Prerequisites
 
@@ -85,6 +85,7 @@ Develop reusable hooks to seamlessly connect the frontend with smart contracts, 
 - Observables are subscribed to, ensuring that any state changes automatically update the UI.
 #### Innovative approach or execution
 - Plug-and-play hooks designed for seamless integration into any React UI. Developers don’t need in-depth knowledge of blockchain or Midnight's underlying technology; they only need to understand the contract or game logic to utilize the hooks effectively. We have created an intuitive and user-friendly hook structure that simplifies implementation and ensures ease of use. [See the context-hook implementation here](https://github.com/ErickRomeroDev/naval-battle-game_v2/blob/main/src/features/battle-naval/contexts/battle-naval.tsx)
+- We tested our implementation using both the legacy Pages Router and the newer, App Router in Next.js.
 
 ### 3.4 Phase-Four: UI Integration
 Design and implement a responsive, user-friendly interface that seamlessly integrates with the hooks developed in Phase 3, ensuring a smooth and intuitive user experience. While Phases 1, 2, and 3 focus on application security and functionality, Phase 4 is crucial for user engagement and experience, transforming the application into something truly usable and appealing. A great application is nothing without users, so we have dedicated significant effort to the UI, making it enjoyable, intuitive, and delivering a magnificent user experience. This is the highlight of the project, and we have put immense care and attention into perfecting it.
